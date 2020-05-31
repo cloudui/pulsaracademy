@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+
+{% block title%}Course Registration{% endblock title %}
+
+
+{% block content %}
+<h1>Register for {{ object.name }}</h1>
+
+
+<p class="lead">You are registering for {{ object.name }}. You will also sign up your partner.</p>
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-success" type="submit">Register</button>
+</form>
+
+
+{% endblock content %}

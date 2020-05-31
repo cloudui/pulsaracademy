@@ -1,0 +1,34 @@
+{% extends '_base.html' %}
+
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{% block home %}
+<div class="jumbotron jumbotron-fluid text-white" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url('{% static 'images/pulsarbackground.jpg' %}')">
+    <div class="container">
+        <h1 class="display-1">Welcome to Pulsar Academy</h1>
+        
+        <!-- <p class="lead">All your information is here!</p> -->
+        <!-- <hr class="my-4"> -->
+        <!-- {% if user.is_authenticated %} -->
+            <p class="lead">Hi {{ user.email }}!</p>
+            <a class="btn btn-primary" href="#">Log Out</a>
+        <!-- {% else %} -->
+            <p class="lead">You are not logged in</p>
+            <p class="lead">
+                <a href="#">Log In</a>
+                or sign up <a href="#">here</a>
+            </p>
+
+        {% endif %}
+        <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+    </div>
+
+</div>
+{% endblock home %}
+
+{% block content %}
+
+<!-- <h1>Hello</h1> -->
+
+{% endblock content %}

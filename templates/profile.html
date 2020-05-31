@@ -1,0 +1,18 @@
+
+
+{% extends '_base.html' %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+
+<p>{{ request.user.first_name }}</p>
+<p>{{ request.user.last_name }}</p>
+<p>{{ request.user.parent_email }}</p>
+<p>{{ request.user.school }}</p>
+<p>{{ request.user.grade }}<p>
+
+{% for class in request.user.class_set.all %}
+<p>{{ class.name }}</p>
+{% endfor %}
+{% endblock content %}

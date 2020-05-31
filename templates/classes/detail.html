@@ -1,0 +1,27 @@
+
+
+{% extends '_base.html' %}
+
+{% block title %}{{ object.name }}{% endblock title %}
+
+{% block content %}
+
+
+<h1>{{ object.name }}</h1>
+<p>{{ object.start_date_string }} - {{ object.end_date_string }}</p>
+
+<p>Level: {{ object.difficulty }}</p>
+<p>Cost: ${{ object.cost_decimal }}</p>
+
+<p>
+    {{ object.description }}
+</p>
+
+{% if request.user in object.users.all %}
+    <p><a href="{% url 'unregister' object.slug %}">Unregister</a></p> 
+{% else %}
+    <p><a href="{% url 'register' object.slug %}">Register</a></p>
+{% endif %}
+ 
+
+{% endblock content %}
