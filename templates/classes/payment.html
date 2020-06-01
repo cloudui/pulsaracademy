@@ -6,14 +6,14 @@
 {% block title %}Payment{% endblock title %}
 
 {% block content %}
-{% if not request.user.payment_owed %}
+{% if request.user.payment_owed == 0 %}
     <p>No classes yet!</p>
 {% else %}
     {% for class in request.user.class_set.all %}
     <div class="card">
         <div class="card-header">
             <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
-            <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }}</span>
+            <span class="text-muted"></span>
     
         </div>
     
@@ -26,6 +26,12 @@
         </div>
         
     </div>
+    <br>
+    {% endfor %}
+
+    {% for payment in request.user.payment_set.all %}
+    <p>{{ payment.paid }}</p>
+    {% endfor %}
     <h1>Total: ${{ request.user.payment_owed }}</h1>
 
     {{ form.render }}
@@ -61,6 +67,6 @@
         }).render('#paypal-button-container');
     </script> -->
     
-    {% endfor %}
+    
  {% endif %}
 {% endblock content %}

@@ -27,11 +27,11 @@ class Class(models.Model):
     
     slug = models.SlugField(null=False, unique=True, default=None)
 
-    users = models.ManyToManyField(CustomUser, blank=True) 
+    users = models.ManyToManyField(CustomUser, blank=True, through='Payment', through_fields=('theclass', 'user')) 
 
 
-    def show_users(self):
-        return ', '.join([a.email for a in self.users.all()])
+    # def show_users(self):
+    #     return ', '.join([a.email for a in self.users.all()])
 
     def start_date_string(self):
         return self.date.strftime("%m/%d/%Y")
@@ -44,19 +44,26 @@ class Class(models.Model):
 
     @classmethod
     def register(cls, user, class_):
-        class_.users.add(user)
+        print(class_.order_set, "BEEGLE")
+        # class_.order_set.user_set.add(user)
 
     @classmethod
     def unregister(cls, user, class_):
-        class_.users.remove(user)
+        # class_.users.remove(user)
+        pass
+
+    class Meta:
+        ordering = ('date', )
 
 
-class Order(models.Model):
-    # user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+class Payment(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
-    # theclass = models.ForeignKey(Class, on_delete=models.CASCADE)
+    theclass = models.ForeignKey(Class, on_delete=models.CASCADE)
 
     paid = models.BooleanField(default=False)
+
+    cost = models.FloatField(default=0)
     
     
 
