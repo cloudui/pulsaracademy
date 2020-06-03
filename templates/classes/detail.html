@@ -7,7 +7,7 @@
 {% block content %}
 
 
-<h1>{{ object.name }}</h1>
+<h1><u>{{ object.name }}</u></h1>
 <p>{{ object.start_date_string }} - {{ object.end_date_string }}</p>
 
 <p>Level: {{ object.difficulty }}</p>
@@ -17,7 +17,14 @@
     {{ object.description }}
 </p>
 
-{% if request.user in object.users.all %}
+<h3>Course Syllabus</h3>
+<p>
+    {{ object.syllabus|safe }}
+</p>
+
+{% if object in request.user.classes_paid_list %}
+    <p>Go to course <a href="#">syllabus</a>.</p>
+{% elif request.user in object.users.all %}
     <p><a href="{% url 'unregister' object.slug %}">Unregister</a></p> 
 {% else %}
     <p><a href="{% url 'register' object.slug %}">Register</a></p>

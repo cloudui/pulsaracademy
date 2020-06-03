@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from django.views.generic import ListView, DetailView, FormView
+from django.views.generic import ListView, DetailView, FormView, TemplateView
 
 from .forms import ClassRegistrationForm, ClassUnregisterForm, ClassPaymentForm
+
+from django.core.exceptions import PermissionDenied
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -12,7 +14,11 @@ from random import randrange
 
 from .models import Payment, Class
 
+from django.contrib.auth.decorators import login_required
+
 from paypal.standard.forms import PayPalPaymentsForm
+
+import pythoncamp_project
 
 class ClassListView(ListView):
     template_name = 'classes/list.html'
@@ -50,6 +56,14 @@ class ClassUnregisterView(LoginRequiredMixin, DetailView, FormView):
     success_url = reverse_lazy('class_list')
     login_url = 'account_login'
 
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        
+        if obj in self.request.user.classes_paid_list():
+            raise PermissionDenied
+
+        return super().dispatch(request, *args, **kwargs)
+
     def form_valid(self, form):
         class_slug = self.kwargs['slug']
         class_ = Class.objects.get(slug=class_slug)
@@ -73,26 +87,30 @@ class ClassPaymentView(LoginRequiredMixin, ListView, FormView):
     success_url = reverse_lazy('profile')
     login_url = 'account_login'
 
-
+@login_required
 def class_checkout_view(request):
+
+   
+
     invoice_id = ""
     separator = '|'
 
-    for payment in request.user.payment_set.all():
-        invoice_id = separator.join(str(payment.id))
-    
+    payments = request.user.payments_not_paid_list()
+    payment_ids = [str(payment.id) for payment in payments]
+
+    invoice_id = separator.join(payment_ids)
 
     amount = str(request.user.payment_owed())
 
     # this is the payment information that paypal will use for redirect
     paypal_dict = {
-        "business": "bigchungus123@gmail.com",
+        "business": pythoncamp_project.settings.PAYPAL_EMAIL,
         "amount": amount,
         "item_name": "name of the item",
         "invoice": invoice_id,
         "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
-        "return": request.build_absolute_uri(reverse_lazy('checkout')),
-        "cancel_return": request.build_absolute_uri(reverse_lazy('checkout')),
+        "return": request.build_absolute_uri(reverse('checkout')),
+        "cancel_return": request.build_absolute_uri(reverse('checkout')),
    
     }
 
@@ -108,3 +126,11 @@ class CheckoutSummaryView(LoginRequiredMixin, ListView):
     template_name = 'classes/summary.html'
     login_url = 'account_login'
 
+
+class RegisteredClassesView(LoginRequiredMixin, TemplateView):
+    template_name = 'classes/registered_classes.html'
+    login_url = 'account_login'
+
+class PaidClassesView(LoginRequiredMixin, TemplateView):
+    template_name = 'classes/paid_classes.html'
+    login_url = 'account_login'

@@ -2,7 +2,7 @@ from django.db import models
 
 from users.models import CustomUser
 from datetime import datetime
-
+from datetime import time
 diff = (
     ('beginner', 'Beginner'),
     ('intermediate', 'Intermediate'),
@@ -24,14 +24,18 @@ class Class(models.Model):
     cost = models.FloatField(null=True)
         
     description = models.TextField(null=True)
+
+    syllabus = models.TextField(null=True)
     
     slug = models.SlugField(null=False, unique=True, default=None)
 
     users = models.ManyToManyField(CustomUser, blank=True, through='Payment', through_fields=('theclass', 'user')) 
 
+    
 
-    # def show_users(self):
-    #     return ', '.join([a.email for a in self.users.all()])
+
+    def show_users(self):
+        return ', '.join([a.email for a in self.users.all()])
 
     def start_date_string(self):
         return self.date.strftime("%m/%d/%Y")
@@ -41,6 +45,11 @@ class Class(models.Model):
 
     def cost_decimal(self):
         return round(self.cost)
+
+    def start_time_convert(self):
+        return self.start_time.strftime("%-I:%M %p")
+    def end_time_convert(self):
+        return self.end_time.strftime("%-I:%M %p")
 
     @classmethod
     def register(cls, user, class_):

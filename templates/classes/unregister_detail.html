@@ -6,6 +6,7 @@
 
 <h1>Unregister from {{ object.name }}</h1>
 <br/>
+<p class="lead">Are you sure you want to unregister?</p>
 <form method="post">
     {% csrf_token %}
     <button class="btn btn-danger" type="submit">Unregister</button>

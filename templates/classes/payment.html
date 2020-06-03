@@ -3,69 +3,37 @@
 
 {% extends '_base.html' %}
 
-{% block title %}Payment{% endblock title %}
+{% block title %}Payment Completed{% endblock title %}
 
 {% block content %}
 {% if request.user.payment_owed == 0 %}
     <p>No classes yet!</p>
 {% else %}
-    {% for class in request.user.class_set.all %}
+    {% for class in request.user.classes_not_paid_list %}
     <div class="card">
         <div class="card-header">
             <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
-            <span class="text-muted"></span>
-    
+            <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
+            <span style="float: right;">
+                ${{ class.cost_decimal }}
+            </span>
         </div>
     
         <div class="card-body">
-        
-            
-    
-            
-            <!-- Comments added here -->     
+            {{ class.description }}      
+                 
         </div>
         
     </div>
     <br>
     {% endfor %}
 
-    {% for payment in request.user.payment_set.all %}
-    <p>{{ payment.paid }}</p>
-    {% endfor %}
-    <h1>Total: ${{ request.user.payment_owed }}</h1>
+    
+    <h2>Total: ${{ request.user.payment_owed }}</h2>
 
     {{ form.render }}
 
-    <!-- <div id="paypal-button-container"></div>
-
-    <script src="https://www.paypal.com/sdk/js?client-id=AUavCeuaD6UWPcljzLBUCftiv2Dmf22jD3X2W6LvmGLM6ahqA1hjj0g9AphGsu30-4NM9bPE9bhUmDau&currency=USD"></script>
-
-    <script>
-        // Render the PayPal button into #paypal-button-container
-        paypal.Buttons({
-
-            // Set up the transaction
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: '0.01'
-                        }
-                    }]
-                });
-            },
-
-            // Finalize the transaction
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    // Show a success message to the buyer
-                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
-                });
-            }
-
-
-        }).render('#paypal-button-container');
-    </script> -->
+    
     
     
  {% endif %}

@@ -8,7 +8,7 @@ from django.dispatch import receiver
 def payment_notification(sender, **kwargs):
     ipn = sender
     if ipn.payment_status == 'Completed':
-        # print("BEEGLEGEGELGELGLEGLELGE\nBEEGELGLEGLEGLEL")
+        print("BEEGLEGEGELGELGLEGLELGE\nBEEGELGLEGLEGLEL")
         payments = []
         cost = 0
         # payment was successful
@@ -17,14 +17,14 @@ def payment_notification(sender, **kwargs):
         for ids in ipn.invoice.split('|'):
             payment = get_object_or_404(Payment, id=int(ids))
             payments.append(payment)
-            # print(payment.cost)
+            print(payment.cost)
             cost += payment.cost
-        # print(payments)
+        print(payments)
         
         
         if cost == int(ipn.mc_gross):
-            # print('entered')
+            print('entered')
             for payment in payments:
-                # print('happen')
+                print('happen')
                 payment.paid = True
                 payment.save()           

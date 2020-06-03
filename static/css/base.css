@@ -7,3 +7,31 @@
     /* height: 100% !important; */
     height: 80vh;
 }
+
+
+body {
+    margin-bottom: 60px; 
+}
+#sticky-footer {
+    flex-shrink: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    
+
+    /* height: 60px; */
+    /* line-height: 60px; */
+}
+
+.tab1.tabcontent {
+    display: show;
+
+}
+
+.tab2.tabcontent {
+    display: none;
+}
+
+.syllabus {
+    white-space: pre-line;
+}

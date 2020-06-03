@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load icon %}
 
 <!DOCTYPE html>
 <html>
@@ -23,6 +23,8 @@
       <a href="{% url 'home' %}" class="navbar-brand font-weight-normal">Pulsar Academy</a>
       <ul class="navbar-nav mr-auto">
         {% url 'about' as about %}
+        {% url 'summary' as summary %}
+        {% url 'checkout' as checkout %}
         
         <li {% if 'classes' in request.path %} class="nav-item dropdown active" {% else %} class="nav-item dropdown" {% endif %}>
           
@@ -32,14 +34,16 @@
           </a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="{% url 'class_list' %}">List</a>
-            <a class="dropdown-item" href="#">Registration</a>
-            <a class="dropdown-item" href="#">History</a>
+            <a class="dropdown-item" href="{% url 'registered_classes' %}">Registered Courses</a>
+            <a class="dropdown-item" href="{% url 'paid_classes' %}">Paid Courses</a>
+            
           </div>
         </li>
 
         <li {% if request.path == about %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class = "nav-link" href="{% url 'about' %}">About</a></li>
          
       </ul>
+
       <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarCollapse" aria-controls="navbarCollapse"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +52,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 {% if user.is_authenticated %}
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a {% if request.path == checkout or request.path == summary %} class="nav-link active" {% else %} class="nav-link" {% endif %}
+                             href="{% url 'summary' %}">{% icon "shopping-cart" class="css-class" height="20" width="20" %} {{ request.user.num_payments_not_paid }}</a></li>
                         <li class="nav-item">
+                            
                             <a class="nav-link dropdown-toggle" href="#" id="userMenu"
                                 data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
@@ -78,6 +85,11 @@
         {% block content %}
         {% endblock content %}
     </div>
+    <footer id="sticky-footer" class="py-1 bg-dark text-white-50">
+      <div class="container text-center">
+        <small>Copyright &copy; Pulsar Academy 2020</small>
+      </div>
+    </footer>
   <!-- JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

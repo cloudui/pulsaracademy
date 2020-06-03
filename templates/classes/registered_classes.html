@@ -1,0 +1,31 @@
+{% extends '_base.html' %}
+
+{% block title %}Registered Courses{% endblock title %}
+
+{% block content %}
+
+{% if request.user.classes_not_paid_list %}
+<h2><u>Registered Courses</u></h2>
+{% for class in request.user.classes_not_paid_list %}
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
+        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
+
+    </div>
+
+    <div class="card-body">
+        {{ class.description }}      
+             
+    </div>
+    
+</div>
+<br>
+{% endfor %}
+{% else %}
+<h2>You are not registered for any courses.</h2>
+<br>
+<p class="lead">You can register <a href="{% url 'class_list' %}">here</a> or see your paid courses <a href="{% url 'paid_classes' %}">here</a>.</p>
+
+{% endif %}
+{% endblock content %}

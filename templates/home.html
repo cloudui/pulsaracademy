@@ -12,12 +12,12 @@
         <!-- <hr class="my-4"> -->
         <!-- {% if user.is_authenticated %} -->
             <p class="lead">Hi {{ user.email }}!</p>
-            <a class="btn btn-primary" href="#">Log Out</a>
+            <a class="btn btn-primary" href="{% url 'account_logout' %}">Log Out</a>
         <!-- {% else %} -->
             <p class="lead">You are not logged in</p>
             <p class="lead">
-                <a href="#">Log In</a>
-                or sign up <a href="#">here</a>
+                <a href="{% url 'account_login' %}">Log In</a>
+                or sign up <a href="{% url 'account_signup' %}">here</a>
             </p>
 
         {% endif %}

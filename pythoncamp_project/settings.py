@@ -20,10 +20,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@^la7#2kl%8$o9rl)8$aqvrwq5_x1=r!xc-1p#+(!m4r2vue*&'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get('DEBUG', default=0))
 
 ALLOWED_HOSTS = ['0.0.0.0' , '127.0.0.1', '*']
 
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'crispy_forms',
     'paypal.standard.ipn',
+    'django_feather',
 ]
 
 MIDDLEWARE = [
@@ -172,5 +173,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
 
 
+if os.environ.get('ENVIRONMENT') == 'production':
+    PAYPAL_TEST = True
+    PAYPAL_EMAIL = 'eric@echen.io'
+else:
+    PAYPAL_TEST = False
+    PAYPAL_EMAIL = 'bigchungus123@gmail.com'
 
-PAYPAL_TEST = True
+

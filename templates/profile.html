@@ -2,17 +2,88 @@
 
 {% extends '_base.html' %}
 
+{% load icon %}
 {% block title %}Profile{% endblock title %}
 
 {% block content %}
+<div class="card">
+    <div class="card-header">
+        Profile Information
 
-<p>{{ request.user.first_name }}</p>
-<p>{{ request.user.last_name }}</p>
-<p>{{ request.user.parent_email }}</p>
-<p>{{ request.user.school }}</p>
-<p>{{ request.user.grade }}<p>
+    </div>
 
-{% for class in request.user.class_set.all %}
-<p>{{ class.name }}</p>
+    <div class="card-body">
+        <p>Name: {{ request.user.first_name}} {{ request.user.last_name }}</p>
+        <p>Email: {{ request.user.email }}</p>
+        {% if request.user.parent_email %}
+        <p>Parent Email: {{ request.user.parent_email }}</p>
+        {% endif %}
+        <p>School: {{ request.user.school }}</p>
+        Grade: {{ request.user.grade }}
+ 
+    </div>
+    
+</div>
+<br>
+
+
+
+{% if request.user.class_set.all %}
+
+<!-- Classes not paid -->
+{% if request.user.classes_not_paid_list %}
+<p class="lead"><u>Registered Courses</u></p> 
+<div style="float:right;">
+    <a class= "btn btn-outline-primary btn-sm" href="{% url 'summary' %}">{% icon 'shopping-cart' height="16" width="16" %} Pay</a>
+
+</div>
+<br><br>
+{% for class in request.user.classes_not_paid_list %}
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
+        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
+
+    </div>
+
+    <div class="card-body">
+        {{ class.description }}      
+             
+    </div>
+    
+</div>
+<br>
 {% endfor %}
+{% endif %}
+
+<!-- Classes that are paid -->
+<p class="lead">><u>Paid Courses</u></p>
+{% if request.user.classes_paid_list %}
+
+{% for class in request.user.classes_paid_list %}
+
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
+        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
+
+    </div>
+
+    <div class="card-body">
+        {{ class.description }}      
+             
+    </div>
+    
+</div>
+<br>
+{% endfor %}
+{% else %}
+<p class="lead">Your paid classes will show up here.</p>
+{% endif %}
+
+{% else %}
+<p>You are not registered and for any classes! Sign up <a href="{% url 'class_list' %}">here</a>.</p> 
+
+{% endif %}
 {% endblock content %}
+

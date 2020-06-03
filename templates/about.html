@@ -1,11 +1,52 @@
-
-
 {% extends '_base.html' %}
+{% load static %}
 
-{% block title %}Home{% endblock title %}
+{% block title%}Coaches{% endblock title %}
 
 {% block content %}
 
-<h1>About</h1>
+<h1>Meet the Instructors</h1>
+<br>
+<div class="card-deck">
+    <div class="card">
+      <img class="card-img-top" src="{% static 'images/bengoldberg.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Eric Chen</h5>
+        <p class="card-text">Eric Chen is a rising senior at Montgomery Blair High School. He is an avid web developer and coder, having worked on 
+            his school's debate team site as well as <a href="{% url 'home' %}">this website</a>! His favorite languages are Python and Java, and 
+            he is currently learning Amazon Web Services. He will work on a machine learning at the University of Maryland this summer. His hobbies include
+            Rubik's cube solving, basketball, and listening to music.
+
+        </p>
+        
+        
+      </div>
+      <div class="card-footer">
+        Email: eric@echen.io
+    </div>
+      
+    </div>
+
+    <div class="card">
+      <img class="card-img-top" src="{% static 'images/davidkinane.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Maxwell Zhang</h5>
+        <p class="card-text">Maxwell Zhang is a rising senior at Montgomery Blair High School. He worked as a bioinformatics intern at 
+            the Institute for Bioscience and Biotechnology Research last summer, and is currently an intern at the Mahmood Lab at Harvard 
+            Medical School, which applies machine learning to computational pathology. Maxwell is also an avid competitive programmer, as he
+             is in the USA Computing Olympiad Platinum Division and is a Division I participant on 
+             Codeforces.
+
+        </p>
+        <div class="card-footer">
+            Email: mzschool2@gmail.com
+        </div>
+        
+    </div>
+    
+    
+    
+   
+  </div>
 
 {% endblock content %}

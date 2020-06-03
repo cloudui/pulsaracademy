@@ -4,24 +4,62 @@
 
 {% block title %}Course List{% endblock title %}
 
+
 {% block content %}
+<div class="card text-center">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="#tab1">Active</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#tab2">Will Implement</a>
+        </li>
+        
+      </ul>
+    </div>
+    <div class="card-body">
+        <div class="tab1 tabcontent">
+        <h5 class="card-title">Registration Has Begun!</h5>
+        <p class="card-text">Click on the course you want to register for, and you can sign up there.</p>
+        </div>
+        
+        <div class="tab2 tabcontent">
+            <p>I like candy.</p>
+        </div>
+        
+      
+    </div>
+  </div>
+  <br/>
+<script>
+    $('.tabs a').click(function(){
+        $('div.tabContent').hide();
+        $('div.'+this.hash).show();
+        return false;
+    }
+);
+</script>
+
+<h2><u>Course List:</u></h2>
+<br>
 {% for class in object_list %}
+
+
 <div class="card">
     <div class="card-header">
         <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
-        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }}</span>
- 
+        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
+
     </div>
- 
+
     <div class="card-body">
-      
-        
- 
-        
-        <!-- Comments added here -->     
+        <p>Level: {{ class.difficulty }}</p>
+        {{ class.description }}      
+             
     </div>
     
- </div>
+</div>
  <br />
  
  {% endfor %}
