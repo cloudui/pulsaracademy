@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
     'classes.apps.ClassesConfig',
+    'lessons.apps.LessonsConfig',
     
     'allauth',
     'allauth.account',

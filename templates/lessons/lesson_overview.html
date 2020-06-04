@@ -1,0 +1,33 @@
+{% extends '_base.html' %}
+
+{% load icon %}
+
+{% block title%}{{ object.name }}{% endblock title %}
+
+{% block content %}
+
+<h1>{{ object.name }}</h1>
+{% if request.user.is_staff %}
+    <a style="float:right" href="{% url 'auto_populate' object.slug %}">Staff Only! Generate Lessons</a>    
+    <br>
+{% endif %}
+
+<br>
+<p class="lead">All the lessons we do will show up here! The lessons will be updated after we complete each one. Feel free to ask me any questions!</p>
+
+
+{% for lesson in object.lesson_set.all reversed %}
+<p><a href="{% url 'lesson_detail' object.slug lesson.id %}">Lesson {{ lesson.number}}: {{ lesson.name }}</a>
+    {% if request.user.is_staff %}
+        {% if lesson.active %}
+            {% icon 'check-circle' style="color:green" height="15" width="15" %}
+        {% else %}
+            {% icon 'x' style="color:red" height="15" width="15" %}
+        {% endif %}
+    {% endif %}
+</p>
+
+
+{% endfor %}
+
+{% endblock content %}

@@ -1,14 +1,24 @@
 
 
 {% extends '_base.html' %}
+{% load icon %}
 
-{% block title %}{{ object.name }}{% endblock title %}
+{% block title %}{{ object.name }} Overview{% endblock title %}
 
 {% block content %}
 
 
-<h1><u>{{ object.name }}</u></h1>
-<p>{{ object.start_date_string }} - {{ object.end_date_string }}</p>
+<h1><u>{{ object.name }} Overview</u></h1>
+<span style="float:right"><a href="{% url 'registration_info' %}">Status:</a>
+       {% if class.confirmed %}
+        {% icon 'check-circle' style="color:green" height="20" width="20" %}
+    {% else %}
+        {% icon 'x' style="color:red" height="20" width="20" %} 
+    {% endif %}
+    </span>
+</span>
+<p class="text-muted">{{ object.start_date_string }} - {{ object.end_date_string }}</p>
+<p>Instructor: <a href="{% url 'instructors' %}">{{ object.instructor }}</a></p>
 
 <p>Level: {{ object.difficulty }}</p>
 <p>Cost: ${{ object.cost_decimal }}</p>
@@ -23,12 +33,14 @@
 </p>
 
 {% if object in request.user.classes_paid_list %}
-    <p>Go to course <a href="#">syllabus</a>.</p>
+    <p>Go to <a href="{% url 'lesson_list' class.slug %}">course</a>.</p>
 {% elif request.user in object.users.all %}
     <p><a href="{% url 'unregister' object.slug %}">Unregister</a></p> 
 {% else %}
     <p><a href="{% url 'register' object.slug %}">Register</a></p>
 {% endif %}
+
+<p>Back to <a href="{% url 'class_list' %}">course list</a>.</p>
  
 
 {% endblock content %}

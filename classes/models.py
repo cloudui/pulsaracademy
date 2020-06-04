@@ -3,10 +3,18 @@ from django.db import models
 from users.models import CustomUser
 from datetime import datetime
 from datetime import time
+import lessons
+from django.utils import timezone
+
 diff = (
     ('beginner', 'Beginner'),
     ('intermediate', 'Intermediate'),
     ('advanced', 'Advanced')
+)
+
+instr = (
+    ('Eric Chen', 'Eric Chen'),
+    ('Maxwell Zhang', 'Maxwell Zhang')
 )
 
 class Class(models.Model):
@@ -26,13 +34,28 @@ class Class(models.Model):
     description = models.TextField(null=True)
 
     syllabus = models.TextField(null=True)
+
+    confirmed = models.BooleanField(default=False)
+    instructor = models.CharField(max_length=50, choices=instr, default="Eric Chen")
     
     slug = models.SlugField(null=False, unique=True, default=None)
 
     users = models.ManyToManyField(CustomUser, blank=True, through='Payment', through_fields=('theclass', 'user')) 
 
+    def is_ongoing(self):
+        if timezone.now() > self.date and timezone.now() < self.end_date:
+            return True
+        return False
+    def past(self):
+        if timezone.now() > self.end_date:
+            return True
+        return False
+    def later(self):
+        if timezone.now() < self.date:
+            return True
+        return False
     
-
+    
 
     def show_users(self):
         return ', '.join([a.email for a in self.users.all()])
@@ -50,19 +73,20 @@ class Class(models.Model):
         return self.start_time.strftime("%-I:%M %p")
     def end_time_convert(self):
         return self.end_time.strftime("%-I:%M %p")
-
+    
     @classmethod
-    def register(cls, user, class_):
-        print(class_.order_set, "BEEGLE")
-        # class_.order_set.user_set.add(user)
-
-    @classmethod
-    def unregister(cls, user, class_):
-        # class_.users.remove(user)
-        pass
+    def auto_populate_courses(cls, class_, num):
+        for count in range(1, num+1):
+            name = f'Class {count}'
+            lesson = lessons.models.Lesson(course=class_, name=name, number=count)
+            lesson.save()
+    
 
     class Meta:
         ordering = ('date', )
+    
+    def __str__(self):
+        return self.name
 
 
 class Payment(models.Model):

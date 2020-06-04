@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="card text-center">
-    <div class="card-header">
+    <!-- <div class="card-header">
       <ul class="nav nav-tabs card-header-tabs">
         <li class="nav-item">
           <a class="nav-link active" href="#tab1">Active</a>
@@ -17,11 +17,12 @@
         </li>
         
       </ul>
-    </div>
+    </div> -->
     <div class="card-body">
         <div class="tab1 tabcontent">
-        <h5 class="card-title">Registration Has Begun!</h5>
-        <p class="card-text">Click on the course you want to register for, and you can sign up there.</p>
+        <h3 class="card-title">Registration Has Begun!</h5>
+        <p class="card-text">Learn about our website <a href="{% url 'registration_info' %}">here</a>.</p>
+        <a href="{% url 'registration_info' %}" class="btn btn-primary">How to Register</a>
         </div>
         
         <div class="tab2 tabcontent">

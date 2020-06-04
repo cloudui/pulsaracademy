@@ -3,15 +3,21 @@
 
 {% extends '_base.html' %}
 
+{% load icon %}
 {% block title %}Course Cart{% endblock title %}
 
+
 {% block content %}
+<h1>Cart</h1>
+
 {% if request.user.payment_owed == 0 %}
-    <h2>There are no courses in your cart!</h2>
+    <p class="lead">There are no courses in your cart or your courses are not confirmed.</p>
     <br>
     <p>See your paid courses <a href="{% url 'paid_classes' %}">here</a> or register for courses <a href="{% url 'class_list' %}">here</a>.</p>
+    <p>Learn about registration <a href="{% url 'registration_info' %}">here</a>.</p>
 {% else %}
-    {% for class in request.user.classes_not_paid_list %}
+    <br>
+    {% for class in request.user.classes_confirmed_not_paid_list %}
     <div class="card">
         <div class="card-header">
             <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
@@ -32,7 +38,7 @@
     {% endfor %}
     <h2>Total: ${{ request.user.payment_owed }}</h1>
 
-    <a class="btn btn-outline-primary" href="{% url 'checkout' %}">Checkout</a>
+    <a class="btn btn-outline-primary" style="float:right" href="{% url 'checkout' %}">Checkout {% icon "arrow-right" height="15" width="15" %}</a>
   
     
  {% endif %}

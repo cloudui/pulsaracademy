@@ -1,22 +1,26 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from django.views.generic import ListView, DetailView, FormView, TemplateView
 
-from .forms import ClassRegistrationForm, ClassUnregisterForm, ClassPaymentForm
+from django.views.generic.edit import UpdateView
 
 from django.core.exceptions import PermissionDenied
+
+from django.contrib.auth.decorators import login_required
+
+from paypal.standard.forms import PayPalPaymentsForm
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy, reverse
 
+from .forms import ClassRegistrationForm, ClassUnregisterForm, ClassPaymentForm, AutoPopulateLessonsForm, ExtPayPalPaymentsForm
+
 from random import randrange
 
 from .models import Payment, Class
 
-from django.contrib.auth.decorators import login_required
-
-from paypal.standard.forms import PayPalPaymentsForm
+from lessons.models import Lesson
 
 import pythoncamp_project
 
@@ -33,18 +37,24 @@ class ClassRegistrationView(LoginRequiredMixin, DetailView, FormView):
     model = Class
     form_class = ClassRegistrationForm
     template_name = 'classes/registration_detail.html'
-    success_url = reverse_lazy('class_list')
+    # success_url = reverse_lazy('class_list')
+
+    def get_success_url(self):
+        return reverse_lazy('class_detail', kwargs={'slug':self.kwargs['slug']})
+
     login_url = 'account_login'
 
     def form_valid(self, form):
         # query class name from slug (can be changed)
         class_slug = self.kwargs['slug']
         class_ = Class.objects.get(slug=class_slug)
-        
-        # create the relationship
-        payment = Payment(theclass=class_, user=self.request.user, cost=class_.cost)
+        try: 
+            Payment.objects.get(theclass=class_, user=self.request.user)
+     
+        except:
+            payment = Payment(theclass=class_, user=self.request.user, cost=class_.cost)
 
-        payment.save()
+            payment.save()
 
         # Class.register(self.request.user, class_)
         return super(ClassRegistrationView, self).form_valid(form)
@@ -53,8 +63,11 @@ class ClassUnregisterView(LoginRequiredMixin, DetailView, FormView):
     model = Class
     form_class = ClassUnregisterForm
     template_name = 'classes/unregister_detail.html'
-    success_url = reverse_lazy('class_list')
+    # success_url = reverse_lazy('class_list')
     login_url = 'account_login'
+
+    def get_success_url(self):
+        return reverse_lazy('class_detail', kwargs={'slug':self.kwargs['slug']})
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
@@ -114,8 +127,8 @@ def class_checkout_view(request):
    
     }
 
-
-    form = PayPalPaymentsForm(initial=paypal_dict)
+    
+    form = ExtPayPalPaymentsForm(initial=paypal_dict)
     context = {"form": form}
     return render(request, "classes/payment.html", context)
 
@@ -134,3 +147,83 @@ class RegisteredClassesView(LoginRequiredMixin, TemplateView):
 class PaidClassesView(LoginRequiredMixin, TemplateView):
     template_name = 'classes/paid_classes.html'
     login_url = 'account_login'
+
+
+class LessonListView(LoginRequiredMixin, DetailView):
+    model = Class
+    template_name = 'lessons/lesson_overview.html'
+    login_url = 'account_login'
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        
+        if not obj in self.request.user.classes_paid_list() and not self.request.user.is_staff:
+            raise PermissionDenied
+
+        return super().dispatch(request, *args, **kwargs)
+
+
+class LessonDetailView(LoginRequiredMixin, DetailView):
+    
+    def get_object(self):
+        pk = self.kwargs['pk']
+        slug = self.kwargs['slug']
+        # obj = Lesson.objects.get(id=pk, course__slug=slug)
+        obj = get_object_or_404(Lesson, id=pk, course__slug=slug)
+        print(pk, slug, obj)
+        return obj
+    
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        
+        if not obj in self.request.user.classes_paid_list() and not self.request.user.is_staff:
+            raise PermissionDenied
+
+        return super().dispatch(request, *args, **kwargs)
+
+    template_name = 'lessons/lesson_detail.html'
+    login_url = 'account_login'
+
+
+class StaffAutoPopulateField(LoginRequiredMixin, DetailView, FormView):
+    form_class = AutoPopulateLessonsForm
+    template_name = 'lessons/autopopulate.html'
+    model = Class
+    success_url = reverse_lazy('lessons_list')
+    login_url = 'account_login'
+
+    def dispatch(self, request, *args, **kwargs):
+        
+        
+        if not self.request.user.is_staff:
+            raise PermissionDenied
+
+        return super().dispatch(request, *args, **kwargs)
+
+
+    def form_valid(self, form):
+        class_slug = self.kwargs['slug']
+        class_ = Class.objects.get(slug=class_slug)
+        num = form.cleaned_data['num']
+
+        Class.auto_populate_courses(class_, num)
+        return super(StaffAutoPopulateField, self).form_valid(form)
+
+
+class LessonUpdateView(LoginRequiredMixin, UpdateView):
+
+    model = Lesson
+    template_name = 'lessons/lesson_edit.html'
+    def get_success_url(self):
+        return reverse_lazy('lesson_detail', kwargs={'slug':self.kwargs['slug'], 'pk':self.kwargs['pk']})
+    fields = ('__all__')
+    login_url = 'account_login'
+
+    def dispatch(self, request, *args, **kwargs):
+        
+        
+        if not self.request.user.is_staff:
+            raise PermissionDenied
+
+        return super().dispatch(request, *args, **kwargs)
+

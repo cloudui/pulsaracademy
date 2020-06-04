@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+
+{% load crispy_forms_tags %}
+{% load icon %}
+
+{% block title%}Edit Lesson {{ object.number }}{% endblock title %}
+
+{% block content %}
+
+<h1>
+    {{ object.name }}
+</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-info" type="submit">Update</button>
+</form>
+
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends '_base.html' %}
+{% load icon %}
+
+{% block title %}Lesson {{object.number}}{% endblock title %}
+
+{% block content %}
+<h1>Lesson {{ object.number }}: {{ object.name }}</h1>
+{% if request.user.is_staff %}
+<a style="float:right" class="btn btn-outline-secondary btn-sm" href="{% url 'lesson_edit' object.course.slug object.id %}">{% icon 'edit' height="18" width="16" %} Staff Edit</a>
+<br>
+{% endif %}
+<br>
+
+{% if object.active %}
+    
+    <div class="code">
+        {{ object.summary|safe }}
+    </div>
+    
+{% else %}
+
+    <p>The notes for this class will be available on {{ object.date|date:"m/d/y" }}</p>
+    <p>Go back to <a href="{% url 'lesson_list' object.course.slug %}">lesson list</a>.</p>
+
+{% endif %}
+
+
+
+{% endblock content %}

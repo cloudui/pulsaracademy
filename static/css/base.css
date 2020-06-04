@@ -32,6 +32,20 @@ body {
     display: none;
 }
 
-.syllabus {
+.description {
     white-space: pre-line;
+}
+
+.code {
+    white-space: pre-wrap;
+    
+
+}
+code {
+    background-color: #f1f1f1;
+}
+
+pre {
+    color: crimson;
+    background-color: #f1f1f1;
 }

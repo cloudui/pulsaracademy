@@ -16,7 +16,7 @@ class CustomUser(AbstractUser):
 
     def payment_owed(self):
         payment = 0
-        for course in self.classes_not_paid_list():
+        for course in self.classes_confirmed_not_paid_list():
             payment += course.cost
         
         return int(payment)
@@ -28,16 +28,23 @@ class CustomUser(AbstractUser):
     def classes_not_paid_list(self):
         return self.class_set.all().filter(payment__paid=False)
 
+    def classes_confirmed_not_paid_list(self):
+        return self.class_set.all().filter(payment__paid=False, confirmed=True)
+
+
     def payments_paid_list(self):
         return self.payment_set.all().filter(paid=True)
     def payments_not_paid_list(self):
         return self.payment_set.all().filter(paid=False)
 
     def num_payments_not_paid(self):
-        num = self.payment_set.all().filter(paid=False).count()
+        num = self.payment_set.all().filter(paid=False, theclass__confirmed=True).count()
         if num > 0:
             return f'({num})'
         return ''
+    
+    
+
                        
     
 
