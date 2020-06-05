@@ -1,0 +1,36 @@
+{% extends '_base.html' %}
+
+{% load icon %}
+
+{% block title%}{{ object.title }} | {{ object.course.name }}{% endblock title %}
+
+{% block content %}
+
+<h1>{{ object.title }}</h1>
+
+<span class="text-muted">by {{ object.author.first_name }} {{ object.author.last_name }} |
+    {{ object.date }}</span>
+
+{% if post.author == request.user %}
+<div style="float:right;">
+    <a class= "btn btn-danger btn-sm" href="#">{% icon 'trash-2' height="18" width="16" %} Delete</a>
+    <!-- <div class="divider"></div> -->
+    <a class="btn btn-outline-secondary btn-sm" href="#">{% icon 'edit' height="18" width="16" %} Edit</a>  
+</div>
+
+{% endif %}
+
+
+<br><br>
+
+<div class="code">"
+    {{ object.body|safe }}
+</div>"
+
+
+<br><br>
+
+<p>Back to <a href="{% url 'forum_list' object.course.slug %}">Forum</a>.</p>
+    
+
+{% endblock content %}

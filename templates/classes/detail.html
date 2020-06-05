@@ -37,7 +37,24 @@
 {% elif request.user in object.users.all %}
     <p><a href="{% url 'unregister' object.slug %}">Unregister</a></p> 
 {% else %}
+    {% if object.past_registration_deadline %}
+    <br>
+    <div class="card text-center border-danger">
+        <div class="card-body">
+            <div class="tab1 tabcontent">
+            
+            <p class="card-text" style="color:red">{% icon 'alert-triangle' style="color:red" %} The registration deadline has past! {% icon 'alert-triangle' style="color:red" %}</p>
+            
+            </div>
+            
+            
+          
+        </div>
+      </div>
+      <br>
+    {% else %}
     <p><a href="{% url 'register' object.slug %}">Register</a></p>
+    {% endif %}
 {% endif %}
 
 <p>Back to <a href="{% url 'class_list' %}">course list</a>.</p>

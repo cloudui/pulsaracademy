@@ -23,6 +23,7 @@
  
     </div>
     
+    
 </div>
 <br>
 
@@ -56,14 +57,17 @@
         {{ class.description }}      
              
     </div>
-    
+    <div class="card-footer">
+        <span class="text-muted">Instructor: {{ class.instructor }}</span>
+  
+      </div>
 </div>
 <br>
 {% endfor %}
 {% endif %}
 
 <!-- Classes that are paid -->
-<p class="lead"><u>Paid Courses</u></p>
+<p class="lead"><u>Paid Course History</u></p>
 {% if request.user.classes_paid_list %}
 
 {% for class in request.user.classes_paid_list reversed %}
@@ -79,6 +83,10 @@
         {{ class.description }}      
              
     </div>
+    <div class="card-footer">
+        <span class="text-muted">Instructor: {{ class.instructor }}</span>
+  
+      </div>
     
 </div>
 <br>

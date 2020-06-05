@@ -42,6 +42,8 @@ class Class(models.Model):
 
     users = models.ManyToManyField(CustomUser, blank=True, through='Payment', through_fields=('theclass', 'user')) 
 
+    past_payment_deadline = models.BooleanField(default=False)
+
     def is_ongoing(self):
         if timezone.now() > self.date and timezone.now() < self.end_date:
             return True
@@ -50,11 +52,22 @@ class Class(models.Model):
         if timezone.now() > self.end_date:
             return True
         return False
+
+    
     def later(self):
         if timezone.now() < self.date:
             return True
         return False
     
+    def update_past_payment_deadline(self):
+        now = timezone.now()
+        if now > self.date:
+            self.past_payment_deadline = True
+
+            
+        
+        return self.past_payment_deadline
+        
     
 
     def show_users(self):
@@ -73,6 +86,17 @@ class Class(models.Model):
         return self.start_time.strftime("%-I:%M %p")
     def end_time_convert(self):
         return self.end_time.strftime("%-I:%M %p")
+
+    def past_registration_deadline(self):
+        two_days = timezone.timedelta(days=2)
+        deadline = self.date - two_days
+
+        if timezone.now() > deadline:
+            return True
+        return False
+    
+    
+
     
     @classmethod
     def auto_populate_courses(cls, class_, num):

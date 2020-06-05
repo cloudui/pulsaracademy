@@ -30,5 +30,7 @@ urlpatterns = [
 
     path('courses/', include('classes.urls')),
 
+
     path('', include('pages.urls')),
+
 ]

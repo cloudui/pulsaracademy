@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 import classes
 
+from django.utils import timezone
 
 
 # Create your models here.
@@ -17,7 +18,8 @@ class CustomUser(AbstractUser):
     def payment_owed(self):
         payment = 0
         for course in self.classes_confirmed_not_paid_list():
-            payment += course.cost
+            if not course.past_registration_deadline():
+                payment += course.cost
         
         return int(payment)
 
@@ -29,16 +31,19 @@ class CustomUser(AbstractUser):
         return self.class_set.all().filter(payment__paid=False)
 
     def classes_confirmed_not_paid_list(self):
-        return self.class_set.all().filter(payment__paid=False, confirmed=True)
-
-
-    def payments_paid_list(self):
-        return self.payment_set.all().filter(paid=True)
+        
+        courses = self.class_set.all().filter(payment__paid=False, confirmed=True, past_payment_deadline=False)
+        
+        
+        return courses
+    
+    
+        
     def payments_not_paid_list(self):
         return self.payment_set.all().filter(paid=False)
 
     def num_payments_not_paid(self):
-        num = self.payment_set.all().filter(paid=False, theclass__confirmed=True).count()
+        num = len(self.classes_confirmed_not_paid_list())
         if num > 0:
             return f'({num})'
         return ''

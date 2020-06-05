@@ -43,12 +43,14 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'classes.apps.ClassesConfig',
     'lessons.apps.LessonsConfig',
+    'posts.apps.PostsConfig',
     
     'allauth',
     'allauth.account',
     'crispy_forms',
     'paypal.standard.ipn',
     'django_feather',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -182,3 +184,8 @@ else:
     PAYPAL_EMAIL = 'bigchungus123@gmail.com'
 
 
+CRONJOBS = [
+    ('* * * * *', 'classes.cron.update_day_status'),
+]
+
+# CRONTAB_COMMAND_PREFIX = '. /root/.profile;'

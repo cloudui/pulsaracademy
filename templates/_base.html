@@ -27,7 +27,7 @@
         {% url 'checkout' as checkout %}
         {% url 'instructors' as instructors %}
         
-        <li {% if 'classes' in request.path %} class="nav-item dropdown active" {% else %} class="nav-item dropdown" {% endif %}>
+        <li {% if 'courses' in request.path %} class="nav-item dropdown active" {% else %} class="nav-item dropdown" {% endif %}>
           
          
           <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">

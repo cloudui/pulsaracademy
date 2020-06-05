@@ -1,0 +1,46 @@
+{% extends '_base.html' %}
+
+{% load icon %}
+
+{% block title%}{{ object.name }} Forum{% endblock title %}
+
+{% block content %}
+
+<h1>{{ object.name }} Forum</h1>
+<a class="btn btn-outline-secondary" href="{% url 'forum_new' object.slug %}" style="float: right;">+ Post</a>
+<br /> 
+<br>
+
+<br>
+{% for post in object.post_set.all %}
+<div class="card">
+    <div class="card-header">
+        <a href="{% url 'forum_detail' object.slug post.pk %}" class="font-weight-bold text-dark">{{ post.title }}</a> &middot;
+        <span class="text-muted">by {{ post.author.first_name }} {{ post.author.last_name }} |
+        {{ post.date }}</span>
+        {% if post.edited %}
+        <span class="text-muted" style="float: right;">
+            (edited) at {{ post.date_updated }}
+        </span>
+        {% endif %}
+    </div>
+
+    <div class="card-body">
+        <p>{{ post.body }}</p>
+
+        {% if request.user == post.author %}
+        <a href="#delete">Edit</a> | 
+        <a href="#edit">Delete</a>
+        {% endif %}
+        <!-- Comments added here -->     
+    </div>
+    <!-- <div class="card-footer">
+        hi
+    </div> -->
+</div>
+<br />
+    
+
+{% endfor %}
+
+{% endblock content %}
