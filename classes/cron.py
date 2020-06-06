@@ -11,7 +11,7 @@ def update_day_status():
     print('hello')
 
     for obj in objs:
-        if time > obj.date:
+        if time >= obj.date:
             obj.past_payment_deadline = True
             obj.save()
 

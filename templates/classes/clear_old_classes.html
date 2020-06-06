@@ -1,0 +1,33 @@
+
+
+{% extends '_base.html' %}
+{% load icon %}
+
+{% block title %}Clear Old Classes{% endblock title %}
+
+{% block content %}
+
+
+<h1>Clear Old Classes</h1> <br>
+<p class="lead">You will remove the classes that you registered for but missed the payment deadline. If you have any questions or concerns, please contact us 
+    at contact@pulsaracademy.com
+</p>
+
+{% if request.user.classes_expired_registered_list %}
+<p>The following Classes will be removed: </p>
+{% for class in request.user.classes_expired_registered_list %}
+<ul>
+    <li>{{ class.name }}</li>
+</ul>
+{% endfor %}
+
+<br>
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Remove All</button>
+</form>
+{% else %}
+<p>No expired courses!</p>
+{% endif %}
+
+{% endblock content %}

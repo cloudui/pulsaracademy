@@ -1,0 +1,53 @@
+
+
+{% extends '_base.html' %}
+{% load icon %}
+
+{% block title %}Staff Info{% endblock title %}
+
+
+
+{% block content %}
+
+
+
+
+
+<h2><u>Staff Information</u></h2>
+<br>
+<p>Go to <a href="{% url 'student_list' %}">user list</a>.</p>
+<br>
+{% for class in object_list %}
+
+
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
+        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
+        <span style="float:right">Status: {% if class.confirmed %}
+          {% icon 'check-circle' style="color:green" height="15" width="15" %}
+      {% else %}
+          {% icon 'x' style="color:red" height="15" width="15" %} 
+      {% endif %}
+      </span>
+    </div>
+
+    <div class="card-body">
+        <p><a href="{% url 'class_detail' class.slug %}">Details</a></p> 
+        <p><a href="{% url 'forum_list' class.slug %}">Forum</a></p> 
+        <p><a href="{% url 'lesson_list' class.slug %}">Lesson List</a></p>
+        <p><a href="{% url 'staff_class_user_detail' class.slug %}">Students</a></p>
+        
+         
+             
+    </div>
+    <div class="card-footer">
+      <span class="text-muted">Instructor: {{ class.instructor }}</span>
+
+    </div>
+    
+</div>
+ <br />
+ 
+ {% endfor %}
+{% endblock content %}

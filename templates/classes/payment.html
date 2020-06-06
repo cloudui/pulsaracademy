@@ -17,7 +17,7 @@
     <p>Learn about registration <a href="{% url 'registration_info' %}">here</a>.</p>
 {% else %}
     <br>
-    {% for class in request.user.classes_confirmed_not_paid_list %}
+    {% for class in request.user.classes_not_expired_registered_list %}
     <div class="card">
         <div class="card-header">
             <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;

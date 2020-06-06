@@ -5,7 +5,9 @@ from django.contrib.auth.admin import UserAdmin
 from .models import UserProfile
 
 
-from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomSignupForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+
+from .signupform import CustomSignupForm
 
 
 CustomUser = get_user_model()

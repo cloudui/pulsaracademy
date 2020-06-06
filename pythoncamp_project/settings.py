@@ -152,8 +152,18 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL STUFF
+DEFAULT_FROM_EMAIL = 'contact@pulsaracademy.com'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+EMAIL_USE_TLS = True
+
+# ALL AUTH STUFF
 
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT = 'home'
@@ -167,25 +177,27 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 
 ACCOUNT_FORMS = {
-    'signup': 'users.forms.CustomSignupForm'
+    'signup': 'users.signupform.CustomSignupForm'
 }
 
+# CRISPY
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# ALL AUTH CREATION MODEL
 ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
 
-
+# PAYPAL
 if os.environ.get('ENVIRONMENT') == 'production':
-    PAYPAL_TEST = True
+    PAYPAL_TEST = False
     PAYPAL_EMAIL = 'eric@echen.io'
 else:
-    PAYPAL_TEST = False
+    PAYPAL_TEST = True
     PAYPAL_EMAIL = 'bigchungus123@gmail.com'
 
-
+# django_crontab
 CRONJOBS = [
-    ('* * * * *', 'classes.cron.update_day_status'),
+    ('0 0 * * *', 'classes.cron.update_day_status'),
 ]
 
-# CRONTAB_COMMAND_PREFIX = '. /root/.profile;'
+# ACCOUNT_USER_DISPLAY = 'email'

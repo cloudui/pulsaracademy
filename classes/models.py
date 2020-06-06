@@ -4,6 +4,7 @@ from users.models import CustomUser
 from datetime import datetime
 from datetime import time
 import lessons
+from django.urls import reverse_lazy
 from django.utils import timezone
 
 diff = (
@@ -15,6 +16,16 @@ diff = (
 instr = (
     ('Eric Chen', 'Eric Chen'),
     ('Maxwell Zhang', 'Maxwell Zhang')
+)
+
+day_of_week = (
+    ('Sunday', 'Sunday'),
+    ('Monday', 'Monday'),
+    ('Tuesday', 'Tuesday'),
+    ('Wednesday', 'Wednesday'),
+    ('Thursday', 'Thursday'),
+    ('Friday', 'Friday'),
+    ('Saturday', 'Saturday'),
 )
 
 class Class(models.Model):
@@ -44,6 +55,17 @@ class Class(models.Model):
 
     past_payment_deadline = models.BooleanField(default=False)
 
+    first_day = models.CharField(max_length=50, choices=day_of_week, default='Monday')
+    
+
+    second_day = models.CharField(max_length=50, choices=day_of_week, default='Monday')
+
+
+    third_day_optional = models.CharField(max_length=50, choices=day_of_week, null=True)
+
+    def get_days_week(self):
+        return [self.first_day, self.second_day]
+
     def is_ongoing(self):
         if timezone.now() > self.date and timezone.now() < self.end_date:
             return True
@@ -59,15 +81,11 @@ class Class(models.Model):
             return True
         return False
     
-    def update_past_payment_deadline(self):
-        now = timezone.now()
-        if now > self.date:
-            self.past_payment_deadline = True
+    
+    def start_date_format(self):
+        the_date = self.date - timezone.timedelta(seconds=1)
 
-            
-        
-        return self.past_payment_deadline
-        
+        return the_date.strftime('%-m/%d/%Y at %-I:%M %p')
     
 
     def show_users(self):
@@ -87,6 +105,11 @@ class Class(models.Model):
     def end_time_convert(self):
         return self.end_time.strftime("%-I:%M %p")
 
+    def registration_deadline(self):
+        two_days = timezone.timedelta(days=2, seconds=1)
+        deadline = self.date - two_days
+
+        return deadline.strftime('%-m/%d/%Y at %-I:%M %p')
     def past_registration_deadline(self):
         two_days = timezone.timedelta(days=2)
         deadline = self.date - two_days
@@ -94,8 +117,19 @@ class Class(models.Model):
         if timezone.now() > deadline:
             return True
         return False
+
+
     
+    def paid_users_list(self):
+        
+        students = self.users.filter(payment__paid=True)
+        return students
     
+    def registered_users_list(self):
+
+        students = self.users.filter(payment__paid=False)
+
+        return students
 
     
     @classmethod
@@ -111,6 +145,9 @@ class Class(models.Model):
     
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse_lazy('class_detail', kwargs={'slug': self.slug})
 
 
 class Payment(models.Model):

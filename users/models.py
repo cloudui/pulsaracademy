@@ -17,9 +17,8 @@ class CustomUser(AbstractUser):
 
     def payment_owed(self):
         payment = 0
-        for course in self.classes_confirmed_not_paid_list():
-            if not course.past_registration_deadline():
-                payment += course.cost
+        for course in self.classes_not_expired_registered_list():
+            payment += course.cost
         
         return int(payment)
 
@@ -32,23 +31,33 @@ class CustomUser(AbstractUser):
 
     def classes_confirmed_not_paid_list(self):
         
-        courses = self.class_set.all().filter(payment__paid=False, confirmed=True, past_payment_deadline=False)
+        courses = self.class_set.all().filter(payment__paid=False, confirmed=True)
         
         
         return courses
     
+    def classes_expired_registered_list(self):
+
+        return self.class_set.all().filter(payment__paid=False, confirmed=True, past_payment_deadline=True)
+    
+    def classes_not_expired_registered_list(self):
+        return self.class_set.all().filter(payment__paid=False, confirmed=True, past_payment_deadline=False)
+    
+    def classes_registered_list(self):
+        return self.class_set.all().filter(payment__paid=False, past_payment_deadline=False)
     
         
     def payments_not_paid_list(self):
         return self.payment_set.all().filter(paid=False)
 
     def num_payments_not_paid(self):
-        num = len(self.classes_confirmed_not_paid_list())
+        num = len(self.classes_not_expired_registered_list())
         if num > 0:
             return f'({num})'
         return ''
     
-    
+    def num_users(self):
+        return CustomUser.objects.all().count() - 2
 
                        
     

@@ -11,13 +11,46 @@
 <h1>Cart</h1>
 
 {% if request.user.payment_owed == 0 %}
-    <p class="lead">There are no courses in your cart or your courses are not confirmed.</p>
     <br>
+    <p class="lead">There are no courses in your cart or your courses are not confirmed.</p>
+    
     <p>See your paid courses <a href="{% url 'paid_classes' %}">here</a> or register for courses <a href="{% url 'class_list' %}">here</a>.</p>
     <p>Learn about registration <a href="{% url 'registration_info' %}">here</a>.</p>
 {% else %}
     <br>
-    {% for class in request.user.classes_confirmed_not_paid_list %}
+    {% for class in request.user.classes_not_expired_registered_list %}
+    <div class="card">
+        <div class="card-header">
+            <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
+            <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
+            <span style="float: right;">
+                ${{ class.cost_decimal }}
+            </span>
+    
+        </div>
+    
+        <div class="card-body">
+            {{ class.description }}      
+                 
+        </div>
+        
+        <div class="card-footer">
+            <span class="text-muted">Instructor: {{ class.instructor }}</span>
+      
+          </div>
+    </div>
+    <br>
+    <h2>Total: ${{ request.user.payment_owed }}</h1>
+    <br>
+    {% endfor %}
+    <br>
+    {% if request.user.classes_expired_registered_list %}
+    <p class="text-danger">You registered for the following courses but the deadline for payment have passed. If you have any concerns, please 
+        contact us at contact@pulsaracademy.com.</p>
+        
+        <span style="float:right"><a href="{% url 'clear' %}" class="btn btn-outline-danger btn-sm">Remove All {% icon 'x' class="text-danger" height="20" width="20" %} </a></span><br><br>
+    {% for class in request.user.classes_expired_registered_list %}
+    
     <div class="card">
         <div class="card-header">
             <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
@@ -40,7 +73,10 @@
     </div>
     <br>
     {% endfor %}
-    <h2>Total: ${{ request.user.payment_owed }}</h1>
+    <br>
+    {% endif %}
+    
+    
 
     <a class="btn btn-outline-primary" style="float:right" href="{% url 'checkout' %}">Checkout {% icon "arrow-right" height="15" width="15" %}</a>
   

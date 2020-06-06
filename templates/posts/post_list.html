@@ -8,8 +8,10 @@
 
 <h1>{{ object.name }} Forum</h1>
 <a class="btn btn-outline-secondary" href="{% url 'forum_new' object.slug %}" style="float: right;">+ Post</a>
-<br /> 
 <br>
+<p class="lead">Go to <a href="{% url 'lesson_list' object.slug %}">course</a>.</p>
+
+
 
 <br>
 {% for post in object.post_set.all %}

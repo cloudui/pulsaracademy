@@ -1,0 +1,35 @@
+{% extends '_base.html' %}
+
+
+{% block title %}User List{% endblock title %}
+
+{% block content %}
+<h1>List of Users</h1><br>
+
+<p class="lead">Total (not counting us): {{ request.user.num_users }}</p>
+
+
+{% for user in object_list %}
+
+<div class="card">
+    <div class="card-header">
+        {{ user.first_name }} {{ user.last_name }}
+
+    </div>
+
+    <div class="card-body">
+        <!-- <p>Name: {{ request.user.first_name}} {{ request.user.last_name }}</p> -->
+        <p>Email: {{ user.email }}</p>
+        {% if user.parent_email %}
+        <p>Parent Email: {{ user.parent_email }}</p>
+        {% endif %}
+        <p>School: {{ user.school }}</p>
+        Grade: {{ user.grade }}
+ 
+    </div>
+    
+    
+</div>
+<br>
+{% endfor %}
+{% endblock content %}

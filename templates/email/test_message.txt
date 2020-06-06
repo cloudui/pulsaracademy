@@ -1,0 +1,6 @@
+Dear {{ name }}
+
+My name is Bob the Builder. This is a test email! I'm sending you this message because I like {{ like }}.
+
+Best Regards,
+David

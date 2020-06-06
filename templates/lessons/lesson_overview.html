@@ -11,7 +11,10 @@
     <a style="float:right" href="{% url 'auto_populate' object.slug %}">Staff Only! Generate Lessons</a>    
     <br>
 {% endif %}
+<!-- <br> -->
+<a style="float:right" href="{% url 'forum_list' object.slug %}" class="btn btn-outline-secondary">Forum {% icon 'list' height="15" width="15" %}</a>
 
+<br>
 <br>
 <p class="lead">All the lessons we do will show up here! The lessons will be updated after we complete each one. Feel free to ask me any questions!</p>
 

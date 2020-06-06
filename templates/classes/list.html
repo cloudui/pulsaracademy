@@ -6,7 +6,10 @@
 {% block title %}Course List{% endblock title %}
 
 
+
 {% block content %}
+
+
 <div class="card text-center">
     <!-- <div class="card-header">
       <ul class="nav nav-tabs card-header-tabs">
@@ -23,7 +26,13 @@
         <div class="tab1 tabcontent">
         <h3 class="card-title">Registration Has Begun!</h5>
         <p class="card-text">Learn about our website <a href="{% url 'about' %}">here</a>.</p>
-        <a href="{% url 'registration_info' %}" class="btn btn-primary">How to Register</a>
+        <a href="{% url 'registration_info' %}" class="btn btn-primary">How to Register</a> 
+
+        {% if request.user.is_staff %} <br><br>
+              <a href="{% url 'staff_list' %}">Go to Staff View!</a>
+     
+
+        {% endif %}
         </div>
         
         
@@ -41,12 +50,20 @@
 <div class="card">
     <div class="card-header">
         <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
-        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
-        <span style="float:right">Status: {% if class.confirmed %}
+        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.first_day }}, {{ class.second_day }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}
+           
+          
+
+        </span>
+        
+        <span style="float:right">
+          
+          Status: {% if class.confirmed %}
           {% icon 'check-circle' style="color:green" height="15" width="15" %}
       {% else %}
           {% icon 'x' style="color:red" height="15" width="15" %} 
       {% endif %}
+      
       </span>
     </div>
 
@@ -57,6 +74,13 @@
     </div>
     <div class="card-footer">
       <span class="text-muted">Instructor: {{ class.instructor }}</span>
+      <span class="text-muted" style="float:right">
+        {% if class.past_registration_deadline %}
+          Closed
+          {% else %}
+          Open for registration
+          {% endif %}
+        </span>
 
     </div>
     

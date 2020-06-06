@@ -18,21 +18,29 @@ from .views import (
     ForumDetailView,
     ForumUpdateView,
     ForumCreateView,
+    StaffListView,
+    ClassStaffUsersDetailView,
+    ClearOldClassesView,
+    ClassUpdateView,
 )
 
 from .views import class_checkout_view
 
 urlpatterns = [
     path('', ClassListView.as_view(), name='class_list'),
+    path('staff/', StaffListView.as_view(), name='staff_list'),
     path('pay/summary/', CheckoutSummaryView.as_view(), name='summary'), 
     path('registered/', RegisteredClassesView.as_view(), name='registered_classes'),
     path('paid/', PaidClassesView.as_view(), name='paid_classes'),
     path('checkout/', class_checkout_view, name='checkout'),
+    path('clear/old-classes/', ClearOldClassesView.as_view(), name='clear'),
 
 
     path('<slug:slug>/', ClassDetailView.as_view(), name='class_detail'),
+    path('<slug:slug>/staff/', ClassStaffUsersDetailView.as_view(), name='staff_class_user_detail'),
     path('<slug:slug>/register/', ClassRegistrationView.as_view(), name='register'),
     path('<slug:slug>/unregister/', ClassUnregisterView.as_view(), name='unregister'),
+    path('<slug:slug>/update/', ClassUpdateView.as_view(), name='class_update'),
 
     path('<slug:slug>/forum/', ForumListView.as_view(), name='forum_list'),
     path('<slug:slug>/forum/posts/<int:pk>/', ForumDetailView.as_view(), name='forum_detail'), 

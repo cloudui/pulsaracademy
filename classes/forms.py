@@ -31,3 +31,6 @@ class PostCreateForm(ModelForm):
     class Meta:
         model = Post
         fields = ('title', 'body',)
+
+class ClearOldClassesForm(forms.Form):
+    pass

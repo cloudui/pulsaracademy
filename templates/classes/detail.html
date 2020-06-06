@@ -17,7 +17,8 @@
     {% endif %}
     </span>
 </span>
-<p class="text-muted">{{ object.start_date_string }} - {{ object.end_date_string }}</p>
+<p class="text-muted">{{ object.start_date_string }} - {{ object.end_date_string }} &middot; {{ class.first_day }}, {{ class.second_day }}<br>
+{{ class.start_time_convert }} - {{ class.end_time_convert }}</p>
 <p>Instructor: <a href="{% url 'instructors' %}">{{ object.instructor }}</a></p>
 
 <p>Level: {{ object.difficulty }}</p>
@@ -32,10 +33,30 @@
     {{ object.syllabus|safe }}
 </p>
 
-{% if object in request.user.classes_paid_list %}
+{% if object.past_payment_deadline %}
+
+    <br>
+    <div class="card text-center border-danger">
+        <div class="card-body">
+            <div class="tab1 tabcontent">
+            
+            <p class="card-text text-danger">{% icon 'alert-triangle' class="text-danger" %} The course deadline has past! {% icon 'alert-triangle' class="text-danger" %}</p>
+            
+            </div>
+            
+            
+          
+        </div>
+      </div>
+      <br>
+      <br>
+{% elif object in request.user.classes_paid_list %}
+      <br>
     <p>Go to <a href="{% url 'lesson_list' class.slug %}">course</a>.</p>
 {% elif request.user in object.users.all %}
-    <p><a href="{% url 'unregister' object.slug %}">Unregister</a></p> 
+      <br>
+    <p><a href="{% url 'unregister' object.slug %}">Unregister</a><span style="float:right">Deadline: {{ class.start_date_format }}</span></p> 
+    <br>
 {% else %}
     {% if object.past_registration_deadline %}
     <br>
@@ -53,11 +74,16 @@
       </div>
       <br>
     {% else %}
-    <p><a href="{% url 'register' object.slug %}">Register</a></p>
+    <br>
+    <p><a href="{% url 'register' object.slug %}">Register</a><span style="float:right">Deadline: {{ class.registration_deadline }}</span></p>
+    <br>
     {% endif %}
 {% endif %}
 
-<p>Back to <a href="{% url 'class_list' %}">course list</a>.</p>
+<p>Back to <a href="{% url 'class_list' %}">course list</a> or <a href="{% url 'registered_classes' %}">registered courses</a>.</p>
  
-
+<br>
+{% if request.user.is_staff %}
+<a href="{% url 'class_update' object.slug %}" class='btn btn-primary'>Edit Info</a>
+{% endif %}
 {% endblock content %}

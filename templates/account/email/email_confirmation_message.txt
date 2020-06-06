@@ -1,0 +1,10 @@
+{% load account %}{% load i18n %}
+{% autoescape off %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Hey {{ user.first_name }}!
+
+Hello and welcome to {{ site_name }}! To finish registration, please click the link below to verify the account. 
+
+To confirm this is correct, go to {{ activate_url }} to complete your registration.
+{% endblocktrans %}{% endautoescape %}
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+- {{ site_name }} Team.
+{{ site_domain }}{% endblocktrans %}

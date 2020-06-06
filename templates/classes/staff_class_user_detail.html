@@ -1,0 +1,95 @@
+
+
+{% extends '_base.html' %}
+{% load icon %}
+
+{% block title %}Staff {{ object.name }} Overview{% endblock title %}
+
+{% block content %}
+
+
+<h1><u>{{ object.name }} Students</u></h1>
+<br>
+
+<span style="float:right;"><a class="text-dark" href="{% url 'registration_info' %}">Status:</a>
+    {% if class.confirmed %}
+     {% icon 'check-circle' style="color:green" height="20" width="20" %}
+ {% else %}
+     {% icon 'x' style="color:red" height="20" width="20" %} 
+ {% endif %}
+
+ <a href="#">(Edit)</a>
+ </span>
+
+<br>
+
+<h2>Paid Students</h2>
+<br>
+{% if object.paid_users_list %}
+{% for user in object.paid_users_list %}
+
+    <div class="card">
+        <div class="card-header">
+            {{ user.first_name }} {{ user.last_name }}
+    
+        </div>
+    
+        <div class="card-body">
+            <!-- <p>Name: {{ request.user.first_name}} {{ request.user.last_name }}</p> -->
+            <p>Email: {{ user.email }}</p>
+            {% if user.parent_email %}
+            <p>Parent Email: {{ user.parent_email }}</p>
+            {% endif %}
+            <p>School: {{ user.school }}</p>
+            Grade: {{ user.grade }}
+     
+        </div>
+        
+        
+    </div>
+    <br>
+
+{% endfor %}
+{% else %}
+<p clas="lead">Nobody paid yet :(. Class starts <a href="#">{{ object.date }}</a></p>
+{% endif %}
+
+<br>
+
+<br>
+<h2>Registered Users</h2>
+<br>
+<p>Registration deadline <a href="#">{{ object.registration_deadline }}</a></p>
+{% if object.registered_users_list %}
+{% for user in object.registered_users_list %}
+    <div class="card">
+    <div class="card-header">
+        {{ user.first_name }} {{ user.last_name }}
+
+    </div>
+
+    <div class="card-body">
+        <!-- <p>Name: {{ request.user.first_name}} {{ request.user.last_name }}</p> -->
+        <p>Email: {{ user.email }}</p>
+        {% if user.parent_email %}
+        <p>Parent Email: {{ user.parent_email }}</p>
+        {% endif %}
+        <p>School: {{ user.school }}</p>
+        Grade: {{ user.grade }}
+ 
+    </div>
+    
+    
+</div>
+<br>
+{% endfor %}
+{% else %}
+    <p clas="lead">Nobody registered right now.</p>
+{% endif %}
+
+
+<br>
+<p>Back to <a href="{% url 'staff_list' %}">staff course list</a>.</p>
+ 
+
+{% endblock content %}

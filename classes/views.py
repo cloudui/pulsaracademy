@@ -14,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy, reverse
 
-from .forms import ClassRegistrationForm, ClassUnregisterForm, ClassPaymentForm, AutoPopulateLessonsForm, ExtPayPalPaymentsForm, PostCreateForm
+from .forms import ClassRegistrationForm, ClassUnregisterForm, ClassPaymentForm, AutoPopulateLessonsForm, ExtPayPalPaymentsForm, PostCreateForm, ClearOldClassesForm
 
 from random import randrange
 
@@ -34,6 +34,47 @@ class ClassDetailView(DetailView):
     template_name = 'classes/detail.html'
     model = Class
 
+class ClassUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'classes/update.html'
+    model = Class
+    login_url = 'account_login'
+    fields = ('name', 'instructor', 'confirmed', 'date', 'end_date', 'start_time', 'end_time', 'first_day', 'second_day', 'third_day_optional','cost','difficulty','description', 'syllabus', )
+
+    def dispatch(self, request, *args, **kwargs):
+        
+        if self.request.user.is_authenticated:
+            if not self.request.user.is_staff:
+                raise PermissionDenied
+        
+        return super().dispatch(request, *args, **kwargs)
+
+class ClassStaffUsersDetailView(DetailView):
+    template_name = 'classes/staff_class_user_detail.html'
+    model = Class
+    login_url = 'account_login'
+
+    
+
+    def dispatch(self, request, *args, **kwargs):
+        
+        if self.request.user.is_authenticated:
+            if not self.request.user.is_staff:
+                raise PermissionDenied
+        
+        return super().dispatch(request, *args, **kwargs)
+
+class StaffListView(LoginRequiredMixin, ListView):
+    template_name = 'classes/staff_list.html'
+    model = Class
+    login_url = 'account_login'
+
+    def dispatch(self, request, *args, **kwargs):
+        
+        if self.request.user.is_authenticated:
+            if not self.request.user.is_staff:
+                raise PermissionDenied
+        
+        return super().dispatch(request, *args, **kwargs)
 
 class ClassRegistrationView(LoginRequiredMixin, DetailView, FormView):
     model = Class
@@ -110,6 +151,26 @@ class ClassUnregisterView(LoginRequiredMixin, DetailView, FormView):
             pass
         
         return super(ClassUnregisterView, self).form_valid(form)
+
+class ClearOldClassesView(LoginRequiredMixin, FormView):
+    form_class = ClearOldClassesForm
+    template_name = 'classes/clear_old_classes.html'
+    success_url = reverse_lazy('registered_classes')
+
+    login_url = 'account_login'
+
+       
+    def form_valid(self, form):
+
+        try:
+            payments = Payment.objects.filter(user=self.request.user, paid=False, theclass__past_payment_deadline=True)
+            for payment in payments:
+                payment.delete()
+        except:
+            pass
+
+        return super(ClearOldClassesView, self).form_valid(form)
+
 
 
 class ClassPaymentView(LoginRequiredMixin, ListView, FormView):
