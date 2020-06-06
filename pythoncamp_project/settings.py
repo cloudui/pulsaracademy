@@ -177,7 +177,8 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 
 ACCOUNT_FORMS = {
-    'signup': 'users.signupform.CustomSignupForm'
+    'signup': 'users.signupform.CustomSignupForm',
+    'login': 'users.signupform.CustomLoginForm',
 }
 
 # CRISPY

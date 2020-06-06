@@ -18,6 +18,12 @@ instr = (
     ('Maxwell Zhang', 'Maxwell Zhang')
 )
 
+code_languages = (
+    ('Django', 'Django'),
+    ('Python', 'Python'),
+    ('C++', 'C++'),
+    ('Java', 'Java'),
+)
 day_of_week = (
     ('Sunday', 'Sunday'),
     ('Monday', 'Monday'),
@@ -62,6 +68,17 @@ class Class(models.Model):
 
 
     third_day_optional = models.CharField(max_length=50, choices=day_of_week, null=True)
+
+    language = models.CharField(max_length=50, choices=code_languages, default='Python')
+
+    def get_icon_string(self):
+        if self.language == 'Django':
+            return 'django'
+        if self.language == 'Python':
+            return 'python'
+        if self.language == 'Java':
+            return 'java'
+        return 'cplusplus'
 
     def get_days_week(self):
         return [self.first_day, self.second_day]

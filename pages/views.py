@@ -19,9 +19,13 @@ class RegistrationDetails(TemplateView):
 class InstructorPageView(TemplateView):
     template_name = 'instructors.html'
 
+class TermsPageView(TemplateView):
+    template_name = 'terms_and_conditions.html'
+
 def error404_view(request, exception):
 
     return render(request, 'error404.html')
+    
 
 def error403_view(request, exception):
 

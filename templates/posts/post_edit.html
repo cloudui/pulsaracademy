@@ -12,10 +12,17 @@
     Edit "{{ object.title }}"
 </h1>
 
+<p><a class="text-muted" href="{% url 'forum_list' object.course.slug %}">{% icon 'arrow-left' height="18" width="18" %} {{ object.course.name }} forum</a></p>
+
+<!-- <br> -->
+
 <form action="" method="post">
     {% csrf_token %}
     {{ form|crispy }}
     <button class="btn btn-info" type="submit">Update</button>
 </form>
 
+<br>
+
 {% endblock content %}
+

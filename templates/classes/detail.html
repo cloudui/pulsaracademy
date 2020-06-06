@@ -8,7 +8,7 @@
 {% block content %}
 
 
-<h1><u>{{ object.name }} Overview</u></h1>
+<h1><u>{{ object.name }} Overview</u><span class="icon"> <i class="devicon-{{ object.get_icon_string }}-plain"></i></span></h1>
 <span style="float:right"><a href="{% url 'registration_info' %}">Status:</a>
        {% if class.confirmed %}
         {% icon 'check-circle' style="color:green" height="20" width="20" %}
@@ -84,6 +84,6 @@
  
 <br>
 {% if request.user.is_staff %}
-<a href="{% url 'class_update' object.slug %}" class='btn btn-primary'>Edit Info</a>
+<a href="{% url 'class_update' object.slug %}" class='btn btn-info'>Edit Info</a>
 {% endif %}
 {% endblock content %}

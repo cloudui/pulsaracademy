@@ -6,13 +6,13 @@
 
 {% block content %}
 
-<h1>{{ object.name }}</h1>
-{% if request.user.is_staff %}
-    <a style="float:right" href="{% url 'auto_populate' object.slug %}">Staff Only! Generate Lessons</a>    
+<h1>{{ object.name }} <span class="icon"> <i class="devicon-{{ object.get_icon_string }}-plain"></i></span></h1>
+{% if request.user.is_staff %}<br>
+    <a href="{% url 'auto_populate' object.slug %}">Generate Lessons +</a>    
     <br>
 {% endif %}
 <!-- <br> -->
-<a style="float:right" href="{% url 'forum_list' object.slug %}" class="btn btn-outline-secondary">Forum {% icon 'list' height="15" width="15" %}</a>
+<a style="float:right" href="{% url 'forum_list' object.slug %}" class="btn btn-outline-secondary">Forum {% icon 'list' height="18" width="18" %}</a>
 
 <br>
 <br>

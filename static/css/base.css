@@ -8,7 +8,9 @@
     height: 80vh;
 }
 
-
+.icon {
+    font-size: 35px;
+  }
 body {
     margin-bottom: 100px; 
 }

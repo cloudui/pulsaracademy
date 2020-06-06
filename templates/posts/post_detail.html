@@ -8,14 +8,21 @@
 
 <h1>{{ object.title }}</h1>
 
-<span class="text-muted">by {{ object.author.first_name }} {{ object.author.last_name }} |
-    {{ object.date }}</span>
+<span class="text-muted">by {{ object.author.first_name }} {{ object.author.last_name }}
+    
+
+</span><br>
+<span class="text-muted"><small>{{ object.x_ago }}
+
+    {% if object.edited %} 
+     (edited)
+    {% endif %}</small></span>
 
 {% if post.author == request.user %}
 <div style="float:right;">
     <a class= "btn btn-danger btn-sm" href="#">{% icon 'trash-2' height="18" width="16" %} Delete</a>
     <!-- <div class="divider"></div> -->
-    <a class="btn btn-outline-secondary btn-sm" href="#">{% icon 'edit' height="18" width="16" %} Edit</a>  
+    <a class="btn btn-outline-secondary btn-sm" href="{% url 'forum_edit' object.course.slug object.id %}">{% icon 'edit' height="18" width="16" %} Edit</a>  
 </div>
 
 {% endif %}
@@ -30,7 +37,26 @@
 
 <br><br>
 
-<p>Back to <a href="{% url 'forum_list' object.course.slug %}">Forum</a>.</p>
+<p><a class="text-muted" href="{% url 'forum_list' object.course.slug %}">{% icon 'arrow-left' height="18" width="18" %} {{ object.course.name }} forum</a></p>
+    <br>
+<h4>Comments ({{ object.comment_set.all.count }})</h4>
+<br>
+
+{% for comment in object.comment_set.all %}
+<div class="card">
+    <div class="card-body">
+
+    <p class="card-text">
+        
+        {{ comment.body }}
+    </p>
+    <p class="card-text text-muted">
+        <small>posted by {{ comment.user.first_name }} {{ comment.user.last_name }}</small>
+    </p>
     
+    </div>
+</div>
+{% endfor %}
+
 
 {% endblock content %}

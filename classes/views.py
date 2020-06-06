@@ -381,6 +381,9 @@ class ForumCreateView(LoginRequiredMixin, FormView):
     login_url = 'account_login'
 
     form_class = PostCreateForm
+
+    
+    
         
     def form_valid(self, form):
         # title = form.cleaned_data['title']
