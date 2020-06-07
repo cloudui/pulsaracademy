@@ -1,0 +1,31 @@
+
+{% load account %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+ 
+
+</head>
+<body>
+    
+	<div class="container">
+	<p>Hey {{ user_name }}!</p>
+    <p>Your payment has been receieved. You are now signed up for the following course(s):</p>
+    <ul>
+        {% for item in course_list %}
+        <li>item</li>
+    </ul>
+    
+    <p>Go to your <a href="https://pulsaracademy.com/courses/paid/">course list</a> for more information about your courses</p>. We will send you 
+    emails with additional information regarding each class. Stay tuned!
+    
+    <br>
+	
+	<p>- Pulsar Academy Team</p>
+	</div>
+	
+
+</body>
+</html>

@@ -6,9 +6,10 @@
 {% block content %}
 
 <h1>How to Register</h1>
+<hr style="background:black">
 
-<!-- <p>Get ready to learn!</p> -->
-<br>
+
+
 <p>
     Registration is active now! Go to the "courses" dropdown menu, where you will see a list of courses that we offer. To get more information, 
     you can click on the course name, where it will go in detail about the lesson structure, status, and more! </p>
@@ -19,33 +20,54 @@
 
     <p>
 
-    You will not be prompted to pay for the course until it is confirmed. The course will only be confirmed if the minimum number of students is 
+    The status represents whether the course has been confirmed. You will not be prompted to pay for the course until it is confirmed by us. 
+    The course will only be confirmed if the minimum number of students is 
     met. When the course is confirmed, we will send out an email to everyone detailing the status of the course, where you will be able to pay 
-    for the course in your "cart" on the upper right of your screen. 
+    for the course in your <a href="{% url 'summary' %}">cart</a> (or individually) on the upper right of your screen. 
 </p>
+<br>
+<h1>How to Pay</h1>
+<hr style="background:black">
 <p>
 
-    You can make sure your information is correct, where you can proceed to checkout. Payments will be made through PayPal &copy;, where you can either use 
-    your PayPal &copy; account or your debit and credit information. All transactions are made by PayPal and we will not receive any of your account information.
-    Furthermore, all traffic to our website is secured via SSL encryption, so you won't have to worry about security vulnerabilities. If you are still concerned, 
-    email us at contact@pulsaracademy.com and we can set up another form of payment. 
+    After you go to your cart, make sure the information is correct. where you can proceed to checkout. Payments will be made through 
+    <span class="text-info">PayPal</span>, where you can either use your <span class="text-info">PayPal</span> account or your debit and credit information. 
+    All transactions are made by PayPal and we will not receive any of your account information. Furthermore, all traffic to our website is secured via SSL encryption, so you won't have to worry about security vulnerabilities. If you are still concerned, 
+    email us at <span class="text-primary">contact@pulsaracademy.com</span>. and we can set up another form of payment. 
 
 </p>
 <p>
-    Paid Courses and Registered Courses will show up in the courses dropdown. You will be able to see the status of the course if you are registered. If you have paid,
+    After you have paid for a course or multiple courses, please check your email to see that we have processed your payment. If you do not see an email, please contact us.
+
+
+</p>
+<br>
+<h1>Anything Else?</h1>
+<hr style="background:black">
+<p>
+    <a href="{% url 'paid_classes' %}">Paid Courses</a> and <a href="{% url 'registered_classes' %}">Registered Courses</a> will show up in the courses dropdown. You will be able to see the status of the course if you are registered. If you have paid,
     you will be able to view the course lessons and access the course forum. We will post lesson summaries in the lesson overview, and we will answer
     any questions within the forum. Students are encouraged to answer other students' questions as well! Information about classes will be emailed before each lesson, along
     with any information required.
 </p>
 <p>
-    Registration Deadlines are always at 11:59 PM EST, two days before the start of the first class. Payment will be confirmed at least 4 days before the start 
-    of the class, and the deadline will be 11:59 PM EST the night before. Reminder emails will be sent in case you forget. However, if you do miss any of these deadlines, 
-    please contact us and we'll try to make arrangements if necessary. 
-
-    After you have paid for a course or multiple courses, please check your email to see that we have processed your payment. If you do not see an email, please contact us.
-
-
+    Registration Deadlines are always at <span class="text-info">11:59 PM EST</span>, two days before the start of the first class. The course will be confirmed at least four days before the start 
+    of the class. The registration deadline will be at <span class="text-info">11:59 PM EST</span> two days before the start of the class, and the payment deadline will be <span class="text-info">11:59 PM EST</span> the night before.
+     Reminder emails will be sent in case you forget. However, if you do miss any of these deadlines, 
+    please contact us and we will make arrangements if necessary. 
 </p>
+
+<br>
+<h1>Refund Policy</h1>
+<hr style="background:black">
+
+<p>
+    You may request a refund by emailing us at <span class="text-primary">contact@pulsaracademy.com</span>. All refunds must be requested at least
+    a day prior to the first class. We can cater to individual scenarios if you email us detailing the reasoning behind your refund request. If you are
+    not satisfied with the quality of our services, we can negotiate with you on a person-to-person basis.
+</p>
+
+<div class="text-center"><a class="btn btn-info" href="{% url 'class_list' %}">Go to course list!</a></div>
     
 
   

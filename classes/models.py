@@ -97,7 +97,11 @@ class Class(models.Model):
         if timezone.now() < self.date:
             return True
         return False
-    
+    def payment_deadline_date(self):
+        delta = timezone.timedelta(seconds=1)
+        diff = self.date - delta
+
+        return diff
     
     def start_date_format(self):
         the_date = self.date - timezone.timedelta(seconds=1)

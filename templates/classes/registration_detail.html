@@ -1,10 +1,10 @@
 {% extends '_base.html' %}
 
-{% block title%}Course Registration{% endblock title %}
+{% block title%}Register for {{ object.name }}{% endblock title %}
 
 
 {% block content %}
-<h1>Register for {{ object.name }}</h1>
+<h1>Register for <a href="{% url 'class_detail' object.slug %}">{{ object.name }}</a></h1>
 
 
 <p class="lead">You are registering for {{ object.name }}.</p>

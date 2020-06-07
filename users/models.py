@@ -49,6 +49,9 @@ class CustomUser(AbstractUser):
         
     def payments_not_paid_list(self):
         return self.payment_set.all().filter(paid=False)
+    
+    def payments_pay_now(self):
+        return self.payment_set.all().filter(paid=False, theclass__past_payment_deadline=False, theclass__confirmed=True)
 
     def num_payments_not_paid(self):
         num = len(self.classes_not_expired_registered_list())

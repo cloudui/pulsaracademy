@@ -14,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy, reverse
 
-from .forms import ClassRegistrationForm, ClassUnregisterForm, ClassPaymentForm, AutoPopulateLessonsForm, ExtPayPalPaymentsForm, PostCreateForm, ClearOldClassesForm
+from .forms import ClassRegistrationForm, ClassUnregisterForm, AutoPopulateLessonsForm, ExtPayPalPaymentsForm, PostCreateForm, ClearOldClassesForm
 
 from random import randrange
 
@@ -152,6 +152,48 @@ class ClassUnregisterView(LoginRequiredMixin, DetailView, FormView):
         
         return super(ClassUnregisterView, self).form_valid(form)
 
+class ClassUnregisterCartView(LoginRequiredMixin, DetailView, FormView):
+    model = Class
+    form_class = ClassUnregisterForm
+    template_name = 'classes/unregister_cart_detail.html'
+    # success_url = reverse_lazy('class_list')
+    login_url = 'account_login'
+
+    def get_success_url(self):
+        return reverse_lazy('summary')
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        
+        if obj.past_registration_deadline():
+            raise PermissionDenied
+        
+        if self.request.user.is_authenticated:
+            user_list = self.request.user.classes_paid_list()
+            if obj in user_list:
+                raise PermissionDenied
+        
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        class_slug = self.kwargs['slug']
+        class_ = Class.objects.get(slug=class_slug)
+        
+        # delete the relationship
+        try:
+            m2 = Payment.objects.get(user=self.request.user, theclass=class_)
+            # print("BEEGLEBEEGLE")
+            # print(m2.id)
+            # print(type(m2.id))
+            # for payment in self.request.user.payment_set.all():
+            #     print(payment.id) 
+            m2.delete()
+        except:
+            pass
+        
+        return super(ClassUnregisterCartView, self).form_valid(form)
+
 class ClearOldClassesView(LoginRequiredMixin, FormView):
     form_class = ClearOldClassesForm
     template_name = 'classes/clear_old_classes.html'
@@ -173,13 +215,6 @@ class ClearOldClassesView(LoginRequiredMixin, FormView):
 
 
 
-class ClassPaymentView(LoginRequiredMixin, ListView, FormView):
-    model = Class
-    form_class = ClassPaymentForm
-    template_name = 'classes/payment.html'
-    success_url = reverse_lazy('profile')
-    login_url = 'account_login'
-
 @login_required
 def class_checkout_view(request):
 
@@ -188,8 +223,11 @@ def class_checkout_view(request):
     invoice_id = ""
     separator = '|'
 
-    payments = request.user.payments_not_paid_list()
+    payments = request.user.payments_pay_now()
     payment_ids = [str(payment.id) for payment in payments]
+
+    for payment in payments:
+        print(payment.theclass)
 
     invoice_id = separator.join(payment_ids)
 
@@ -199,10 +237,10 @@ def class_checkout_view(request):
     paypal_dict = {
         "business": pythoncamp_project.settings.PAYPAL_EMAIL,
         "amount": amount,
-        "item_name": "name of the item",
+        "item_name": "PA Courses",
         "invoice": invoice_id,
         "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
-        "return": request.build_absolute_uri(reverse('checkout')),
+        "return": request.build_absolute_uri(reverse('payment_success')),
         "cancel_return": request.build_absolute_uri(reverse('checkout')),
    
     }
@@ -210,9 +248,47 @@ def class_checkout_view(request):
     
     form = ExtPayPalPaymentsForm(initial=paypal_dict)
     context = {"form": form}
+    print(invoice_id, amount )
+    print("BEEGLEBEEGLEBEEGLE")
     return render(request, "classes/payment.html", context)
 
     
+
+def class_specific_checkout_view(request, slug):
+
+    class_ = Class.objects.get(slug=slug)
+    
+    payment = get_object_or_404(Payment, theclass__slug=slug, theclass__confirmed=True, theclass__past_payment_deadline=False, paid=False, user=request.user)
+
+    invoice_id = ""
+    # separator = '|'
+
+    
+
+    invoice_id = payment.id
+
+    amount = str(class_.cost)
+
+    # this is the payment information that paypal will use for redirect
+    paypal_dict = {
+        "business": pythoncamp_project.settings.PAYPAL_EMAIL,
+        "amount": amount,
+        "item_name": "PA Courses",
+        "invoice": invoice_id,
+        "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
+        "return": request.build_absolute_uri(reverse('payment_success')),
+        "cancel_return": request.build_absolute_uri(reverse('checkout')),
+   
+    }
+
+    
+    form = ExtPayPalPaymentsForm(initial=paypal_dict)
+    context = {"form": form, 'object': class_
+    
+    }
+    print(invoice_id, amount, )
+    return render(request, "classes/individual_checkout.html", context)
+
 
 class CheckoutSummaryView(LoginRequiredMixin, ListView):
     model = Class
@@ -300,7 +376,7 @@ class LessonUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'lessons/lesson_edit.html'
     def get_success_url(self):
         return reverse_lazy('lesson_detail', kwargs={'slug':self.kwargs['slug'], 'pk':self.kwargs['pk']})
-    fields = ('name', 'number', 'active', 'summary',)
+    fields = ('name', 'number', 'active', 'summary', 'homework',)
     login_url = 'account_login'
 
     def dispatch(self, request, *args, **kwargs):
@@ -415,3 +491,9 @@ class ForumCreateView(LoginRequiredMixin, FormView):
                 raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
+class ForumDeleteView(LoginRequiredMixin):
+    pass
+
+
+class PaymentSuccessView(TemplateView):
+    template_name = 'classes/payment_successful.html'

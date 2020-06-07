@@ -24,7 +24,7 @@
             <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
             <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.first_day }}, {{ class.second_day }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
             <span style="float: right;">
-                ${{ class.cost_decimal }}
+                ${{ class.cost_decimal }} <a href="{% url 'cart_unregister' class.slug %}">{% icon 'x' height="20" width="20" style="color:grey" %}</a>
             </span>
     
         </div>
@@ -36,13 +36,15 @@
         
         <div class="card-footer">
             <span class="text-muted">Instructor: {{ class.instructor }}</span>
+            <span style="float:right;"><a href="{% url 'class_pay' class.slug %}">{% icon 'credit-card' height="18" width="18" %} Pay individually</a></span>
       
           </div>
     </div>
     <br>
-    <h2>Total: ${{ request.user.payment_owed }}</h1>
-    <br>
     {% endfor %}
+    <h2>Total: ${{ request.user.payment_owed }}</h1>
+    
+    
     <br>
     {% if request.user.classes_expired_registered_list %}
     <p class="text-danger">You registered for the following courses but the deadline for payment have passed. If you have any concerns, please 

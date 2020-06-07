@@ -7,13 +7,16 @@
 {% block content %}
 
 <h1>{{ object.name }} Forum <span class="icon"> <i class="devicon-{{ object.get_icon_string }}-plain"></i></span></h1>
+
+<p><a class="text-muted" href="{% url 'lesson_list' object.slug %}">{% icon 'arrow-left' height="18" width="18" %} {{ object.name }}</a></p>
 <a class="btn btn-outline-secondary" href="{% url 'forum_new' object.slug %}" style="float: right;">+ Post</a>
 <br>
-<p class="lead">Go to <a href="{% url 'lesson_list' object.slug %}">course</a>.</p>
+<!-- <p class="lead">Go to <a href="{% url 'lesson_list' object.slug %}">course</a>.</p> -->
 
 
 
-<br>
+<!-- <br> -->
+<p>Posts ({{ object.post_set.all.count }})</p>
 {% if object.post_set.all %}
 {% for post in object.post_set.all %}
 <div class="card">

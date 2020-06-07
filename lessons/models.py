@@ -16,6 +16,7 @@ class Lesson(models.Model):
 
     course = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)
     
+    homework = models.TextField(blank=True)
     
     def __str__(self):
         if self.name:

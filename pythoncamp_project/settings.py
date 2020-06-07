@@ -155,7 +155,8 @@ AUTHENTICATION_BACKENDS = (
 # EMAIL STUFF
 DEFAULT_FROM_EMAIL = 'contact@pulsaracademy.com'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
@@ -198,7 +199,7 @@ else:
 
 # django_crontab
 CRONJOBS = [
-    ('0 0 * * *', 'classes.cron.update_day_status'),
+    ('0 1 * * *', 'classes.cron.update_day_status'),
 ]
 
 # ACCOUNT_USER_DISPLAY = 'email'

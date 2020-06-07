@@ -5,11 +5,15 @@
 {% block content %}
 
 <h2><u>Paid Courses</u></h2>
-<br>
+<!-- <br> -->
 {% if request.user.classes_paid_list %}
 
-{% for class in request.user.classes_paid_list reversed %}
 
+<p class="lead">Welcome to your courses! If you click on the class name below, you can access the lesson list for each course. From there,
+    you can review previous lessons or go to the forum where you can interact with other students. Enjoy!
+</p>
+<br>
+{% for class in request.user.classes_paid_list reversed %}
 <div class="card">
     <div class="card-header">
         <span class="font-weight-bold"><a class="text-dark" href="{% url 'lesson_list' class.slug %}">{{ class.name }}</a></span> &middot;

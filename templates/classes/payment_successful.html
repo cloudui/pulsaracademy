@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+
+{% block title %}Payment Success{% endblock title %}
+
+
+{% block content %}
+<h1>Your payment has been received. You should now have class access to:</h1>
+<br>
+<ul>
+{% for class in request.user.classes_paid_list %}
+<li class="h3"><a href="{% url 'lesson_list' class.slug %}">{{ class.name }}</a></li>
+{% endfor %}
+</ul>
+
+<br>
+<p class="h4">Go to your <a href="{% url 'paid_classes' %}">course list</a> to access your classes.</p>
+{% endblock content %}

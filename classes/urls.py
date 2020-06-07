@@ -6,7 +6,6 @@ from .views import (
     ClassDetailView, 
     ClassRegistrationView, 
     ClassUnregisterView, 
-    ClassPaymentView, 
     CheckoutSummaryView, 
     RegisteredClassesView, 
     PaidClassesView,
@@ -22,9 +21,12 @@ from .views import (
     ClassStaffUsersDetailView,
     ClearOldClassesView,
     ClassUpdateView,
+    PaymentSuccessView,
+    ClassUnregisterCartView,
 )
 
-from .views import class_checkout_view
+
+from .views import class_checkout_view, class_specific_checkout_view
 
 urlpatterns = [
     path('', ClassListView.as_view(), name='class_list'),
@@ -34,13 +36,16 @@ urlpatterns = [
     path('paid/', PaidClassesView.as_view(), name='paid_classes'),
     path('checkout/', class_checkout_view, name='checkout'),
     path('clear/old-classes/', ClearOldClassesView.as_view(), name='clear'),
+    path('payment-success/', PaymentSuccessView.as_view(), name='payment_success'),
 
 
     path('<slug:slug>/', ClassDetailView.as_view(), name='class_detail'),
     path('<slug:slug>/staff/', ClassStaffUsersDetailView.as_view(), name='staff_class_user_detail'),
     path('<slug:slug>/register/', ClassRegistrationView.as_view(), name='register'),
     path('<slug:slug>/unregister/', ClassUnregisterView.as_view(), name='unregister'),
+    path('<slug:slug>/remove-from-cart', ClassUnregisterCartView.as_view(), name='cart_unregister'), 
     path('<slug:slug>/update/', ClassUpdateView.as_view(), name='class_update'),
+    path('<slug:slug>/pay-now/', class_specific_checkout_view, name='class_pay'),
 
     path('<slug:slug>/forum/', ForumListView.as_view(), name='forum_list'),
     path('<slug:slug>/forum/posts/<int:pk>/', ForumDetailView.as_view(), name='forum_detail'), 

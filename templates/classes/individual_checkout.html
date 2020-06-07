@@ -4,35 +4,38 @@
 {% extends '_base.html' %}
 
 {% load static %}
-{% block title %}Checkout{% endblock title %}
+{% block title %}{{ object.name }} Checkout{% endblock title %}
 
 {% block content %}
-<h1>Checkout</h1>
 
-
-{% if request.user.payment_owed == 0 %}
-    <p class="lead">There are no courses in your cart or your courses are not confirmed.</p>
+    <h1>Pay for "{{ object.name }}"</h1>
+    <p class="lead">You opted to pay for this class individually. If you are trying to pay for more than one class simultaneously, please go to your 
+        <a href="{% url 'summary' %}">cart</a>.
+    </p>
     <br>
-    <p>See your paid courses <a href="{% url 'paid_classes' %}">here</a> or register for courses <a href="{% url 'class_list' %}">here</a>.</p>
-    <p>Learn about registration <a href="{% url 'registration_info' %}">here</a>.</p>
-{% else %}
-    <br>
-    {% for class in request.user.classes_not_expired_registered_list %}
+   
     <div class="card">
         <div class="card-header">
-            <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
-            <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.first_day }}, {{ class.second_day }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
+            <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' object.slug %}">{{ object.name }}</a></span> &middot;
+            <span class="text-muted">{{ object.start_date_string }} - {{ object.end_date_string }} &middot; {{ object.first_day }}, {{ object.second_day }} &middot; {{ object.start_time_convert }} - {{ object.end_time_convert }}</span>
             <span style="float: right;">
-                ${{ class.cost_decimal }}
+                ${{ object.cost_decimal }}
             </span>
         </div>
     
+        <div class="card-body">
+            {{ object.description }}      
+                 
         </div>
+        <div class="card-footer">
+            <span class="text-muted">Instructor: {{ object.instructor }}</span>
+      
+          </div>
+    </div>
     <br>
-    {% endfor %}
-
-    <span style="float:right">Items: {{ request.user.classes_not_expired_registered_list.count }}</span><br>
-    <h2>Total: ${{ request.user.payment_owed }}</h2>
+   
+    
+    <h2>Total: ${{ object.cost_decimal }}</h2>
     <small>By confirming the payment, you agree to Pulsar Academy's <a href="{% url 'terms' %}" target="_blank">Terms and Conditions</a>.</small>
     
     {{ form.render }}
@@ -56,6 +59,6 @@
         a day prior to the first class. We can cater to individual scenarios if you email us detailing the reasoning behind your refund request. If you are not 
         satisfied with the class, we can negotiate on a person-to-person basis. 
     </p>
+
     
- {% endif %}
 {% endblock content %}

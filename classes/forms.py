@@ -12,10 +12,6 @@ class ClassUnregisterForm(forms.Form):
     pass
 
 
-class ClassPaymentForm(forms.Form):
-    pass
-
-
 class AutoPopulateLessonsForm(forms.Form):
     num = forms.IntegerField(max_value=50, min_value=1)
 

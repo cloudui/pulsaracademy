@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+
+{% block title%}Remove {{ object.name }} from Cart{% endblock title %}
+
+{% block content %}
+
+<h1>Remove <a href="{% url 'class_detail' object.slug %}">{{ object.name }}</a> from Cart</h1>
+<!-- <br/> -->
+<p class="lead">This is the equivalent of unregistering for a course. Are you sure you want to remove from cart?</p>
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Remove</button>
+</form>
+     
+
+{% endblock content %}
