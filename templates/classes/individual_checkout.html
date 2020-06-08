@@ -8,7 +8,7 @@
 
 {% block content %}
 
-    <h1>Pay for "{{ object.name }}"</h1>
+    <h1>Pay for <a href="{% url 'class_detail' object.slug %}">{{ object.name }}</a></h1>
     <p class="lead">You opted to pay for this class individually. If you are trying to pay for more than one class simultaneously, please go to your 
         <a href="{% url 'summary' %}">cart</a>.
     </p>

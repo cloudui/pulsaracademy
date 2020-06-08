@@ -1,6 +1,7 @@
 from django.db import models
 
 from users.models import CustomUser
+
 from datetime import datetime
 from datetime import time
 import lessons
@@ -142,7 +143,9 @@ class Class(models.Model):
 
     
     def paid_users_list(self):
-        
+        """ 
+        Returns the users who have paid.
+        """
         students = self.users.filter(payment__paid=True)
         return students
     
@@ -152,6 +155,7 @@ class Class(models.Model):
 
         return students
 
+    
     
     @classmethod
     def auto_populate_courses(cls, class_, num):
@@ -170,6 +174,14 @@ class Class(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('class_detail', kwargs={'slug': self.slug})
 
+    def save(self, **kwargs):
+        
+        welcome = f'Welcome to {self.name}!'
+        intro = Introduction(title=welcome, course=self)
+        intro.save()
+
+        super(Class, self).save()    
+
 
 class Payment(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -184,3 +196,16 @@ class Payment(models.Model):
 
     # apply_late_fee = models.BooleanField(default=False)
 
+
+class Introduction(models.Model):
+    title = models.CharField(max_length=500, blank=True)
+
+    body = models.TextField(blank=True)
+
+    course = models.OneToOneField(
+        Class, 
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.title

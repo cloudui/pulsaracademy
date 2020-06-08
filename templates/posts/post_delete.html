@@ -1,0 +1,17 @@
+<!-- templates/post_delete.html -->
+
+
+{% extends '_base.html' %}
+{% load icon %}
+
+{% block title %}Delete Post{% endblock title %}
+
+{% block content %}
+    <h1>Delete '{{ object.title }}'</h1>
+    <p><a class="text-muted" href="{% url 'forum_list' object.course.slug %}">{% icon 'arrow-left' height="18" width="18" %} {{ object.course.name }} forum</a></p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{ object.title }}"?</p>
+        <button class="btn btn-danger" type="submit">Confirm</button>
+    </form>
+{% endblock content %}

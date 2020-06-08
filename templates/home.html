@@ -4,31 +4,68 @@
 {% block title %}Home{% endblock title %}
 
 {% block home %}
-<div class="jumbotron jumbotron-fluid text-white" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url('{% static 'images/pulsarbackground.jpg' %}')">
+<div class="jumbotron jumbotron-fluid text-white text-center mb-0" id="jumbotron-home" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url('{% static 'images/pulsarbackground.jpg' %}')">
     <div class="container">
-        <h1 class="display-1">Welcome to Pulsar Academy</h1>
-        
-        <!-- <p class="lead">All your information is here!</p> -->
-        <!-- <hr class="my-4"> -->
-        <!-- {% if user.is_authenticated %} -->
-            <p class="lead">Hi {{ user.email }}!</p>
-            <a class="btn btn-primary" href="{% url 'account_logout' %}">Log Out</a>
-        <!-- {% else %} -->
-            <p class="lead">You are not logged in</p>
-            <p class="lead">
-                <a href="{% url 'account_login' %}">Log In</a>
-                or sign up <a href="{% url 'account_signup' %}">here</a>
-            </p>
+        <h1 class="display-1 text-info">Pulsar Academy</h1>
+        <h3 >Coding Made Simple</h3>
+        <img src="{% static '/images/favicon.png' %}" style="height: 80px;"/>
+        {% if user.is_authenticated %}
+            
+            <p class="lead"><a class="btn btn-outline-info btn-lg" href="{% url 'profile' %}">My Account</a></p>
+        {% else %}
+            <p class="lead"><a href="{% url 'about' %}" class="btn btn-outline-info btn-lg">Get started!</a></p>
+            
 
         {% endif %}
         <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
     </div>
 
 </div>
+
+
+
+
+
+<div class="jumbotron jumbotron-fluid text-light" id="jumbotron-second" style="background-image: url('{% static 'images/lighthouse.jpg' %}')">
+<div class="container">
+
+    <h1 class="display-1 text-center">A sea of choices</h1><br><br>
+  <div class="row">
+    <div class="col-md-4">
+       <h4 class="text-center">Web Design</h4>
+       <hr class="my-3" style="height:2px;border:none;color:#333;background-color:#fff;">
+
+       <p><span class="box3">&bull; HTML/CSS</span> &nbsp; <span class="box4">&bull; Django</span>
+       </p>
+       <p>Learn how to create websites on a whim. With a good web development toolset, you can create anything you want. This website
+            was made using Django, HTML/CSS, Javascript, and Docker!
+       </p>
+    </div>
+    <div class="col-md-4">
+        <h4 class="text-center">Language Fundamentals</h4>
+        <hr class="my-3" style="height:2px;border:none;color:#333;background-color:#fff;">
+
+        <p><span class="box">&bull; Python</span> &nbsp; <span class="box1">&bull; Java</span> &nbsp; <span class="box2">&bull; C++</span>
+       </p>
+       <p>Coding is one very handy tool to have. Learn how to code in industry-leading languages, which can prepare you
+       for challenging frameworks and introduce you to new concepts.
+       </p>
+    </div>
+    
+    <div class="col-md-4">
+        <h4 class="text-center">Competitive Programming</h4>
+        <hr class="my-3" style="height:2px;border:none;color:#333;background-color:#fff;">
+
+        <p><span class="box2">&bull; C++</span>
+       </p>
+       <p>Learn the techniques and algorithms to prepare for challenging competitions such as the U.S.A Computing Olympiad. The tools 
+       used here can help you solve difficult problems.
+       </p>
+  </div>
+</div>
+</div>
+
+
+
+
 {% endblock home %}
-
-{% block content %}
-
-<!-- <h1>Hello</h1> -->
-
-{% endblock content %}

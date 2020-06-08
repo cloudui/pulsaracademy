@@ -18,7 +18,10 @@
 
 <br>
 <br>
-<p class="lead">All the lessons we do will show up here! The lessons will be updated after we complete each one. Feel free to ask me any questions!</p>
+<p class="lead">All the lessons we do will show up here! Click on the welcome link to get started. The lessons will be updated after we complete each one. 
+    Feel free to ask any questions in the forum!</p>
+
+<p class="lead"><a href="{% url 'lesson_intro' object.slug %}">{{ object.introduction }}</a></p>
 
 {% if object.lesson_set.all %}
 

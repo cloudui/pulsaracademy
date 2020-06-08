@@ -31,7 +31,8 @@ class CustomSignupForm(SignupForm):
 
     school = forms.CharField(max_length=200, required=False, widget=forms.TextInput(attrs={'placeholder': 'School'}))
 
-    grade = forms.IntegerField(max_value=12, min_value=1)
+    grade = forms.IntegerField(max_value=12, min_value=1, widget=forms.NumberInput(attrs={'placeholder': 'Grade'}))
+
     def __init__(self, *args, **kwargs):
         super(CustomSignupForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()

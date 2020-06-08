@@ -18,9 +18,9 @@
      (edited)
     {% endif %}</small></span>
 
-{% if post.author == request.user %}
+{% if post.author == request.user or request.user.is_staff %}
 <div style="float:right;">
-    <a class= "btn btn-danger btn-sm" href="#">{% icon 'trash-2' height="18" width="16" %} Delete</a>
+    <a class= "btn btn-danger btn-sm" href="{% url 'forum_delete' object.course.slug object.id %}">{% icon 'trash-2' height="18" width="16" %} Delete</a>
     <!-- <div class="divider"></div> -->
     <a class="btn btn-outline-secondary btn-sm" href="{% url 'forum_edit' object.course.slug object.id %}">{% icon 'edit' height="18" width="16" %} Edit</a>  
 </div>
@@ -41,22 +41,72 @@
     <br>
 <h4>Comments ({{ object.comment_set.all.count }})</h4>
 <br>
-
+<hr class="my-0">
 {% for comment in object.comment_set.all %}
-<div class="card">
+<div class="card rounded-1 border-0">
     <div class="card-body">
 
     <p class="card-text">
-        
-        {{ comment.body }}
+      <span class="comment">{{ comment.body|safe }}</span>
+    
     </p>
     <p class="card-text text-muted">
-        <small>posted by {{ comment.user.first_name }} {{ comment.user.last_name }}</small>
+        <small>comment by {{ comment.user.first_name }} {{ comment.user.last_name }} &middot; {{ comment.x_ago }} 
+            {% if comment.edited %} (edited) {% endif %}</small>
     </p>
-    
+    <hr class="my-0">
     </div>
 </div>
 {% endfor %}
+{% comment %} <form method="POST" id="post-form">
+    {% csrf_token %}
+    
+     <div class="form-group">
+       <textarea class="form-control rounded-1" style="padding: 20px;" autocomplete="off" rows="3" id="body" placeholder="Enter Comment Here."></textarea>
+     </div>
+     <button type="submit" class="btn btn-primary" id="submit-form">Submit</button>
+  </form> {% endcomment %}
+  
+  {% endblock content %}
 
+   {% block javascript %}
+   {% comment %}
+<script>
+    console.log('hello')
+    alert('fuck you')
+    $('#submit-form').on('submit', function(e){
+        e.preventDefault();
+        
+        console.log('hello')
+        $.ajax({
+            
+            type:'POST',
+            url:'{% url "comment_new" object.course.slug object.id %}',
+            data:{
+                body:$('#body').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                action: 'post'
+            },
+            success:function(json){
+                document.getElementById("post-form").reset();
+                alert('hello')
+                console.log('Beegle beegle bee')
+                // $(".posts").prepend('<div class="col-md-6">'+
+                //     '<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">' +
+                //         '<div class="col p-4 d-flex flex-column position-static">' +
+                //             '<h3 class="mb-0">' + json.title + '</h3>' +
+                //             '<p class="mb-auto">' + json.description + '</p>' +
+                //         '</div>' +
+                //     '</div>' +
+                // '</div>' 
+                // )
+            },
+            error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+        });
+});
 
-{% endblock content %}
+</script> {% endcomment %}
+
+{% endblock javascript %}

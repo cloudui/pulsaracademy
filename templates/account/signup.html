@@ -8,7 +8,9 @@
 <h2>Sign Up</h2>
 <p style="font-size: 12px;">Already have an account?  <b><a href="{% url 'account_login' %}">Sign In</a></b></p>
 <br>
-<form method="post">
+<div class="row">
+  <div class="col-md-6">
+    <form method="post">
     {% csrf_token %}
     
         <div class="form-row">
@@ -22,10 +24,10 @@
     
         {{ form.email|as_crispy_field }}   
         <div class="form-row">
-            <div class="form-group col-md-11 mb-0">
+            <div class="form-group col-md-9 mb-0">
                 {{ form.school|as_crispy_field }}
            </div>
-            <div class="form-group col-md-1 mb-0">
+            <div class="form-group col-md-3 mb-0">
                  {{ form.grade|as_crispy_field }}
             </div>
         </div>
@@ -34,11 +36,26 @@
         {{ form.parent_email|as_crispy_field }} 
         {{ form.password1|as_crispy_field }}
      
-    
-        <br>
+        <p><small>By signing up to Pulsar Academy, you agree to our <b><a href="{% url 'terms' %}">Terms of Service</a></b>.</small></p>
+        
 
-    <button class="btn btn-primary" type="submit">Sign Up</button>
+    <button class="btn btn-primary btn" type="submit">Sign Up</button>
 </form>
+  </div>
+  <div class="col-md-6">
+    <div class="jumbotron" style="padding:32px">
+        <h1>Get ready to learn.</h1>
+        <p class="lead">Your school and parent email info are optional, but they would be preferred! After you 
+        sign up, make sure you receive a confirmation email from <span class="text-info">contact@pulsaracademy.com</span>.
+        </p>
+        
+        
+        
+    </div>
+
+  </div>
+</div>
+
 <br>
 
 

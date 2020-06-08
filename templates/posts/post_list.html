@@ -28,7 +28,10 @@
     </p>
     <p class="card-text text-muted">
         <small>posted by {{ post.author.first_name }} {{ post.author.last_name }} &middot; {{ post.x_ago }} 
-        {% if post.edited %} (edited) {% endif %}   
+        {% if post.edited %} (edited) {% endif %}
+        {% if post.author == request.user or request.user.is_staff %}
+        <span style="float:right;"><a href="{% url 'forum_edit' object.slug post.id %}">Edit</a> | <a href="{% url 'forum_delete' object.slug post.id %}">Delete</a></span>   
+        {% endif %}
         </small>
     </p>
     

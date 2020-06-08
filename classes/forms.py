@@ -2,6 +2,7 @@ from django import forms
 from paypal.standard.forms import PayPalPaymentsForm
 from django.utils.html import format_html
 from posts.models import Post
+from .models import Introduction
 
 from django.forms import ModelForm
 
@@ -30,3 +31,11 @@ class PostCreateForm(ModelForm):
 
 class ClearOldClassesForm(forms.Form):
     pass
+
+class PostDeleteForm(forms.Form):
+    pass
+
+class IntroFormView(ModelForm):
+    class Meta:
+        model = Introduction
+        fields = ('title', 'body', )

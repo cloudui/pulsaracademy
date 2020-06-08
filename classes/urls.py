@@ -23,10 +23,14 @@ from .views import (
     ClassUpdateView,
     PaymentSuccessView,
     ClassUnregisterCartView,
+    ForumDeleteView,
+    ClassIntroView,
+    ClassIntroUpdateView,
+    CommentCreateView,
 )
 
 
-from .views import class_checkout_view, class_specific_checkout_view
+from .views import class_checkout_view, class_specific_checkout_view, create_comment
 
 urlpatterns = [
     path('', ClassListView.as_view(), name='class_list'),
@@ -48,14 +52,19 @@ urlpatterns = [
     path('<slug:slug>/pay-now/', class_specific_checkout_view, name='class_pay'),
 
     path('<slug:slug>/forum/', ForumListView.as_view(), name='forum_list'),
-    path('<slug:slug>/forum/posts/<int:pk>/', ForumDetailView.as_view(), name='forum_detail'), 
-    path('<slug:slug>/forum/posts/<int:pk>/edit/', ForumUpdateView.as_view(), name='forum_edit'), 
     path('<slug:slug>/forum/posts/new/', ForumCreateView.as_view(), name='forum_new'),
+    path('<slug:slug>/forum/posts/<int:pk>/', ForumDetailView.as_view(), name='forum_detail'), 
+    path('<slug:slug>/forum/posts/<int:pk>/edit/', ForumUpdateView.as_view(), name='forum_edit'),
+    path('<slug:slug>/forum/posts/<int:pk>/delete/', ForumDeleteView.as_view(), name='forum_delete'),
+    path('<slug:slug>/forum/posts/<int:pk>/comment/', create_comment, name='comment_new'),
 
     path('<slug:slug>/lessons/overview/', LessonListView.as_view(), name='lesson_list'),
     path('<slug:slug>/lessons/autopopulateform/', StaffAutoPopulateField.as_view(), name='auto_populate'),
+    path('<slug:slug>/lessons/welcome/', ClassIntroView.as_view(), name='lesson_intro'),
+    path('<slug:slug>/lessons/welcome/edit/', ClassIntroUpdateView.as_view(), name = 'intro_edit'),
     path('<slug:slug>/lessons/<int:pk>/', LessonDetailView.as_view(), name='lesson_detail'),
     path('<slug:slug>/lessons/<int:pk>/edit/', LessonUpdateView.as_view(), name='lesson_edit'),
+    
     
     
     

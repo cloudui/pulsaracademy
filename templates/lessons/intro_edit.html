@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+
+{% load crispy_forms_tags %}
+{% load icon %}
+
+{% block title%}Edit Welcome Message{% endblock title %}
+
+{% block content %}
+
+<h1>
+    Edit '{{ object.course.name }}' Welcome Message
+</h1>
+<p><a class="text-muted" href="{% url 'lesson_list' object.course.slug %}">{% icon 'arrow-left' height="18" width="18" %} {{ object.course.name }} Forum</a></p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-info" type="submit">Update</button>
+</form>
+
+{% endblock content %}
