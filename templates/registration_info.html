@@ -23,22 +23,22 @@
     The status represents whether the course has been confirmed. You will not be prompted to pay for the course until it is confirmed by us. 
     The course will only be confirmed if the minimum number of students is 
     met. When the course is confirmed, we will send out an email to everyone detailing the status of the course, where you will be able to pay 
-    for the course in your <a href="{% url 'summary' %}">cart</a> (or individually) on the upper right of your screen. 
+    for the course in your <a href="{% url 'summary' %}">cart</a> (or individually) on the upper right of your screen. If the course quota is not met,
+    the class will either be delayed or terminated.
 </p>
 <br>
 <h1>How to Pay</h1>
 <hr style="background:black">
 <p>
 
-    After you go to your cart, make sure the information is correct. where you can proceed to checkout. Payments will be made through 
+    After you go to your cart, make sure the information is correct. You can then proceed to checkout. Payments will be made through 
     <span class="text-info">PayPal</span>, where you can either use your <span class="text-info">PayPal</span> account or your debit and credit information. 
-    All transactions are made by PayPal and we will not receive any of your account information. Furthermore, all traffic to our website is secured via SSL encryption, so you won't have to worry about security vulnerabilities. If you are still concerned, 
-    email us at <span class="text-primary">contact@pulsaracademy.com</span>. and we can set up another form of payment. 
+    All transactions are made by PayPal; we will not receive any of your account information. Furthermore, all traffic to our website is secured via SSL encryption, so you won't have to worry about security vulnerabilities. If you are still concerned, 
+    email us at <span class="text-primary">contact@pulsaracademy.com</span>, and we can set up another form of payment. 
 
 </p>
 <p>
-    After you have paid for a course or multiple courses, please check your email to see that we have processed your payment. If you do not see an email, please contact us.
-
+    After you have paid for a course or multiple courses, please check your email to see that we have processed your payment. If you do not see an email, please contact us directly.
 
 </p>
 <br>
@@ -46,8 +46,8 @@
 <hr style="background:black">
 <p>
     <a href="{% url 'paid_classes' %}">Paid Courses</a> and <a href="{% url 'registered_classes' %}">Registered Courses</a> will show up in the courses dropdown. You will be able to see the status of the course if you are registered. If you have paid,
-    you will be able to view the course lessons and access the course forum. We will post lesson summaries in the lesson overview, and we will answer
-    any questions within the forum. Students are encouraged to answer other students' questions as well! Information about classes will be emailed before each lesson, along
+    you will be able to view the course lessons and access the course forum from your <a href="{% paid_classes %}">paid list</a>. We will post lesson summaries in the lesson overview for paid students, and we will answer
+    any questions within the dedicated forum. Students are encouraged to answer other students' questions! Information about classes will be emailed before each lesson, along
     with any information required.
 </p>
 <p>

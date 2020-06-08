@@ -2,24 +2,60 @@ version: '3.7'
 
 services:
     web:
-        build: .
+        build: 
+            context: .
+            dockerfile: Dockerfile.prod
         command: python /code/manage.py runserver 0.0.0.0:8000
         environment:
-            - ENVIRONMENT=development
+            - ENVIRONMENT=production
             - SECRET_KEY=@^la7#2kl%8$$o9rl)8$$aqvrwq5_x1=r!xc-1p#+(!m4r2vue*&
             - DEBUG=1
+            - EMAIL_HOST_USER=apikey
+            - EMAIL_HOST_PASSWORD=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
         volumes:
             - .:/code
-        ports:
-            - 8000:8000
+            - static_volume:/code/staticfiles
+        networks:
+            - nginx_network
+            - db_network
         depends_on:
             - db
+    nginx:
+        image: nginx:1.17.0
+        ports: 
+            - 80:80
+            - 443:443
+        volumes:
+            - ./config/nginx/conf.d:/etc/nginx/conf.d
+            - static_volume:/code/staticfiles
+            - ./data/certbot/conf:/etc/letsencrypt
+            - ./data/certbot/www:/var/www/certbot
+        depends_on: 
+            - web
+        networks:
+            - nginx_network
+        command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s
+        reload; done & nginx -g \"daemon off;\"'"
     db:
         image: postgres:11
+        env_file:
+            - config/db/db_env
+        networks:
+            - db_network
         volumes:
-            - postgres_data:/var/lib/postgresql/data/
-        environment: 
-            - "POSTGRES_HOST_AUTH_METHOD=trust"
-
+            - db_volume:/var/lib/postgresql/data/
+    certbot:
+        image: certbot/certbot
+        volumes:
+            - ./data/certbot/conf:/etc/letsencrypt
+            - ./data/certbotwww:/var/www/certbot
+        entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew;
+        sleep 12h & wait $${!}; done;'"
+networks:
+    nginx_network:
+        driver: bridge
+    db_network:
+        driver: bridge
 volumes:
-    postgres_data:
+    db_volume:
+    static_volume:

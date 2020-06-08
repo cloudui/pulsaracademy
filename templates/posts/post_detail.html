@@ -31,7 +31,7 @@
 <br><br>
 
 <div class="code">"
-    {{ object.body|safe }}
+{{ object.body|safe|urlize }}
 </div>"
 
 
@@ -46,18 +46,21 @@
 <div class="card rounded-1 border-0">
     <div class="card-body">
 
-    <p class="card-text">
-      <span class="comment">{{ comment.body|safe }}</span>
-    
-    </p>
+    <p class="card-text"><span class="comment">{{ comment.body|safe|urlize }}</span></p>
     <p class="card-text text-muted">
         <small>comment by {{ comment.user.first_name }} {{ comment.user.last_name }} &middot; {{ comment.x_ago }} 
             {% if comment.edited %} (edited) {% endif %}</small>
     </p>
     <hr class="my-0">
     </div>
+    
 </div>
+
 {% endfor %}
+
+<br>
+<a class= "btn btn-info" href="{% url 'comment_new' object.course.slug object.id %}">Add Comment +</a><br>
+<small>A better commenting system coming soon!</small>
 {% comment %} <form method="POST" id="post-form">
     {% csrf_token %}
     

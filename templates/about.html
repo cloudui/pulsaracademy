@@ -3,10 +3,99 @@
 
 {% block title%}About{% endblock title %}
 
-{% block content %}
-
-<h1>What is Pulsar Academy?</h1>
+{% block home %}
+<div class="jumbotron jumbotron-fluid text-white mb-0" id="jumbotron-about" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.7) 100%), url('{% static 'images/coding_background.png' %}')">
+    <div class="container" data-aos="zoom-in">
+        <h1 class="display-3 text-info"><u>About</u></h1>
+        <p class="lead">Pulsar Academy offers online courses in coding and development, taught by its <a href="{% url 'instructors' %}" target="_blank">creators</a>, rising
+            seniors at the Montgomery Blair High School STEM Program. PA was created to offer an accessible way to children of all ages to learn how to code. At PA, we firmly believe that all people 
+            should have an understanding of coding and technology, as everything in the world today revolves around computers. Our goal is to
+            provide the fundamentals for you to excel at programming and broaden your horizons.</p>
+            
+            <p class="lead">We aim to instill a love and appreciation for coding, as well as create
+            a friendly environment for everyone to be able to engage in the learning process. We will cater to your needs, and will take feedback and try to improve our
+            craft. By the end of your course(s), we hope to have expanded your knowledge and skillset, so you are prepared to take on even bigger challenges and solve real-world problems!
     
+            
+            
+            
+             
+        </p>
+        <p class="lead">
 
-  
-{% endblock content %}
+       </p>
+    </div>
+        <br><br>       
+        
+        <div class="container" data-aos="zoom-in">
+            <h2 class="display-4 text-info"><u>FAQs</u></h2><br>
+        <p class="lead text-info">How do the courses work?</p>
+        <p>Courses will be in person via <a href="https://meet.google.com/" target="_blank">Google Meet</a>, a video calling service offered by Google. Each course lasts for 5 weeks, with two classes per week based on the course.
+            Students will have access to lesson summaries and a class forum to look for guidance and will follow along the instructor during each meeting. Lessons will be
+            interactive, and you can look at the syllabus in the <a href="{% url 'class_list' %}" target="_blank">course details</a> You can view detailed information there. 
+        </p>
+        <br>
+        <p class="lead text-info">How do I register?</p>
+        <p>You can make a free account by <a href="{% url 'account_signup' %}" target="_blank">signing up</a>. From there, you can go to the <a href="{% url 'class_list' %}">course list</a>
+            and sign up for the courses you want. You can sign up for as few or as many as you would like. You can choose to pay by going to your 
+            <a href="{% url 'summary' %}" target="_blank">cart</a>. Payment for courses will not be available until the course is confirmed by our staff. Courses will become available for payment 
+            after a minimum quota of students are reached, and a notification email will be sent to the people who have signed up. More information on regsitration
+            <a href="{% url 'registration_info' %}" target="_blank">here</a>.
+        </p>
+        <br>
+        <p class="lead text-info">What will I need?</p>
+        <p>Make sure that you are running an updated operating system. Typically, you will be fine if you have either MacOS, Windows, or an updated version of Linux.
+            We will go over how to download and set up the programming languages needed for each course. Make sure you have a stable WiFi connection and a working
+            microphone. Cameras will not be necessary but are recommended. Screen sharing will be optional but is also recommended to get the most out of our lectures. Lastly, make sure you have sufficient storage, as some packages
+            that will be downloaded can potentially be large. 
+        </p>
+        <br>
+        <p class="lead text-info">Is Pulsar Academy right for me?</p>
+        <p>Our services are primarily targeted to beginners or programmers with some experience. Be sure to look at the details of each course that we offer,
+            and see if it looks like it is the right fit for you (there are pre-requisites as well). If you feel like you are very advanced, PA is likely not the right choice. However, if you aren't sure,
+            feel free to contact us and we can discuss the right choices for you. 
+        </p>
+        <br>
+        <p class="lead text-info">Is my payment secure?</p>
+        <p>Payment is handeled by Paypal, and all your payment information only ever goes to <a href="https://www.paypal.com/us/home" target="_blank">PayPal</a>. We do not record any of your payment credentials, but all 
+            traffic coming and going to our site is encrypted anyway. The payment will go towards our business account, currently under the email <span class="text-primary">eric@echen.io</span>.
+             Should you have any concerns, feel free to contact us and we can figure taylor to your needs.
+        </p><br>
+        <p class="lead text-info">How do I contact you?</p>
+        <p>Our preferred way of communication is by email. All inquiries should go to <span class="text-primary">contact@pulsaracademy.com</span>. If you would like to discuss by call, feel free to dial 
+            <span class="text-primary">(301)-456-9068</span>, but availability is NOT guaranteed. Emails will be responded to within a day. If you do not 
+            receive a reply, you should either call the number above or try again.  
+        </p>
+        <br>
+        <p class="lead text-info">I'm not receiving notifications from you! What should I do?</p>
+        <p>Since this website is solely monitored by us, there could be a few issues. First, make sure the email you entered for your accounts are typed in correctly.
+            Next, check your spam box; we are a new business, and it is possible that our emails have been marked as spam. If neither of those are the case, 
+            please try to contact us. It could very well be a server issue on our side as well! We will be sure to respond quickly.
+        </p>
+        <br>
+        <p class="lead text-info">How do I join a meeting?</p>
+        <p>An email will be sent prior to each meeting containing the relevant information.
+             Make sure you receive an email from signing up and from paying for a course. Students will be
+            able to report to the meeting by either a url or invitation link. 
+        </p>
+        <br>
+        <p class="lead text-info">I'm going to be busy on a class meeting day! What do I do?</p>
+        <p>No worries! Classes will be recorded and will be available in the course summary or email. Homework will also be posted. 
+             Make sure to let us know if you will miss a class! Any questions
+            can always be posted on the forum. 
+        </p>
+        <br>
+        <p class="lead text-info">Can I get a refund after I've paid?</p>
+        <p>Refunds must be requested at least a day prior to the start of the first class. You will receive a refund in full if your request is valid. If you decide
+            that the course does not suit your needs, we can negotiate a refund individually.
+        </p>  
+        <br>
+        <p class="lead text-info">Anything else?</p>
+        <p>Actually, yes! We are very new to online teaching, so please be patient with us! This website was coded from scratch, and there could be problems that we 
+            don't even know of yet! If you encounter any, you can help the PA community by reporting that to us. Any instructional feedback is also greatly appreciated. We will send out a 
+            feedback form after the course is over, but feel free to tell us anything during the course as well. We want to make this a great experience for you!
+        </p>  
+    </div>
+
+</div>
+{% endblock home %}

@@ -56,7 +56,7 @@ urlpatterns = [
     path('<slug:slug>/forum/posts/<int:pk>/', ForumDetailView.as_view(), name='forum_detail'), 
     path('<slug:slug>/forum/posts/<int:pk>/edit/', ForumUpdateView.as_view(), name='forum_edit'),
     path('<slug:slug>/forum/posts/<int:pk>/delete/', ForumDeleteView.as_view(), name='forum_delete'),
-    path('<slug:slug>/forum/posts/<int:pk>/comment/', create_comment, name='comment_new'),
+    path('<slug:slug>/forum/posts/<int:pk>/comment/', CommentCreateView.as_view(), name='comment_new'),
 
     path('<slug:slug>/lessons/overview/', LessonListView.as_view(), name='lesson_list'),
     path('<slug:slug>/lessons/autopopulateform/', StaffAutoPopulateField.as_view(), name='auto_populate'),

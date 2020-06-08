@@ -590,7 +590,7 @@ class ClassIntroUpdateView(LoginRequiredMixin, UpdateView):
 #             return JsonResponse(data)
 #         else:
 #             return response
-class OldCommentCreateView(LoginRequiredMixin, CreateView):
+class CommentCreateView(LoginRequiredMixin, CreateView):
 
     template_name = 'posts/comment_new.html'  
     model = Comment
@@ -619,7 +619,7 @@ class OldCommentCreateView(LoginRequiredMixin, CreateView):
         # form.instance.author = self.request.user
         return super().form_valid(form)
 
-class CommentCreateView(LoginRequiredMixin, FormView):
+class OldCommentCreateView(LoginRequiredMixin, FormView):
 
     template_name = 'posts/comment_new.html'  
     model = Comment

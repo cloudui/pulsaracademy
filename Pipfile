@@ -13,6 +13,7 @@ django-crispy-forms = "==1.8.0"
 django-paypal = "*"
 django-feather = "*"
 django-crontab = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"

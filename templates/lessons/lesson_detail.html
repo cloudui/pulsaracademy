@@ -7,7 +7,7 @@
 <h1>Lesson {{ object.number }}: {{ object.name }}</h1>
 {% if request.user.is_staff %}
 <a style="float:right" class="btn btn-outline-secondary btn-sm" href="{% url 'lesson_edit' object.course.slug object.id %}">{% icon 'edit' height="18" width="16" %} Staff Edit</a>
-<p><a class="text-muted" href="{% url 'lesson_list' object.course.slug %}">{% icon 'arrow-left' height="18" width="18" %} {{ object.course.name }} Forum</a></p>
+<p><a class="text-muted" href="{% url 'lesson_list' object.course.slug %}">{% icon 'arrow-left' height="18" width="18" %} {{ object.course.name }}</a></p>
 <br>
 {% endif %}
 

@@ -7,7 +7,9 @@
 
 {% block content %}
     <h1>New Comment</h1>
-    <p>Posting comment under the user with email {{ request.user.email }}</p>
+    <p>Posting comment under the user with email {{ request.user.email }}.</p>
+    <p>A new commenting system will be added so that you don't have to come to 
+    a new page to enter a comment. The implementation is challenging (uses AJAX, if you're interested) and has not been figured out yet. Stay tuned!</p>
     
     <form action="" method="post">
         {% csrf_token %}

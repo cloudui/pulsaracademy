@@ -9,7 +9,7 @@
 <p style="font-size: 12px;">Already have an account?  <b><a href="{% url 'account_login' %}">Sign In</a></b></p>
 <br>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6" data-aos="fade-up-right">
     <form method="post">
     {% csrf_token %}
     
@@ -42,7 +42,7 @@
     <button class="btn btn-primary btn" type="submit">Sign Up</button>
 </form>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6" data-aos="fade-up-left">
     <div class="jumbotron" style="padding:32px">
         <h1>Get ready to learn.</h1>
         <p class="lead">Your school and parent email info are optional, but they would be preferred! After you 
@@ -60,3 +60,6 @@
 
 
 {% endblock content %}
+{% block javascript %}
+
+{% endblock javascript %}

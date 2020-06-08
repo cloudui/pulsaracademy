@@ -8,16 +8,17 @@
 <h1>Meet the Instructors</h1>
 <!-- <br> -->
 <p class="lead">Hi! We will be the instructors for the various courses that we offer. We are Montgomery Blair High School students, and we are very passionate about coding.
-    Both of us will teach our own respective courses. If you have any questions, please email us individually!
-</p>
+    Both of us will teach our own respective courses. Don't be scared! We'll get to know one another. If you want any additional credentials, we are willing to send you
+    our respective resumes! 
+</p><br>
 <div class="card-deck">
-    <div class="card">
+    <div class="card" data-aos="fade-right">
       <img class="card-img-top" src="{% static 'images/eric.jpg' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Eric Chen</h5>
         <p class="card-text">Eric Chen is a rising senior at Montgomery Blair High School. He is an avid web developer and coder, having worked on 
             his school's debate team site as well as <a href="{% url 'home' %}">this website</a>! His favorite languages are Python and Java, and 
-            he is currently learning Amazon Web Services. He will work on a machine learning at the University of Maryland this summer. His hobbies include
+            he is currently learning to be an Amazon Web Services Solutions Architect. He will work on a machine learning at the University of Maryland this summer. His hobbies include
             Rubik's cube solving, basketball, and listening to music.
 
         </p>
@@ -30,7 +31,7 @@
       
     </div>
 
-    <div class="card">
+    <div class="card" data-aos="fade-left">
       <img class="card-img-top" src="{% static 'images/maxwell.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Maxwell Zhang</h5>
@@ -38,7 +39,7 @@
             the Institute for Bioscience and Biotechnology Research last summer, and is currently an intern at the Mahmood Lab at Harvard 
             Medical School, which applies machine learning to computational pathology. Maxwell is also an avid competitive programmer, as he
              is in the USA Computing Olympiad Platinum Division and is a Division I participant on 
-             Codeforces.
+             Codeforces. Aside from coding, Maxwell’s hobbies include playing viola and reading manga.
 
         </p>
         
@@ -52,5 +53,6 @@
    
   </div>
 </div>
+<br>
   
 {% endblock content %}

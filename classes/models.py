@@ -114,10 +114,10 @@ class Class(models.Model):
         return ', '.join([a.email for a in self.users.all()])
 
     def start_date_string(self):
-        return self.date.strftime("%m/%d/%Y")
+        return self.date.strftime("%-m/%-d/%Y")
 
     def end_date_string(self):
-        return self.end_date.strftime("%m/%d/%Y")
+        return self.end_date.strftime("%-m/%-d/%Y")
 
     def cost_decimal(self):
         return round(self.cost)
