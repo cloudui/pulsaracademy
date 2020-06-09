@@ -20,13 +20,13 @@ RUN pip install pipenv && pipenv install --system
 # Copy project
 COPY . /code/
 
-EXPOSE 80
+# EXPOSE 80
 # COPY cron.txt /etc/cron.d/cron-task
 # RUN chmod 0644 /etc/cron.d/cron-task
 # RUN service cron start
 
-RUN apt update
-RUN apt install -y cron
+# RUN apt update
+# RUN apt install -y cron
 
 
-CMD /code/script_prod.sh
+CMD /code/script.sh
