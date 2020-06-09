@@ -21,7 +21,7 @@ handler403 = 'pages.views.error403_view'
 handler404 = 'pages.views.error404_view'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('definitely-not-admin/', admin.site.urls),
 
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('accounts/', include('users.urls')),

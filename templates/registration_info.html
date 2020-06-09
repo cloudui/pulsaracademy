@@ -46,7 +46,7 @@
 <hr style="background:black">
 <p>
     <a href="{% url 'paid_classes' %}">Paid Courses</a> and <a href="{% url 'registered_classes' %}">Registered Courses</a> will show up in the courses dropdown. You will be able to see the status of the course if you are registered. If you have paid,
-    you will be able to view the course lessons and access the course forum from your <a href="{% paid_classes %}">paid list</a>. We will post lesson summaries in the lesson overview for paid students, and we will answer
+    you will be able to view the course lessons and access the course forum from your <a href="{% url 'paid_classes' %}">course list</a>. We will post lesson summaries in the lesson overview for paid students, and we will answer
     any questions within the dedicated forum. Students are encouraged to answer other students' questions! Information about classes will be emailed before each lesson, along
     with any information required.
 </p>
@@ -66,9 +66,9 @@
     a day prior to the first class. We can cater to individual scenarios if you email us detailing the reasoning behind your refund request. If you are
     not satisfied with the quality of our services, we can negotiate with you on a person-to-person basis.
 </p>
-
+<br><br>
 <div class="text-center"><a class="btn btn-info" href="{% url 'class_list' %}">Go to course list!</a></div>
-    
+    <br><br>
 
   
 {% endblock content %}

@@ -682,15 +682,15 @@ def create_comment(request, slug, pk):
         body = request.POST.get('body')
         course = get_object_or_404(Class, slug=slug)
 
-        post = get_object_or_404(Post, course=course)
+        post = get_object_or_404(Post, course=course, id=pk)
         
         comment = Comment(user=request.user, post=post, body=body)
         comment.save()
         
         
         response_data['body'] = comment.body
-        response_data['user'] = comment.user
-        response_data['post'] = comment.post
+        response_data['user'] = comment.user.first_name
+        response_data['post'] = comment.post.title
         response_data['date'] = comment.date.strftime('%B %d, %Y %I:%M %p')
         response_data['date_updated'] = comment.date_updated.strftime('%B %d, %Y %I:%M %p')
         print('biggaya')

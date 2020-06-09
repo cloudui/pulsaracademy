@@ -55,7 +55,7 @@
     <p>Go to <a href="{% url 'lesson_list' class.slug %}">course</a>.</p>
 {% elif request.user in object.users.all %}
       <br>
-    <p><a href="{% url 'unregister' object.slug %}">Unregister</a>  |  Pay by: {{ object.payment_deadline_date }}</p> 
+    <p><a href="{% url 'unregister' object.slug %}">Unregister</a> {% if object.confirmed %}|  Pay by: {{ object.payment_deadline_date }} {% endif %</p> 
     
 {% else %}
     {% if object.past_registration_deadline %}
@@ -75,7 +75,7 @@
       <br>
     {% else %}
     <br>
-    <p><a href="{% url 'register' object.slug %}">Register</a>  |  {% if object.confirmed %} Deadline: {{ class.start_date_format }} {% endif %}</p>
+    <p><a href="{% url 'register' object.slug %}">Register</a> {% if object.confirmed %}| Deadline: {{ class.start_date_format }} {% endif %}</p>
     <br>
     {% endif %}
 {% endif %}

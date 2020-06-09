@@ -51,52 +51,64 @@
         <small>comment by {{ comment.user.first_name }} {{ comment.user.last_name }} &middot; {{ comment.x_ago }} 
             {% if comment.edited %} (edited) {% endif %}</small>
     </p>
-    <hr class="my-0">
+    <hr style="width:100%">
     </div>
     
 </div>
 
 {% endfor %}
 
-<br>
-<a class= "btn btn-info" href="{% url 'comment_new' object.course.slug object.id %}">Add Comment +</a><br>
-<small>A better commenting system coming soon!</small>
-{% comment %} <form method="POST" id="post-form">
+
+
+ <form method="POST" id="post-form">
     {% csrf_token %}
     
      <div class="form-group">
-       <textarea class="form-control rounded-1" style="padding: 20px;" autocomplete="off" rows="3" id="body" placeholder="Enter Comment Here."></textarea>
+       <textarea class="form-control rounded-1" style="padding: 20px;" autocomplete="off" rows="3" id="body" placeholder="Enter Comment Here." ></textarea>
      </div>
      <button type="submit" class="btn btn-primary" id="submit-form">Submit</button>
-  </form> {% endcomment %}
+  </form> 
   
   {% endblock content %}
 
    {% block javascript %}
-   {% comment %}
+   
 <script>
-    console.log('hello')
-    alert('fuck you')
-    $('#submit-form').on('submit', function(e){
+
+    
+$(function() { 
+    $('#post-form').on('submit', function(e){
         e.preventDefault();
-        
-        console.log('hello')
+        var body = $('#body').val();
+        if (body.trim() == "") {
+            $('#body').addClass('is-invalid')
+            $('.form-group').append(
+                '<div class="invalid-feedback">'+
+                'Please enter in a comment' +
+                '</div>'
+            )
+
+        }
+        else {
         $.ajax({
             
             type:'POST',
             url:'{% url "comment_new" object.course.slug object.id %}',
+            
             data:{
                 body:$('#body').val(),
                 csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
                 action: 'post'
             },
             success:function(json){
-                document.getElementById("post-form").reset();
-                alert('hello')
+                
+                console.log(json.title)
+
                 console.log('Beegle beegle bee')
+                location.reload()
                 // $(".posts").prepend('<div class="col-md-6">'+
-                //     '<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">' +
-                //         '<div class="col p-4 d-flex flex-column position-static">' +
+                //     '<div class="card-body">' +
+                //         '<p class="card-text"><span class="comment">{{ comment.body|safe|urlize }}</span></p>' +
                 //             '<h3 class="mb-0">' + json.title + '</h3>' +
                 //             '<p class="mb-auto">' + json.description + '</p>' +
                 //         '</div>' +
@@ -108,8 +120,9 @@
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
         });
+        }
 });
-
-</script> {% endcomment %}
+})
+</script> 
 
 {% endblock javascript %}

@@ -1,18 +1,156 @@
+
 {% extends '_base.html' %}
+
+{% load icon %}
 {% load static %}
+{% block title %}Home{% endblock title %}
+
 {% block home %}
-<div class="div1" style="background: url('{% static 'images/pulsarbg.jpg' %}'); background-size: cover; background-repeat: no-repeat;">
-  
+<style>
+    .image-item1 {
+        background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url("{% static 'images/nstar1.png' %}");
+        padding-top: 100px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 50em;
+        /* height: 100%;  */
+        
+    }
+    .image-item2 {
+        background:linear-gradient(to bottom, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.4) 100%), url('{% static "images/macbook2.jpeg" %}');
+        height: 95vh;
+        padding-top: 80px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 50em;
+    }
+    .image-item3 {
+        background: url('{% static "images/lighthouse.jpg" %}');
+        
+        padding-top: 40px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        overflow:auto;
+        height: 55em;
+    }
+</style>
+<div class="custom text-light text-center mb-0"> 
+   <div class="image-item1">
+    <div class="container" data-aos="zoom-in-down">
+        <h1 class="display-1 text-info">Pulsar Academy</h1>
+        <h3 >Coding Made Simple</h3>
+        <img src="{% static '/images/favicon.png' %}" style="height: 80px;"/>
+        {% if user.is_authenticated %}
+            <br><br>
+            <p class="lead"><a class="btn btn-outline-info btn-lg" href="{% url 'profile' %}">My Account</a></p>
+        {% else %}<br><br>
+            <p class="lead"><a href="{% url 'about' %}" class="btn btn-outline-info btn-lg">Get started!</a></p>
+            
+
+        {% endif %}
+        
+        <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+    </div>
 </div>
-<div class="div2" style="background: url('{% static 'images/lighthouse.jpg' %}');">
-  
+    </div>
+
+<!-- <span class="text-white">hi</span> -->
+
+<!-- SECOND -->
+
+<div class="custom text-light text-center mb-0"> 
+    <div class="image-item2">
+<div class="container">
+    <br><br><br>
+    <div data-aos="zoom-in-up">
+    <h1 class="display-1 text-center" >Why Us?</h1></div><br><br><br>
+  <div class="row">
+    <div class="col-md-4" data-aos="fade-right">
+       <p>{% icon 'codesandbox' height="35" width="35" %}</p>
+       <h4>Direct Feedback</h4>
+       
+          
+       <p>Get help for your code <u><b>immediately</b></u> by asking us directly; we're not just people in a video. Ask questions on the course forum for help from other students.
+       </p>
+    </div>
+    <div class="col-md-4" data-aos="fade-up">
+        <p>{% icon 'cpu' height="35" width="35" %}</p>
+       <h4>Critical Thinking</h4>
+       
+    
+       
+       <p>We don’t just <u><b>tell</b></u> you how to do something, we <u><b>show</b></u> you how to do it. Be able to not only create code that works, but understand <u><b>why</b></u> it works.
+
+
+
+       </p>
+    </div>
+    
+    <div class="col-md-4" data-aos="fade-left">
+        <p>{% icon 'rewind' height="35" width="35" %}</p>
+       <h4>Transcripts</h4>      
+       
+       <p>Missed something? No worries. You can go back and rewatch the recorded lessons. Also, you can look at the lesson summary in your course catalog. 
+       </p>
+  </div>
 </div>
-<svg>
-    <clipPath id="wave" clipPathUnits="objectBoundingBox">
-      <path class="st0" d="M 10 10 C 20 20, 40 20, 50 10"/>
-    </clipPath>
-</svg>
-  
+</div>
+</div>
+</div>
+
+<div class="custom text-light text-center mb-0"> 
+    <div class="image-item3">
+    <div class="container">
+        <br><br><br>
+        <h1 class="display-1 text-center" data-aos="fade-down">A sea of choices</h1><br><br><br><br>
+      <div class="row">
+        <div class="col-md-4" data-aos="fade-right">
+           <h4 class="text-center">Web Design</h4>
+           <hr class="my-3" style="height:2px;border:none;color:#333;background-color:#fff;">
+    
+           <p><span class="box3">&bull; HTML/CSS</span> &nbsp; <span class="box4">&bull; Django</span>
+           </p>
+           <p>Learn how to create websites on a whim. With a good web development toolset, you can create anything you want. This website
+                was made using Django, HTML/CSS, Javascript, and Docker!
+           </p>
+        </div>
+        <div class="col-md-4" data-aos="fade-up">
+            <h4 class="text-center">Language Fundamentals</h4>
+            <hr class="my-3" style="height:2px;border:none;color:#333;background-color:#fff;">
+    
+            <p><span class="box">&bull; Python</span> &nbsp; <span class="box1">&bull; Java</span> &nbsp; <span class="box2">&bull; C++</span>
+           </p>
+           <p>Coding is one very handy tool to have. Learn how to code in industry-leading languages, which can prepare you
+           for challenging frameworks and introduce you to new concepts.
+           </p>
+        </div>
+        
+        <div class="col-md-4" data-aos="fade-left">
+            <h4 class="text-center">Competitive Programming</h4>
+            <hr class="my-3" style="height:2px;border:none;color:#333;background-color:#fff;">
+    
+            <p><span class="box2">&bull; C++</span>
+           </p>
+           <p>Learn the techniques and algorithms to prepare for challenging competitions such as the U.S.A Computing Olympiad. The tools 
+           used here can help you solve difficult problems.
+           </p>
+      </div>
+      
+    </div>
+    <br><br>
+    <div data-aos="flip-left">
+    <p class="lead text-center">It's your time to shine.</p>
+        <p class="text-center"><a class="btn btn-info" href="{% url 'account_signup' %}">Create an Account</a></p>
+    </div>
+    </div>
+</div>
+    
+</div>
+
+
 
 
 {% endblock home %}
