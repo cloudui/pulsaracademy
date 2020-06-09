@@ -175,12 +175,12 @@ class Class(models.Model):
         return reverse_lazy('class_detail', kwargs={'slug': self.slug})
 
     def save(self, **kwargs):
-        
+        super(Class, self).save()  
         welcome = f'Welcome to {self.name}!'
         intro = Introduction(title=welcome, course=self)
         intro.save()
 
-        super(Class, self).save()    
+          
 
 
 class Payment(models.Model):

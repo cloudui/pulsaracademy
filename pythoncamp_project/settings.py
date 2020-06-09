@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG', default=0))
 
-ALLOWED_HOSTS = ['0.0.0.0' , '127.0.0.1', '3.21.207.152', 'pulsaracademy.com']
+ALLOWED_HOSTS = ['0.0.0.0' , '127.0.0.1', '3.21.207.152', 'pulsaracademy.com', 'www.pulsaracademy.com']
 
 
 # Application definition
