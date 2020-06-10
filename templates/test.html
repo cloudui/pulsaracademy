@@ -13,18 +13,22 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-        height: 50em;
+        min-height: 50em;
         /* height: 100%;  */
-        
+        padding-bottom: 50px;
+        overflow-x: hidden;
+
     }
     .image-item2 {
         background:linear-gradient(to bottom, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.4) 100%), url('{% static "images/macbook2.jpeg" %}');
-        height: 95vh;
-        padding-top: 80px;
+        
+        padding-top: 100px;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-        height: 50em;
+        min-height: 50em;
+        padding-bottom: 50px;
+        overflow-x: hidden;
     }
     .image-item3 {
         background: url('{% static "images/lighthouse.jpg" %}');
@@ -34,7 +38,9 @@
         background-repeat: no-repeat;
         background-position: center;
         /* overflow:scroll; */
-        height: 55em;
+        min-height: 55em;
+        padding-bottom: 50px;
+        overflow-x: hidden;
     }
 </style>
 <div class="custom text-light text-center mb-0"> 
@@ -47,7 +53,7 @@
             <br><br>
             <p class="lead"><a class="btn btn-outline-info btn-lg" href="{% url 'profile' %}">My Account</a></p>
         {% else %}<br><br>
-            <p class="lead"><a href="{% url 'about' %}" class="btn btn-outline-info btn-lg">Get started!</a></p>
+            <p class="lead"><a href="{% url 'account_login' %}" class="btn btn-outline-info btn-lg">Get started!</a></p>
             
 
         {% endif %}
@@ -63,8 +69,8 @@
 
 <div class="custom text-light text-center mb-0"> 
     <div class="image-item2">
-<div class="container">
-    <br><br><br>
+    <div class="container">
+    
     <div data-aos="zoom-in-up">
     <h1 class="display-1 text-center" >Why Us?</h1></div><br><br><br>
   <div class="row">
@@ -143,7 +149,7 @@
     <br><br>
     <div data-aos="flip-left">
     <p class="lead text-center">It's your time to shine.</p>
-        <p class="text-center"><a class="btn btn-info" href="{% url 'account_signup' %}">Create an Account</a></p>
+        <p class="text-center"><a class="btn btn-info" href="{% url 'class_list' %}">Course List</a></p>
     </div>
     </div>
 </div>
