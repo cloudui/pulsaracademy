@@ -176,9 +176,11 @@ class Class(models.Model):
 
     def save(self, **kwargs):
         super(Class, self).save()  
-        welcome = f'Welcome to {self.name}!'
-        intro = Introduction(title=welcome, course=self)
-        intro.save()
+        if not self.introduction:
+            welcome = f'Welcome to {self.name}!'
+            intro = Introduction(title=welcome, course=self)
+
+            intro.save()
 
           
 
