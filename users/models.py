@@ -9,7 +9,7 @@ from django.utils import timezone
 
 # Create your models here.
 class CustomUser(AbstractUser):
-    parent_email = models.CharField(max_length=100, null=True)
+    parent_email = models.EmailField(max_length=100, null=True)
 
     school = models.CharField(max_length=200, null=True)
 
