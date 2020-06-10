@@ -168,3 +168,8 @@ body {
     height: 35px; /* .push must be the same height as .footer */
 }
   
+@media screen and (max-width: 600px) {
+    .extended-text {
+        font-size: 5rem;
+    }
+}
