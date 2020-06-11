@@ -25,7 +25,7 @@ def payment_notification(sender, **kwargs):
             cost += payment.cost
         print(payments)
         
-        # course_names = []
+        course_names = []
 
         if cost == int(ipn.mc_gross):
             print('entered')
@@ -34,18 +34,18 @@ def payment_notification(sender, **kwargs):
                 print('happen')
                 payment.paid = True
                 payment.save()    
-            #     course_names.append(payment.theclass.name)
+                course_names.append(payment.theclass.name)
 
-            # user = payments[0].user
+            user = payments[0].user
 
-            # emails = []
-            # user_email = user.user_email
-            # emails.append(user_email)
-            # if user.parent_email:
-            #     user_parent_email = user.parent_email
-            #     emails.append(user_parent_email)
+            emails = []
+            user_email = user.user_email
+            emails.append(user_email)
+            if user.parent_email:
+                user_parent_email = user.parent_email
+                emails.append(user_parent_email)
 
-            # send_payment_confirmation_email(emails, course_names, cost, user)
+            send_payment_confirmation_email(emails, course_names, cost, user)
         
 
 valid_ipn_received.connect(payment_notification)

@@ -12,7 +12,9 @@
 
 {% if request.user.payment_owed == 0 %}
     <br>
-    <p class="lead">There are no courses in your cart or your courses are not confirmed.</p>
+    <p class="lead">There are no courses in your cart. If you have registered for courses but they don't show up, it is because
+        they have not been confirmed. Emails will be sent out when the status changes!
+    </p>
     
     <p>See your paid courses <a href="{% url 'paid_classes' %}">here</a> or register for courses <a href="{% url 'class_list' %}">here</a>.</p>
     <p>Learn about registration <a href="{% url 'registration_info' %}">here</a>.</p>
@@ -48,7 +50,7 @@
     <br>
     {% if request.user.classes_expired_registered_list %}
     <p class="text-danger">You registered for the following courses but the deadline for payment have passed. If you have any concerns, please 
-        contact us at contact@pulsaracademy.com.</p>
+        <a href="{% url 'contact' %}">contact us</a>.</p>
         
         <span style="float:right"><a href="{% url 'clear' %}" class="btn btn-outline-danger btn-sm">Remove All {% icon 'x' class="text-danger" height="20" width="20" %} </a></span><br><br>
     {% for class in request.user.classes_expired_registered_list %}

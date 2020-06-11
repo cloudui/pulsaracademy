@@ -167,7 +167,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # EMAIL STUFF
-DEFAULT_FROM_EMAIL = 'contact@pulsaracademy.com'
+DEFAULT_FROM_EMAIL = 'no-reply@pulsaracademy.com'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 

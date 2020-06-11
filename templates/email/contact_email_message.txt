@@ -1,0 +1,8 @@
+Name: {{ first_name }} {{ last_name }}
+Email: {{ email }}
+
+Inquiry:
+
+{{ message }}
+
+

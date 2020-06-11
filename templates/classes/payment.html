@@ -8,11 +8,12 @@
 
 {% block content %}
 <h1>Checkout</h1>
-
+<br>
 
 {% if request.user.payment_owed == 0 %}
-    <p class="lead">There are no courses in your cart or your courses are not confirmed.</p>
-    <br>
+    <p class="lead">There are no courses in your cart. If you have registered for courses but they don't show up, it is because
+        they have not been confirmed. Emails will be sent out when the status changes!</p>
+    
     <p>See your paid courses <a href="{% url 'paid_classes' %}">here</a> or register for courses <a href="{% url 'class_list' %}">here</a>.</p>
     <p>Learn about registration <a href="{% url 'registration_info' %}">here</a>.</p>
 {% else %}
@@ -46,14 +47,12 @@
     <p>Pulsar Academy does not collect any of your payment information. All purchases are handled by <a href="https://www.paypal.com/us/webapps/mpp/ua/privacy-full" target="_blank">Paypal</a>. Your information is secured by 
         <a href="https://letsencrypt.org/privacy/" target="_blank">Let's Encrypt</a> with SSL encryption. None of your personal information leaves our servers, and the only
         use cases for Pulsar Academy include transactional and notification emails. Any additional information provided will only be used for our insight into our user base, and nothing more.
-        Should you wish for your account to be deleted, please contact us at our email. We will be sure to remove your information from our database. Please contact us if you
-        have any questions or concerns.
-    </p>
+        Should you wish for your account to be deleted, please <a href="{% url 'contact' %}">contact us</a>. We will be sure to remove your information from our database. 
     
     <h3><u>Refunds</u></h3>
     <p>
         All payments will go to our business account under the email <a href="mailto:eric@echen.io">eric@echen.io</a>. 
-        You may request a refund by emailing us at <a href="mailto:contact@pulsaracademy.com">contact@pulsaracademy.com</a>. All refunds must be requested at least
+        You may request a refund by emailing us at <a href="mailto:contact@pulsaracademy.com">contact@pulsaracademy.com</a> or going <a href="{% url 'contact' %}">here</a>. All refunds must be requested at least
         a day prior to the first class. We can cater to individual scenarios if you email us detailing the reasoning behind your refund request. If you are not 
         satisfied with the class, we can negotiate on a person-to-person basis. 
     </p>

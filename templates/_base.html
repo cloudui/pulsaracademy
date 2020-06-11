@@ -30,7 +30,7 @@
         {% url 'checkout' as checkout %}
         {% url 'instructors' as instructors %}
         {% url 'staff_list' as staff_list %}
-        
+        {% url 'contact' as contact %}
         <li {% if 'courses' in request.path and request.path != staff_list and request.path != summary and request.path != checkout %} class="nav-item dropdown active" {% else %} class="nav-item dropdown" {% endif %}>
           
          
@@ -47,6 +47,7 @@
 
         <li {% if request.path == about %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class = "nav-link" href="{% url 'about' %}">About</a></li>
         <li {% if request.path == instructors %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class = "nav-link" href="{% url 'instructors' %}">Instructors</a></li>
+        <li {% if request.path == contact %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class = "nav-link" href="{% url 'contact' %}">Support</a></li>
         {% if request.user.is_staff %}
         <li {% if request.path == staff_list %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class = "nav-link" href="{% url 'staff_list' %}">Staff</a></li>
         {% endif %} 

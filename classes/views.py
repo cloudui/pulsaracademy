@@ -703,3 +703,5 @@ def create_comment(request, slug, pk):
             json.dumps({"nothing to see": "this isn't happening"}),
             content_type="application/json"
         )
+
+
