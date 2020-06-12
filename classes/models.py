@@ -175,12 +175,17 @@ class Class(models.Model):
         return reverse_lazy('class_detail', kwargs={'slug': self.slug})
 
     def save(self, **kwargs):
-        super(Class, self).save()  
-        if not self.introduction:
+        try:
+            intro = self.introduction
+            super(Class, self).save()  
+            
+        except:
+            super(Class, self).save()
             welcome = f'Welcome to {self.name}!'
             intro = Introduction(title=welcome, course=self)
-
+            super(Class, self).save()  
             intro.save()
+          
 
           
 
