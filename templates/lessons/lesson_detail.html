@@ -7,27 +7,43 @@
 <h1>Lesson {{ object.number }}: {{ object.name }}</h1>
 {% if request.user.is_staff %}
 <a style="float:right" class="btn btn-outline-secondary btn-sm" href="{% url 'lesson_edit' object.course.slug object.id %}">{% icon 'edit' height="18" width="16" %} Staff Edit</a>
+
+{% endif %}
 <p><a class="text-muted" href="{% url 'lesson_list' object.course.slug %}">{% icon 'arrow-left' height="18" width="18" %} {{ object.course.name }}</a></p>
 <br>
-{% endif %}
-
 Lesson Date: {{ object.date|date:"SHORT_DATE_FORMAT" }}
 {% if object.active %}
 <br><br>
     
-    <div class="code">{{ object.summary|safe }}</div>
+    <div class="code">{{ object.summary|safe|urlize }}</div>
     
     <br>
     
     
     <h2>Homework</h2>
-    <div class="code">{{ object.homework|safe }}</div>
-    
+    <div class="code">{{ object.homework|safe|urlize }}</div>
+
+
+
 {% else %}
+    {% if request.user.is_staff %}
+    <br>
+    <p>This lesson is not active yet. The students cannot see it until you make it active (after class has past).</p>
+    <br>
+    
+    <div class="code">{{ object.summary|safe|urlize }}</div>
+    
+    <br>
+    
+    
+    <h2>Homework</h2>
+    <div class="code">{{ object.homework|safe|urlize }}</div>
 
-    <p>The notes for this class will be available on {{ object.date|date:"m/d/y" }}</p>
+    {% else %}
+
+    <p>The notes for this class will be available on {{ object.date|date:"SHORT_DATE_FORMAT" }}</p>
     <p>Go back to <a href="{% url 'lesson_list' object.course.slug %}">lesson list</a>.</p>
-
+    {% endif %}
 {% endif %}
 
 

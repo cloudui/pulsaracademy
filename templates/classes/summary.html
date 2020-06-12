@@ -12,8 +12,8 @@
 
 {% if request.user.payment_owed == 0 %}
     <br>
-    <p class="lead">There are no courses in your cart. If you have registered for courses but they don't show up, it is because
-        they have not been confirmed. Emails will be sent out when the status changes!
+    <p class="lead">There are no courses in your cart. If you have registered for courses but they don't show up here, it is because
+        they have not yet been confirmed (minimum quota not met). Emails will be sent out when the status changes!
     </p>
     
     <p>See your paid courses <a href="{% url 'paid_classes' %}">here</a> or register for courses <a href="{% url 'class_list' %}">here</a>.</p>

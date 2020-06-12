@@ -12,6 +12,6 @@
 <p><a class="text-muted" href="{% url 'lesson_list' object.slug %}">{% icon 'arrow-left' height="18" width="18" %} {{ object.name }} Forum</a></p>
 <span style="float:right;"><a class="btn btn-outline-info btn-sm" href="{% url 'intro_edit' object.slug %}">Edit Intro</a></span>
 {% endif %}<br>
-<p>{{ object.introduction.body|safe }}</p>
+<p>{{ object.introduction.body|safe|urlize }}</p>
 
 {% endblock content %}

@@ -56,12 +56,13 @@
 
         </span>
         
-        <span style="float:right">
+        <span style="float:right" class="text-muted">
           
-          Status: {% if class.confirmed %}
-          {% icon 'check-circle' style="color:green" height="15" width="15" %}
-      {% else %}
-          {% icon 'x' style="color:red" height="15" width="15" %} 
+          {% if class.confirmed and not class.past_registration_deadline %}
+          (Confirmed)
+          {% comment %}{% icon 'check-circle' style="color:green" height="15" width="15" %}{% endcomment %}
+      {% comment %}{% else %}
+          {% icon 'x' style="color:red" height="15" width="15" %} {% endcomment %}
       {% endif %}
       
       </span>

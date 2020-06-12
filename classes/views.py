@@ -365,7 +365,8 @@ class StaffAutoPopulateField(LoginRequiredMixin, DetailView, FormView):
     form_class = AutoPopulateLessonsForm
     template_name = 'lessons/autopopulate.html'
     model = Class
-    success_url = reverse_lazy('lessons_list')
+    def get_success_url(self):
+        return reverse_lazy('lesson_list', kwargs={'slug':self.kwargs['slug']})
     login_url = 'account_login'
 
     def dispatch(self, request, *args, **kwargs):
