@@ -8,13 +8,8 @@
 {% block content %}
 
 <h1><u>{{ object.name }} Overview</u><span class="icon"> <i class="devicon-{{ object.get_icon_string }}-plain"></i></span></h1>
-<span style="float:right"><span class="popup text-primary" onclick="myFunction()">Status:<span class="popuptext" id="myPopup">
-    {% if class.confirmed %}
-   This course has been confirmed. You can pay now if you haven't already.
-    {% else %}
-    Courses will be confirmed if a minimum amount of students are met. Please sign up so we can reach it!
-    {% endif %}
-</span></span>
+<span style="float:right"><a href="{% url 'registration_info' %}">Status</a>:
+    
     <span class="text-muted">
        {% if class.confirmed %}
         Confirmed
