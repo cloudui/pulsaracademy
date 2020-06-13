@@ -36,7 +36,7 @@
         <p><a href="{% url 'class_detail' class.slug %}">Details</a></p> 
         <p><a href="{% url 'forum_list' class.slug %}">Forum</a></p> 
         <p><a href="{% url 'lesson_list' class.slug %}">Lesson List</a></p>
-        <p><a href="{% url 'staff_class_user_detail' class.slug %}">Students</a></p>
+        <p><a href="{% url 'staff_class_user_detail' class.slug %}">Students (R: {{ class.registered_users_list.count }}, P: {{ class.paid_users_list.count }})</a></p>
         
          
              

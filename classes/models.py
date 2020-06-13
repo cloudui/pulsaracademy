@@ -9,9 +9,9 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 
 diff = (
-    ('beginner', 'Beginner'),
-    ('intermediate', 'Intermediate'),
-    ('advanced', 'Advanced')
+    ('Beginner', 'Beginner'),
+    ('Intermediate', 'Intermediate'),
+    ('Advanced', 'Advanced')
 )
 
 instr = (
@@ -24,6 +24,7 @@ code_languages = (
     ('Python', 'Python'),
     ('C++', 'C++'),
     ('Java', 'Java'),
+    ('HTML5', 'HTML5'),
 )
 day_of_week = (
     ('Sunday', 'Sunday'),
@@ -45,7 +46,7 @@ class Class(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
 
-    difficulty = models.CharField(max_length=40, choices=diff, default='beginner') 
+    difficulty = models.CharField(max_length=40, choices=diff, default='Beginner') 
 
     cost = models.FloatField(null=True)
         
@@ -73,13 +74,7 @@ class Class(models.Model):
     language = models.CharField(max_length=50, choices=code_languages, default='Python')
 
     def get_icon_string(self):
-        if self.language == 'Django':
-            return 'django'
-        if self.language == 'Python':
-            return 'python'
-        if self.language == 'Java':
-            return 'java'
-        return 'cplusplus'
+        return self.language.lower()
 
     def get_days_week(self):
         return [self.first_day, self.second_day]
@@ -150,6 +145,9 @@ class Class(models.Model):
         return students
     
     def registered_users_list(self):
+        """
+        Lists the users who have registered but not paid.
+        """
 
         students = self.users.filter(payment__paid=False)
 
@@ -166,7 +164,7 @@ class Class(models.Model):
     
 
     class Meta:
-        ordering = ('date', )
+        ordering = ('name', )
     
     def __str__(self):
         return self.name
