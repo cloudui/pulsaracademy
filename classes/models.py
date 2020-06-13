@@ -126,7 +126,7 @@ class Class(models.Model):
 
     def registration_deadline(self):
         two_days = timezone.timedelta(days=2, seconds=1)
-        deadline = self.date - two_days
+        deadline = timezone.localtime(self.date - two_days)
 
         return deadline.strftime('%-m/%d/%Y at %-I:%M %p')
     def past_registration_deadline(self):
