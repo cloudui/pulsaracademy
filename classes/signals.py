@@ -39,7 +39,7 @@ def payment_notification(sender, **kwargs):
             user = payments[0].user
 
             emails = []
-            user_email = user.user_email
+            user_email = user.email
             emails.append(user_email)
             if user.parent_email:
                 user_parent_email = user.parent_email

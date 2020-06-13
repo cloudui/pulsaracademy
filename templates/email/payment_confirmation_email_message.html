@@ -15,11 +15,12 @@
     <p>Your payment has been receieved. You are now signed up for the following course(s):</p>
     <ul>
         {% for item in course_list %}
-        <li>item</li>
+        <li>{{ item }}</li>
+        {% endfor %}
     </ul>
     
-    <p>Go to your <a href="https://pulsaracademy.com/courses/paid/">course list</a> for more information about your courses</p>. We will send you 
-    emails with additional information regarding each class. Stay tuned!
+    <p>Go to your <a href="https://pulsaracademy.com/courses/paid/">course list</a> for more information about your courses. We will send you 
+    emails with additional information regarding each class. Stay tuned!</p>
     
     <br>
 	
