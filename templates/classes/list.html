@@ -25,7 +25,7 @@
     <div class="card-body">
         <div class="tab1 tabcontent">
         <h3 class="card-title">Registration Has Begun!</h5>
-        <p class="card-text">Learn about our website <a href="{% url 'about' %}">here</a>.</p>
+        <p class="card-text">Checkout the <a href="{% url 'schedule' %}">course schedule</a>.</p>
         <a href="{% url 'registration_info' %}" class="btn btn-primary">How to Register</a> 
 
         {% if request.user.is_staff %} <br><br>

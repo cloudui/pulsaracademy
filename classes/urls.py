@@ -27,6 +27,7 @@ from .views import (
     ClassIntroView,
     ClassIntroUpdateView,
     CommentCreateView,
+    ClassScheduleView,
 )
 
 
@@ -41,6 +42,7 @@ urlpatterns = [
     path('checkout/', class_checkout_view, name='checkout'),
     path('clear/old-classes/', ClearOldClassesView.as_view(), name='clear'),
     path('payment-success/', PaymentSuccessView.as_view(), name='payment_success'),
+    path('schedule/', ClassScheduleView.as_view(), name='schedule'),
 
 
     path('<slug:slug>/', ClassDetailView.as_view(), name='class_detail'),

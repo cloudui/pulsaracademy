@@ -705,4 +705,7 @@ def create_comment(request, slug, pk):
             content_type="application/json"
         )
 
+class ClassScheduleView(TemplateView):
+    template_name = 'classes/schedule.html'
+   
 

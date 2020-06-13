@@ -1,0 +1,48 @@
+{% extends '_base.html' %}
+
+
+{% block title %}Schedule{% endblock title %}
+
+
+{% block content %}
+<h1>Course Schedule</h1>
+<p class="lead">Courses will be twice a week on the given days for the 5 week session. All times are in Eastern Standard Time (EST).</p>
+<br>
+<h3>Session 1: 6/29 - 7/31</h3>
+<hr style="background:black"><br>
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Time Slot</th>
+        <th scope="col">Monday/Thursday</th>
+        <th scope="col">Tuesday/Friday</th>
+        <th scope="col">Wednesday/Saturday</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">3:00 - 4:30 P.M.</th>
+        <td>Web Dev. with Django</td>
+        <td>Intro to Python</td>
+        <td>Intro to HTML/CSS</td>
+       
+      </tr>
+      <tr>
+        <th scope="row">4:00 - 5:30 P.M.</th>
+        <td>Intro to Java</td>
+        <td>USACO Gold</td>
+        <td></td>
+        
+      </tr>
+      <tr>
+        <th scope="row">6:00 - 7:30 P.M.</th>
+        <td>USACO Bronze</td>
+        <td>USACO Silver</td>
+        <td></td>
+        
+      </tr>
+    </tbody>
+  </table>
+{% endblock content %}
