@@ -24,7 +24,9 @@ class CustomUser(AbstractUser):
 
     
     def classes_paid_list(self):
-        return self.class_set.all().filter(payment__paid=True)
+        return self.class_set.all().filter(payment__paid=True).order_by('date')
+    # def classes_paid_list(self):
+    #     return self.class_set.all().filter(payment__paid=True)
     
     def classes_not_paid_list(self):
         return self.class_set.all().filter(payment__paid=False)
@@ -44,7 +46,10 @@ class CustomUser(AbstractUser):
         return self.class_set.all().filter(payment__paid=False, confirmed=True, past_payment_deadline=False)
     
     def classes_registered_list(self):
-        return self.class_set.all().filter(payment__paid=False, past_payment_deadline=False)
+        return self.class_set.all().filter(payment__paid=False, past_payment_deadline=False).order_by('date')
+
+    # def classes_registered_list(self):
+    #     return self.class_set.all().filter(payment__paid=False, past_payment_deadline=False)
     
         
     def payments_not_paid_list(self):
