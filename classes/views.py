@@ -37,9 +37,12 @@ import pythoncamp_project
 
 from posts.models import Post, Comment
 
+
+
 class ClassListView(ListView):
     template_name = 'classes/list.html'
     model = Class
+    
 
 class ClassCreateView(CreateView):
     template_name = 'classes/create.html'
