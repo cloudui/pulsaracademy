@@ -73,6 +73,8 @@ class Class(models.Model):
 
     language = models.CharField(max_length=50, choices=code_languages, default='Python')
 
+    embedded_url = models.URLField(blank=True)
+
     def get_icon_string(self):
         if self.language == 'C++':
             return 'cplusplus'

@@ -57,7 +57,7 @@ class ClassUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'classes/update.html'
     model = Class
     login_url = 'account_login'
-    fields = ('name', 'instructor', 'confirmed', 'date', 'end_date', 'start_time', 'end_time', 'first_day', 'second_day', 'third_day_optional','cost','difficulty','description', 'syllabus', )
+    fields = ('__all__')
 
     def dispatch(self, request, *args, **kwargs):
         
