@@ -27,9 +27,12 @@
         
     </p>
     <p class="card-text text-muted">
-        <small>posted by {{ post.author.first_name }} {{ post.author.last_name }} {% if post.author.is_staff %}{% icon 'truck' height="13" width="13" %}
+        <small>posted by {% if post.author == request.user %}<span class="text-info">
+            {{ post.author.first_name }} {{ post.author.last_name }} {% if post.author.is_staff %}{% icon 'truck' height="13" width="13" %}{% endif %}
+            </span>
+            {% else %}
+            {{ post.author.first_name }} {{ post.author.last_name }} {% if post.author.is_staff %}{% icon 'truck' height="13" width="13" %}{% endif %}
             {% endif %}
-            
             &middot; {{ post.x_ago }} 
         {% if post.edited %} (edited) {% endif %}
         {% if post.author == request.user or request.user.is_staff %}

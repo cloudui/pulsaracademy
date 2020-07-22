@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from classes.models import Class
 
 from django.utils import timezone
+from tinymce.models import HTMLField
 
     
 def x_ago_helper(diff):
@@ -32,7 +33,7 @@ def x_ago_helper(diff):
 
 class Post(models.Model):
     title = models.CharField(max_length=1000)
-    body = models.TextField()
+    body = HTMLField(default='')
     date = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     valid = models.BooleanField(default=True)
@@ -71,6 +72,9 @@ class Post(models.Model):
         if abs(time_difference.total_seconds()) > 30:
             return True
         return False
+
+    def get_name(self):
+        return f'{self.author.first_name} {self.author.last_name}'
 
     # def get_absolute_url(self):
     #     return reverse('post_detail', args=[str(self.id)])
@@ -111,3 +115,5 @@ class Comment(models.Model):
     def __str__(self):
         return f'Comment by { self.user.first_name } { self.user.last_name } on { self.post.title }'
 
+    def get_name(self):
+        return f'{self.author.first_name} {self.author.last_name}'

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'paypal.standard.ipn',
     'django_feather',
     'django_crontab',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -217,3 +218,18 @@ CRONJOBS = [
 ]
 
 # ACCOUNT_USER_DISPLAY = 'email'
+
+
+TINYMCE_DEFAULT_CONFIG = {
+  "theme": "silver",
+        "height": 400,
+        "menubar": False,
+        "plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,codesample,"
+        "searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,"
+        "code,help,wordcount",
+        "toolbar": "undo redo | "
+        "bold italic backcolor | alignleft aligncenter "
+        "alignright | bullist numlist outdent indent | codesample | "
+        "help",
+        'branding': False,
+}

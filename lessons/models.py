@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.urls import reverse
+from tinymce.models import HTMLField
 
 from classes.models import Class
 
@@ -9,14 +10,16 @@ class Lesson(models.Model):
     number = models.PositiveIntegerField(default=0)
 
     active = models.BooleanField(default=False)
-    summary = models.TextField(null=True)
+    summary = HTMLField(default='')
 
     
     date = models.DateTimeField(auto_now_add=True)
 
-    course = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)
+    course = models.ForeignKey(Class, on_delete=models.CASCADE, null=True, default='')
     
-    homework = models.TextField(blank=True)
+    homework = HTMLField(default='')
+
+    
     
     def __str__(self):
         if self.name:

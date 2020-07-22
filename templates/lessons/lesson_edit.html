@@ -2,10 +2,17 @@
 
 {% load crispy_forms_tags %}
 {% load icon %}
+{% load static %}
 
 {% block title%}Edit Lesson {{ object.number }}{% endblock title %}
+{% block others %}
+
+{{ form.media }}
+
+{% endblock others %}
 
 {% block content %}
+
 
 <h1>
     {{ object.name }}
@@ -16,5 +23,6 @@
     {{ form|crispy }}
     <button class="btn btn-info" type="submit">Update</button>
 </form>
+
 
 {% endblock content %}

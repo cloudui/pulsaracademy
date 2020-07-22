@@ -14,12 +14,12 @@ class ClassAdmin(admin.ModelAdmin):
     #     return "\n".join([p.users for p in obj.users.all()])
 
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'id', 'paid',)
+    list_display = ('user', 'theclass', 'id', 'paid',)
 
 class IntroductionAdmin(admin.ModelAdmin):
 
     list_display = (
-        'title',
+        'title', 'course',
     )
 
 admin.site.register(Class, ClassAdmin)

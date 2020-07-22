@@ -3,6 +3,12 @@
 
 {% block title %}Edit Course Info{% endblock title %}
 
+{% block others %}
+
+{{ form.media }}
+
+{% endblock others %}
+
 {% block content %}
     <h1>Edit {{ object.name }}</h1>
     <form action="" method="post">

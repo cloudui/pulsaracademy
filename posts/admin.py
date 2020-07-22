@@ -3,10 +3,10 @@ from django.contrib import admin
 from .models import Post, Comment
 
 class PostAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('title', 'get_name', 'course',)
 
 class CommentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('post', 'user', )
 
 
 admin.site.register(Post, PostAdmin)

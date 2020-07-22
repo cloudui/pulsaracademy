@@ -7,6 +7,7 @@ from datetime import time
 import lessons
 from django.urls import reverse_lazy
 from django.utils import timezone
+from tinymce.models import HTMLField
 
 diff = (
     ('Beginner', 'Beginner'),
@@ -52,7 +53,7 @@ class Class(models.Model):
         
     description = models.TextField(null=True)
 
-    syllabus = models.TextField(null=True)
+    syllabus = HTMLField(null=True)
 
     confirmed = models.BooleanField(default=False)
     instructor = models.CharField(max_length=50, choices=instr, default="Eric Chen")
@@ -209,7 +210,7 @@ class Payment(models.Model):
 class Introduction(models.Model):
     title = models.CharField(max_length=500, blank=True)
 
-    body = models.TextField(blank=True)
+    body = HTMLField(default='')
 
     course = models.OneToOneField(
         Class, 

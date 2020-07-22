@@ -26,6 +26,7 @@ urlpatterns = [
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('accounts/', include('users.urls')),
     path('accounts/', include('allauth.urls')),
+    path('tinymce/', include('tinymce.urls')),
     
     
     

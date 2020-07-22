@@ -8,8 +8,17 @@
 
 <h1>{{ object.title }}</h1>
 
+{% if request.user == object.author %}
+<span class="text-info">by {{ object.author.first_name }} {{ object.author.last_name }}
+    {% if object.author.is_staff %}
+        {% icon 'headphones' height="16" width="16" %}
+    {% endif %}
+{% else %}
 <span class="text-muted">by {{ object.author.first_name }} {{ object.author.last_name }}
-    
+    {% if object.author.is_staff %}
+        {% icon 'headphones' height="16" width="16" %}
+    {% endif %}
+{% endif %}
 
 </span><br>
 <span class="text-muted"><small>{{ object.x_ago }}
@@ -30,9 +39,9 @@
 
 <br><br>
 
-<div class="code">"
-{{ object.body|safe|urlize }}
-</div>"
+"
+{{ object.body|safe }}
+"
 
 
 <br><br>
@@ -48,8 +57,22 @@
 
     <p class="card-text"><span class="comment">{{ comment.body|safe|urlize }}</span></p>
     <p class="card-text text-muted">
-        <small>comment by {{ comment.user.first_name }} {{ comment.user.last_name }} {% if comment.user.is_staff %}{% icon 'headphones' height="13" width="13" %}
-            {% endif %}
+        <small>comment by 
+        {% if comment.user == request.user %}<span class="text-info">
+                {{ comment.user.first_name }} {{ comment.user.last_name }} 
+                {% if comment.user.is_staff %}
+                    {% icon 'headphones' height="13" width="13" %}
+                {% endif %}
+            </span>
+            {% else %}
+            {{ comment.user.first_name }} {{ comment.user.last_name }} 
+                {% if comment.user.is_staff %}
+                    {% icon 'headphones' height="13" width="13" %}
+                {% endif %}
+        
+        {% endif %}
+            
+            
             
             &middot; {{ comment.x_ago }} 
             {% if comment.edited %} (edited) {% endif %}</small>
@@ -80,10 +103,12 @@
 
     
 $(function() { 
+    var count = 0;
     $('#post-form').on('submit', function(e){
         e.preventDefault();
         var body = $('#body').val();
-        if (body.trim() == "") {
+        if (body.trim() == "" && count === 0) {
+            count++;
             $('#body').addClass('is-invalid')
             $('.form-group').append(
                 '<div class="invalid-feedback">'+
@@ -92,7 +117,7 @@ $(function() {
             )
 
         }
-        else {
+        else if(body.trim() !== "") {
         $.ajax({
             
             type:'POST',

@@ -39,7 +39,9 @@
 
 
 {% else %}
+{% if lesson.active %}
 <p class="lead"><a href="{% url 'lesson_detail' object.slug lesson.id %}">Lesson {{ lesson.number}}: {{ lesson.name }}</a> 
+{% endif %}
 {% endif %}
 
 {% endfor %}
