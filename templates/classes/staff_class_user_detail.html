@@ -10,7 +10,7 @@
 
 <h1><u>{{ object.name }} Students</u></h1>
 <br>
-
+<p><a class="text-secondary" href="{% url 'staff_list' %}">{% icon 'arrow-left' %} Staff Page</a></p>
 <span style="float:right;"><a class="text-dark" href="{% url 'registration_info' %}">Status:</a>
     {% if class.confirmed %}
      {% icon 'check-circle' style="color:green" height="20" width="20" %}
@@ -18,7 +18,6 @@
      {% icon 'x' style="color:red" height="20" width="20" %} 
  {% endif %}
 
- <a href="#">(Edit)</a>
  </span>
 
 <br>
@@ -50,6 +49,16 @@
     <br>
 
 {% endfor %}
+<div id="paid_users">
+<h3>Email List for Paid students:</h3>
+<p><button class="btn btn-outline-secondary btn-sm" id="paid_button">Hide parent emails</button></p>
+{% for user in object.paid_users_list %}
+
+<p>{{ user.email }}{% if user.parent_email and user.parent_email != user.email %}<span class="parent_paid">, {{ user.parent_email }} {% endif %}</span></p>
+
+
+{% endfor %}
+</div>
 {% else %}
 <p clas="lead">Nobody paid yet :(. Class starts <a href="#">{{ object.date }}</a></p>
 {% endif %}
@@ -81,15 +90,114 @@
     
     
 </div>
+
 <br>
 {% endfor %}
+<h3>Email List for Registered students:</h3>
+<p><button class="btn btn-outline-secondary btn-sm" id="registered_button">Hide parent emails</button></p>
+<div id="registered_users">
+{% for user in object.registered_users_list %}
+
+<p>{{ user.email }}{% if user.parent_email and user.parent_email != user.email %}<span class="parent_registered">, {{ user.parent_email }}</span> {% endif %}</p>
+
+
+{% endfor %}
+</div>
 {% else %}
     <p clas="lead">Nobody registered right now.</p>
 {% endif %}
-
-
 <br>
-<p>Back to <a href="{% url 'staff_list' %}">staff course list</a>.</p>
+<hr>
+<br>
+<h2>Full Email List:</h2>
+{% if object.users.all %}
+<p><button class="btn btn-outline-secondary btn-sm" id="all_button">Hide Parent Emails</button></p>
+
+{% for user in object.users.all %}
+<p>{{ user.email }}{% if user.parent_email and user.parent_email != user.email %}<span class="parent_all">, {{ user.parent_email }}</span> {% endif %}</p>
+{% endfor %}
+{% else %}
+<p class="lead">No users</p>
+{% endif %}
+<br>
+
  
 
 {% endblock content %}
+
+{% block javascript %}
+<script>
+    var paid_click = false;
+    var registered_click = false;
+    var all_click = false;
+    
+    $("#paid_button").click(function() {
+        
+        if(!paid_click) {
+            paid_click = true;
+            var elements = document.getElementsByClassName("parent_paid");
+            document.getElementById("paid_button").innerText = "Show Parent Emails"
+            
+            for(var i = 0; i < elements.length; i++) {
+                
+                elements[i].style.display = 'none';
+            }
+        }
+        else {
+            paid_click = false;
+            var elements = document.getElementsByClassName("parent_paid");
+            document.getElementById("paid_button").innerText = "Hide Parent Emails"
+            for(var i = 0; i < elements.length; i++) {
+                
+                elements[i].style.display = 'inline';
+            }
+        }
+    });
+
+    $("#registered_button").click(function() {
+        
+        if(!registered_click) {
+            registered_click = true;
+            var elements = document.getElementsByClassName("parent_registered");
+            document.getElementById("registered_button").innerText = "Show Parent Emails"
+            
+            for(var i = 0; i < elements.length; i++) {
+                
+                elements[i].style.display = 'none';
+            }
+        }
+        else {
+            registered_click = false;
+            var elements = document.getElementsByClassName("parent_registered");
+            document.getElementById("registered_button").innerText = "Hide Parent Emails"
+            for(var i = 0; i < elements.length; i++) {
+                
+                elements[i].style.display = 'inline';
+            }
+        }
+    });
+
+    $("#all_button").click(function() {
+        
+        if(!all_click) {
+            all_click = true;
+            var elements = document.getElementsByClassName("parent_all");
+            document.getElementById("all_button").innerText = "Show Parent Emails"
+            
+            for(var i = 0; i < elements.length; i++) {
+                
+                elements[i].style.display = 'none';
+            }
+        }
+        else {
+            all_click = false;
+            var elements = document.getElementsByClassName("parent_all");
+            document.getElementById("all_button").innerText = "Hide Parent Emails"
+            for(var i = 0; i < elements.length; i++) {
+                
+                elements[i].style.display = 'inline';
+            }
+        }
+    });
+</script>
+{% endblock javascript %}
