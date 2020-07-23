@@ -1,13 +1,14 @@
 {% extends '_base.html' %}
-
+{% load icon %}
 
 {% block title %}User List{% endblock title %}
 
 {% block content %}
 <h1>List of Users</h1><br>
+<p><a href="{% url 'staff_list' %}" class="text-secondary">{% icon 'arrow-left' %} Staff Page</a></p>
+<p class="lead"><a href="#emails">Email List {% icon 'arrow-down' %}</a></p>
 
 <p class="lead">Total (not counting us): {{ request.user.num_users }}</p>
-
 
 {% for user in object_list %}
 
@@ -31,5 +32,40 @@
     
 </div>
 <br>
+<br>
 {% endfor %}
+<h2 id="emails">Email List: </h2>
+<p><button class="btn btn-outline-secondary btn-sm" id="button">Hide Parent Emails</button></p>
+{% for user in object_list %}
+<p>{{ user.email }}{% if user.parent_email and user.email != user.parent_email %}<span class="parent">, {{ user.parent_email }}</span>{% endif %}</p>
+{% endfor %}
+<br>
 {% endblock content %}
+
+{% block javascript %}
+<script>
+    var click = 0;
+    $("#button").click(function() {
+        
+        if(!click) {
+            click = true;
+            var elements = document.getElementsByClassName("parent");
+            document.getElementById("button").innerText = "Show Parent Emails"
+            
+            for(var i = 0; i < elements.length; i++) {
+                
+                elements[i].style.display = 'none';
+            }
+        }
+        else {
+            click = false;
+            var elements = document.getElementsByClassName("parent");
+            document.getElementById("button").innerText = "Hide Parent Emails"
+            for(var i = 0; i < elements.length; i++) {
+                
+                elements[i].style.display = 'inline';
+            }
+        }
+    });
+</script>
+{% endblock javascript %}
