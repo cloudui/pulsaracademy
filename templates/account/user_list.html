@@ -4,9 +4,9 @@
 {% block title %}User List{% endblock title %}
 
 {% block content %}
-<h1>List of Users</h1><br>
+<h1>List of Users</h1>
 <p><a href="{% url 'staff_list' %}" class="text-secondary">{% icon 'arrow-left' %} Staff Page</a></p>
-<p class="lead"><a href="#emails">Email List {% icon 'arrow-down' %}</a></p>
+<p class="lead" style="float: right;"><a href="#emails">Email List {% icon 'arrow-down' %}</a></p><br><br>
 
 <p class="lead">Total (not counting us): {{ request.user.num_users }}</p>
 
