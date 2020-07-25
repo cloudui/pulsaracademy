@@ -8,7 +8,8 @@
 
 {% block content %}
 
-<h1><u>{{ object.name }} Overview</u><span class="icon"> <i class="devicon-{{ object.get_icon_string }}-plain"></i></span></h1>
+<h1><u>{{ object.name }} Overview</u><span class="icon"> <i class="devicon-{{ object.get_icon_string }}-plain"></i></span></h1><br>
+<p><a class="text-muted" href="{% url 'lesson_list' object.slug %}">{% icon 'arrow-left' height="18" width="18" %} {{ object.name }} Forum</a></p>
 <span style="float:right"><a href="{% url 'registration_info' %}">Status</a>:
     
     <span class="text-muted">
@@ -96,9 +97,7 @@ allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
     {% endif %}
 {% endif %}
 
-<p>Back to <a href="{% url 'class_list' %}">course list</a> or <a href="{% url 'registered_classes' %}">registered courses</a>.</p>
- 
-<br>
+
 {% if request.user.is_staff %}
 <a href="{% url 'class_update' object.slug %}" class='btn btn-info'>Edit Info</a>
 {% endif %}

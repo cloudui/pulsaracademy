@@ -7,9 +7,9 @@
 {% block content %}
 <h1>{{ object.introduction.title }}</h1>
 
-
-{% if request.user.is_staff %}
 <p><a class="text-muted" href="{% url 'lesson_list' object.slug %}">{% icon 'arrow-left' height="18" width="18" %} {{ object.name }} Forum</a></p>
+{% if request.user.is_staff %}
+
 <span style="float:right;"><a class="btn btn-outline-info btn-sm" href="{% url 'intro_edit' object.slug %}">Edit Intro</a></span>
 {% endif %}<br><br>
 {{ object.introduction.body|safe}}
