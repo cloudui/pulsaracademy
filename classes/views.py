@@ -396,7 +396,7 @@ class LessonUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'lessons/lesson_edit.html'
     def get_success_url(self):
         return reverse_lazy('lesson_detail', kwargs={'slug':self.kwargs['slug'], 'pk':self.kwargs['pk']})
-    fields = ('name', 'number', 'active', 'summary', 'homework',)
+    fields = ('name', 'number', 'date', 'active', 'summary', 'homework',)
     login_url = 'account_login'
 
     def dispatch(self, request, *args, **kwargs):

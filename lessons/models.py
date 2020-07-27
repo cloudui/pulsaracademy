@@ -13,7 +13,7 @@ class Lesson(models.Model):
     summary = HTMLField(default='')
 
     
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField()
 
     course = models.ForeignKey(Class, on_delete=models.CASCADE, null=True, default='')
     
