@@ -20,6 +20,12 @@ Lesson Date: {{ object.date|date:"SHORT_DATE_FORMAT" }}
     
     
     {{ object.summary|safe }}
+    {% if object.embedded_url %}
+    <br>
+    <div class="video" style="text-align: center;">
+        <iframe src="{{ object.embedded_url }}" style="max-width: 100%; width: 560px; height: 315px;" allowfullscreen></iframe>
+    </div>
+    {% endif %}
     <br>
     
     

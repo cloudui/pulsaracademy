@@ -19,7 +19,7 @@ class Lesson(models.Model):
     
     homework = HTMLField(default='')
 
-    
+    embedded_url = models.URLField(blank=True, null=True)
     
     def __str__(self):
         if self.name:
