@@ -10,14 +10,14 @@ class Lesson(models.Model):
     number = models.PositiveIntegerField(default=0)
 
     active = models.BooleanField(default=False)
-    summary = HTMLField(default='')
+    summary = HTMLField(null=True, blank=True)
 
     
     date = models.DateTimeField()
 
     course = models.ForeignKey(Class, on_delete=models.CASCADE, null=True, default='')
     
-    homework = HTMLField(default='')
+    homework = HTMLField(null=True, blank=True)
 
     embedded_url = models.URLField(blank=True, null=True)
     
