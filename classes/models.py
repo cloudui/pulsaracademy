@@ -168,6 +168,9 @@ class Class(models.Model):
             lesson.save()
     
 
+    def lesson_set_order_by_date(self):
+        return self.lesson_set.all().order_by('date')
+
     class Meta:
         ordering = ('name', )
     
