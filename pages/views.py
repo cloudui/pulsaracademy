@@ -56,3 +56,7 @@ class ContactPageView(FormView):
 class SuccessContactPageView(TemplateView):
 
     template_name = 'success_email.html'
+
+
+class TemporaryNotificationView(TemplateView):
+    template_name = 'notification.html'

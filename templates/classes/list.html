@@ -5,16 +5,26 @@
 
 {% block title %}Course List{% endblock title %}
 
+{% block home %}
 
+<a href="{% url 'update' %}">
+  <div class="alert alert-info text-center mb-0" role="alert">
+      
+      
+      An update regarding the next session
+    </div>
+  </a>
+  <br>
+{% endblock home %}
 
 {% block content %}
-
+<!-- 
 <div class="alert alert-danger alert-dismissible text-center" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
   Registration has passed for this session.
-</div>
+</div> -->
 
 <div class="card text-center">
     <!-- <div class="card-header">
@@ -32,8 +42,10 @@
     <div class="card-body">
         <div class="tab1 tabcontent">
         <h3 class="card-title">Registration Has Ended!</h5>
-        <p class="card-text">Check out the <a href="{% url 'schedule' %}">course schedule</a>.</p>
-        <a href="{% url 'registration_info' %}" class="btn btn-primary">How to Register</a> 
+          <p class="card-text"><a href="{% url 'update' %}">Update about the next session!</a></p>
+
+          {% comment %}<p class="card-text">Check out the <a href="{% url 'schedule' %}">course schedule</a>.</p>
+        <a href="{% url 'registration_info' %}" class="btn btn-primary">How to Register</a> {% endcomment %}
 
         {% if request.user.is_staff %} <br><br>
               <a href="{% url 'staff_list' %}">Go to Staff View!</a>
@@ -56,7 +68,7 @@
 
 <div class="card">
     <div class="card-header">
-        <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
+        <span class="font-weight-bold"><a class="text-muted" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
         <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.first_day }}, {{ class.second_day }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}
            
           

@@ -24,7 +24,7 @@
   <header>
     <!-- Fixed navbar -->
     {% url 'about' as about %}
-    <nav{% if request.path == '/' or request.path ==  about %} class="navbar navbar-expand-md navbar-dark bg-dark" {% else %} class="navbar navbar-expand-md navbar-dark bg-dark mb-4" {% endif %}>
+    <nav{% if request.path == '/' or request.path ==  about or request.path == '/courses/' %} class="navbar navbar-expand-md navbar-dark bg-dark" {% else %} class="navbar navbar-expand-md navbar-dark bg-dark mb-4" {% endif %}>
       <a href="{% url 'home' %}" class="navbar-brand font-weight-normal">Pulsar Academy</a>
       <ul class="navbar-nav mr-auto">
        
@@ -95,6 +95,7 @@
   </header>
   <div class="wrapper">
   {% block home %}
+  
   {% endblock home %}
   {% url 'home' as home %}
     <div {% if request.path == home or request.path == about %}class="container mb-0" {% else %} class="container mb-4" {% endif %}>
