@@ -8,7 +8,8 @@ from .models import Class, Payment, Introduction
 
 class ClassAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'show_users')
+    list_display = ('name', 'show_users', 'archived')
+    ordering = ('archived', 'name')
 
     # def get_tournaments(self, obj):
     #     return "\n".join([p.users for p in obj.users.all()])

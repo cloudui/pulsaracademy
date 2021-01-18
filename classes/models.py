@@ -56,6 +56,7 @@ class Class(models.Model):
     syllabus = HTMLField(null=True)
 
     confirmed = models.BooleanField(default=False)
+    
     instructor = models.CharField(max_length=50, choices=instr, default="Eric Chen")
     
     slug = models.SlugField(null=False, unique=True, default=None)
@@ -67,14 +68,16 @@ class Class(models.Model):
     first_day = models.CharField(max_length=50, choices=day_of_week, default='Monday')
     
 
-    second_day = models.CharField(max_length=50, choices=day_of_week, default='Monday')
+    second_day = models.CharField(max_length=50, choices=day_of_week, null=True, blank=True)
 
 
-    third_day_optional = models.CharField(max_length=50, choices=day_of_week, null=True)
+    
 
     language = models.CharField(max_length=50, choices=code_languages, default='Python')
 
     embedded_url = models.URLField(blank=True)
+
+    archived = models.BooleanField(default=False)
 
     def get_icon_string(self):
         if self.language == 'C++':
@@ -98,6 +101,7 @@ class Class(models.Model):
         if timezone.now() < self.date:
             return True
         return False
+
     def payment_deadline_date(self):
         delta = timezone.timedelta(seconds=1)
         diff = self.date - delta
@@ -114,10 +118,10 @@ class Class(models.Model):
         return ', '.join([a.email for a in self.users.all()])
 
     def start_date_string(self):
-        return self.date.strftime("%-m/%-d/%Y")
+        return self.date.strftime("%b %-d")
 
     def end_date_string(self):
-        return self.end_date.strftime("%-m/%-d/%Y")
+        return self.end_date.strftime("%b %-d")
 
     def cost_decimal(self):
         return round(self.cost)

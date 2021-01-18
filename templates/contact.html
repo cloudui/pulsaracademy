@@ -8,9 +8,12 @@
 
 {% block content %}
 
-<h1>Contact Us</h1><br>
+<h1><strong>Contact Us</strong></h1>
+<hr>
 
 
+<p class="lead">For all inquiries, please fill out the form below.</p>
+<br>
 
 <form method="post">
     {% csrf_token %}
@@ -28,6 +31,10 @@
             {{ form.email|as_crispy_field }}
                 {{ form.message|as_crispy_field }}
         </div>
+        
+        
+        
+
     </div>
     
 

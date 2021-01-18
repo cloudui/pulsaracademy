@@ -25,30 +25,32 @@
 <h2>Paid Students</h2>
 <br>
 {% if object.paid_users_list %}
-{% for user in object.paid_users_list %}
-
-    <div class="card">
-        <div class="card-header">
-            {{ user.first_name }} {{ user.last_name }}
-    
-        </div>
-    
-        <div class="card-body">
-            <!-- <p>Name: {{ request.user.first_name}} {{ request.user.last_name }}</p> -->
-            <p>Email: {{ user.email }}</p>
-            {% if user.parent_email %}
-            <p>Parent Email: {{ user.parent_email }}</p>
-            {% endif %}
-            <p>School: {{ user.school }}</p>
-            Grade: {{ user.grade }}
-     
-        </div>
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Parent Email</th>
+        <th scope="col">School</th>
+        <th scope="col">Grade</th>
         
-        
-    </div>
-    <br>
-
-{% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+        {% for user in object.paid_users_list %}
+      <tr>
+        <td>{{ user.first_name }} {{ user.last_name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{% if user.parent_email %}{{ user.parent_email }}{% endif %}</td>
+        <td>{% if user.school %}{{ user.school }}{% endif %}</td>
+        <td>{{ user.grade }}</td>
+      
+       
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table><br>
 <div id="paid_users">
 <h3>Email List for Paid students:</h3>
 <p><button class="btn btn-outline-secondary btn-sm" id="paid_button">Hide parent emails</button></p>
@@ -70,29 +72,33 @@
 <br>
 <p>Registration deadline <a href="#">{{ object.registration_deadline }}</a></p>
 {% if object.registered_users_list %}
-{% for user in object.registered_users_list %}
-    <div class="card">
-    <div class="card-header">
-        {{ user.first_name }} {{ user.last_name }}
-
-    </div>
-
-    <div class="card-body">
-        <!-- <p>Name: {{ request.user.first_name}} {{ request.user.last_name }}</p> -->
-        <p>Email: {{ user.email }}</p>
-        {% if user.parent_email %}
-        <p>Parent Email: {{ user.parent_email }}</p>
-        {% endif %}
-        <p>School: {{ user.school }}</p>
-        Grade: {{ user.grade }}
- 
-    </div>
-    
-    
-</div>
-
-<br>
-{% endfor %}
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Parent Email</th>
+        <th scope="col">School</th>
+        <th scope="col">Grade</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+        {% for user in object.registered_users_list %}
+      <tr>
+        <td>{{ user.first_name }} {{ user.last_name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{% if user.parent_email %}{{ user.parent_email }}{% endif %}</td>
+        <td>{% if user.school %}{{ user.school }}{% endif %}</td>
+        <td>{{ user.grade }}</td>
+        
+       
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table>
+  <br>
 <h3>Email List for Registered students:</h3>
 <p><button class="btn btn-outline-secondary btn-sm" id="registered_button">Hide parent emails</button></p>
 <div id="registered_users">
@@ -121,7 +127,9 @@
 {% endif %}
 <br>
 
- 
+
+</div>
+
 
 {% endblock content %}
 
@@ -199,5 +207,34 @@
             }
         }
     });
+    var el = document.querySelector('.more');
+var btn = el.querySelector('.more-btn');
+var menu = el.querySelector('.more-menu');
+var visible = false;
+
+function showMenu(e) {
+    e.preventDefault();
+    if (!visible) {
+        visible = true;
+        el.classList.add('show-more-menu');
+        menu.setAttribute('aria-hidden', false);
+        document.addEventListener('mousedown', hideMenu, false);
+    }
+}
+
+function hideMenu(e) {
+    if (btn.contains(e.target)) {
+        return;
+    }
+    if (visible) {
+        visible = false;
+        el.classList.remove('show-more-menu');
+        menu.setAttribute('aria-hidden', true);
+        document.removeEventListener('mousedown', hideMenu);
+    }
+}
+
+btn.addEventListener('click', showMenu, false);
 </script>
+
 {% endblock javascript %}

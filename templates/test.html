@@ -7,6 +7,7 @@
 
 {% block home %}
 <style>
+    
     .image-item1 {
         background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url("{% static 'images/nstar1.png' %}");
         padding-top: 100px;
@@ -45,11 +46,11 @@
 </style>
 
 <!-- REMOVE LATER -->
-<a href="{% url 'update' %}">
+<a href="{% url 'class_list' %}">
 <div class="alert alert-info text-center mb-0" role="alert">
     
     
-    An update regarding the next session
+    Registration is Live!
   </div>
 </a>
 
@@ -157,7 +158,7 @@
       
     </div>
     <br><br>
-    <div data-aos="flip-left">
+    <div data-aos="fade-up">
     <p class="lead text-center">It's your time to shine.</p>
         <p class="text-center"><a class="btn btn-info" href="{% url 'class_list' %}">Course List</a></p>
     </div>
@@ -170,3 +171,5 @@
 
 
 {% endblock home %}
+
+

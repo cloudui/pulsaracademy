@@ -5,7 +5,7 @@
 
 {% block home %}
 <div class="jumbotron jumbotron-fluid text-white mb-0" id="jumbotron-about" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.7) 100%), url('{% static 'images/coding_background.png' %}')">
-    <div class="container" data-aos="zoom-in" style="width:100%;">
+    <div class="container" style="width:100%;">
         <h1 class="display-3 text-info"><u>About</u></h1>
         <p class="lead">Pulsar Academy offers online courses in coding and development, taught by its <a href="{% url 'instructors' %}" target="_blank">creators</a>, rising
             seniors at the Montgomery Blair High School STEM Program. PA was created to offer an accessible way to children of all ages to learn how to code. At PA, we firmly believe that all people 
@@ -21,13 +21,50 @@
             
              
         </p>
-        <p class="lead">
-
-       </p>
     </div>
+    <br>
+        <div class="container" id="instructors">
+            <h2 class="display-4 text-info"><u>Meet the Instructors</u></h2>
+
+<p class="lead">Hi! We will be the instructors for the various courses that we offer. We are Montgomery Blair High School students, and we are very passionate about coding.
+    Both of us will teach our own respective courses. Don't be scared! We'll get to know one another. If you want any additional credentials, feel free to message us.
+</p><br>
+<div class="card-deck"  style="overflow-x: hidden;">
+    <div class="card" style="border: none; background-color: rgba(245, 245, 245, 0);" id="ericchen">
+      <img class="card-img-top" src="{% static 'images/eric.jpg' %}" alt="Card image cap">
+      <br>
+        <h4 class="card-title"><b>Eric Chen</b></h4>
+        <p class="card-text">Eric is a senior at Montgomery Blair High School. He is an avid web developer and coder, having worked on 
+            his school's debate team site as well as <a href="{% url 'home' %}">this website</a>! His favorite languages are Python and Java, and 
+            he is currently learning to be an Amazon Web Services Solutions Architect. He has tutored competitive math in the past and enjoys working with others. His hobbies include
+            competitive debate, basketball, and listening to music. He will be majoring in Computer Science in college. 
+
+        </p>
+        
+        
+      
+     
+      
+    </div>
+
+    <div class="card" style="border: none; background-color: rgba(245, 245, 245, 0);" id="maxwellzhang">
+      <img class="card-img-top" src="{% static 'images/maxwell.png' %}" alt="Card image cap">
+      <br>
+      <h4 class="card-title"><b>Maxwell Zhang</b></h4>
+        <p class="card-text">Maxwell is a senior at Montgomery Blair High School. He has experience teaching Python 
+          at Kids Connect in the past. In the professional scene, Maxwell has conducted an internship in machine learning 
+          at the Mahmood Lab at Harvard Medical School. Maxwell is an avid competitive programmer, as he is in the USA Computing 
+          Olympiad Platinum Division and is a Division I participant on Codeforces. Aside from coding, Maxwell’s hobbies include playing
+           viola and reading manga.
+
+        </p>
+          
+  </div>
+</div>
+        </div>
         <br><br>       
         
-        <div class="container" data-aos="zoom-in">
+        <div class="container">
             <h2 class="display-4 text-info"><u>FAQs</u></h2><br>
         <p class="lead text-info"><strong>How do the courses work?</strong></p>
         <p>Courses will be held online via <a href="https://meet.google.com/" target="_blank">Google Meet</a>, a video calling service offered by Google. Each course lasts for 5 weeks, with two classes per week based on the course.
@@ -37,8 +74,7 @@
         <br>
         <p class="lead text-info"><strong>How do I register?</strong></p>
         <p>You can make a free account by <a href="{% url 'account_signup' %}" target="_blank">signing up</a>. From there, you can go to the <a href="{% url 'class_list' %}">course list</a>
-            and sign up for the courses you want. You can sign up for as few or as many as you would like. You can choose to pay by going to your 
-            <a href="{% url 'summary' %}" target="_blank">cart</a>. Payment for courses will not be available until the course is confirmed by our staff. Courses will become available for payment 
+            and sign up for the courses you want. You can sign up for as few or as many as you would like. Payments will be conducted using Paypal, and will be available once the course is confirmed by our staff. Courses will become available for payment 
             after a minimum quota of students are reached, and a notification email will be sent to the people who have signed up. More information on regsitration
             <a href="{% url 'registration_info' %}" target="_blank">here</a>.
         </p>
@@ -56,15 +92,14 @@
             feel free to <a href="{% url 'contact' %}">contact us</a> and we can discuss the right choices for you. 
         </p>
         <br>
-        <p class="lead text-info">Is my payment secure?</p>
+        <!-- <p class="lead text-info">Is my payment secure?</p>
         <p>Payment is handeled by Paypal, and all your payment information only ever goes to <a href="https://www.paypal.com/us/home" target="_blank">PayPal</a>. We do not record any of your payment credentials, but all 
             traffic coming and going to our site is encrypted anyway. The payment will go towards our business account, currently under the email <span class="text-primary">eric@echen.io</span>.
              Should you have any concerns, feel free to <a href="{% url 'contact' %}">contact us</a> and we can figure taylor to your needs.
-        </p><br>
+        </p><br> -->
         <p class="lead text-info"><strong>How do I contact you?</strong></p>
         <p>Our preferred way of communication is by email. All inquiries should go to <a href="mailto:contact@pulsaracademy.com">contact@pulsaracademy.com</a> or just go <a href="{% url 'contact' %}">here</a>. If you would like to discuss by call, feel free to dial 
-            <span class="text-primary">(301)-456-9068</span>, but availability is NOT guaranteed. Emails will be responded to within a day. If you do not 
-            receive a reply, you should either call the number above or try again.  
+            <span class="text-primary">(301)-456-9068</span>, but availability is NOT guaranteed. Emails will be responded to within a day. If you do not receive a reply, you should either call the number above or try again.  
         </p>
         <br>
         <p class="lead text-info"><strong>I'm not receiving notifications from you! What should I do?</strong></p>
@@ -97,7 +132,7 @@
         </p>  
     </div>
     <br><br>
-    <div class="container text-break" data-aos="zoom-in">
+    <div class="container text-break">
         
         <h3 class="display-4 text-info"><u>Acknowledgements</u></h3><br>
         <p class="lead">Thank you to Kevin Higgs for his extensive help with the development of this site! Without him, the creation of this site

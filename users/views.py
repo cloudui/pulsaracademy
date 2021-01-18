@@ -16,8 +16,9 @@ class ProfilePageView(LoginRequiredMixin, TemplateView):
     login_url = 'account_login'
     template_name = 'profile.html'
 
-class StaffListView(LoginRequiredMixin, ListView):
+class StaffUserListView(LoginRequiredMixin, ListView):
     model = CustomUser
+    ordering = ('first_name',)
     login_url = "account_login"
     template_name = "account/user_list.html"
 

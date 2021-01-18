@@ -65,7 +65,10 @@ class CustomUser(AbstractUser):
         return ''
     
     def num_users(self):
-        return CustomUser.objects.all().count() - 2
+        return CustomUser.objects.all().count() - 2\
+    
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
 
                        
     

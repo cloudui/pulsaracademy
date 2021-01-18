@@ -7,6 +7,7 @@
 {% block content %}
 
 <h1>{{ object.title }}</h1>
+<p><a class="text-muted" href="{% url 'forum_list' object.course.slug %}">{% icon 'arrow-left' height="18" width="18" %} {{ object.course.name }} forum</a></p>
 
 {% if request.user == object.author %}
 <span class="text-info">by {{ object.author.first_name }} {{ object.author.last_name }}
@@ -46,8 +47,6 @@
 
 <br><br>
 
-<p><a class="text-muted" href="{% url 'forum_list' object.course.slug %}">{% icon 'arrow-left' height="18" width="18" %} {{ object.course.name }} forum</a></p>
-    <br>
 <h4>Comments ({{ object.comment_set.all.count }})</h4>
 <br>
 <hr class="my-0">

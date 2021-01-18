@@ -1,0 +1,54 @@
+
+
+{% extends '_base.html' %}
+{% load icon %}
+
+{% block title %}Archived Courses{% endblock title %}
+
+
+
+{% block content %}
+
+
+
+
+
+<h1><b>Archived Courses</b></h1>
+<p><a href="{% url 'staff_list' %}" class="text-secondary">{% icon 'arrow-left' %} Staff Page</a></p>
+<br>
+{% for class in object_list %}
+
+
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{% if request.user.full_name == class.instructor %}{% icon 'star' height="18" width="18" style="padding-bottom: 2px" %} {% endif %}{{ class.name }}</a></span> &middot;
+        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}
+            
+
+        </span>
+
+        <a href="{% url 'class_update' class.slug %}" class="text-secondary">{% icon 'edit' style="margin-left: 10px; padding-bottom: 2px" height="18" width="18" %}</a>
+        <span style="float:right">Status: {% if class.confirmed %}
+          {% icon 'check-circle' style="color:green" height="15" width="15" %}
+      {% else %}
+          {% icon 'x' style="color:red" height="15" width="15" %} 
+      {% endif %}
+      </span>
+    </div>
+
+    <div class="card-body">
+        <p><a href="{% url 'class_detail' class.slug %}">Details</a></p> 
+        <p><a href="{% url 'forum_list' class.slug %}">Forum</a></p> 
+        <p><a href="{% url 'lesson_list' class.slug %}">Lesson List</a></p>
+        <p><a href="{% url 'staff_class_user_detail' class.slug %}">{% icon 'user' height="22" width="22" %} (R: {{ class.registered_users_list.count }}, P: {{ class.paid_users_list.count }})</a></p>
+        
+         
+             
+    </div>
+    
+    
+</div>
+ <br />
+ 
+ {% endfor %}
+{% endblock content %}

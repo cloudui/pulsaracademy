@@ -1,25 +1,74 @@
 {% extends '_base.html' %}
 
 {% load icon %}
-{% block title %}Registered Courses{% endblock title %}
+{% block title %}My Courses{% endblock title %}
 
 {% block content %}
 
+<h1><b>My Courses</b></h1><hr><br>
+
+<h2><strong>Paid Courses</strong></h2>
+
+{% if request.user.classes_paid_list %}
+
+
+<p class="lead">Welcome to your courses! If you click on the class name below, you can access the lesson list for each course. From there,
+    you can review previous lessons or go to the forum where you can interact with other students. Enjoy!
+</p>
+<br>
+{% for class in request.user.classes_paid_list reversed %}
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bold"><a class="text-dark" href="{% url 'lesson_list' class.slug %}">{{ class.name }}</a></span> &middot;
+        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.first_day }}{% if class.second_day %}, {{ class.second_day }}{% endif %} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
+        <span style="float:right" class="text-muted">
+            <a class="btn btn-info" style="padding-top: 2px; padding-bottom: 2px; padding-left: 3px; padding-right: 3px;" href="{% url 'lesson_list' class.slug %}">{% icon 'book_open' style="padding: -5px" %}</a>
+            
+            
+        </span>
+    </div>
+
+    <div class="card-body">
+        {{ class.description }}      
+             
+    </div>
+    <div class="card-footer">
+        <span class="text-muted">Instructor: {{ class.instructor }}</span>
+        <span class="text-muted" style="float:right">
+            {% if class.archived %}
+            (Completed)
+        {% else %}
+            (Ongoing)
+        {% endif %}
+        </span>
+      </div>
+    
+</div>
+<br>
+{% endfor %}
+{% else %}
+<p class="lead">Your paid classes will show up here.</p>
+{% endif %}
+
+<br>
+<hr>
+<br>
+
 {% if request.user.classes_registered_list %}
-<h2><u>Registered Courses</u></h2><br>
-<p>The status indicates whether the course has been confirmed. We will send out an email to you at least 4 days before the start of the class
-    clarifying whether course shall happen on schedule. If it is confirmed, it will show up in your cart, where you can proceed to checkout using Paypal. Learn more
-    <a href="{% url 'registration_info' %}">here</a>.
+
+<h2><strong>Registered Courses</strong></h2>
+<p class="lead">You are registered for these courses. You will receive an email shortly detailing more information about the courses and steps for payment. Once you have paid, you will gain access to the course materials page and the forum. 
 </p>
 <!-- <br> -->
 <br>
+<!-- {% comment %}
 <a href="{% url 'summary' %}" style="float:right" class="btn btn-outline-primary btn-sm">{% icon 'shopping-cart' height="20" width="20" %} Pay</a><br>
-<br>
+{% endcomment %} -->
 {% for class in request.user.classes_registered_list %}
 <div class="card">
     <div class="card-header">
         <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
-        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.first_day }}, {{ class.second_day }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
+        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.first_day }}{% if class.second_day %}, {{ class.second_day }}{% endif %} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
         <span style="float:right" class="text-muted">{% if class.confirmed and not class.past_registration_deadline %}
             (Confirmed)
             {% comment %}{% icon 'check-circle' style="color:green" height="15" width="15" %}{% endcomment %}
@@ -43,7 +92,7 @@
 </div>
 <br>
 {% endfor %}
-{% else %}
+{% elif not request.user.classes_registered_list and not request.user.classes_paid_list %}
 <h2>You are not registered for any courses.</h2>
 <br>
 <p class="lead">You can register <a href="{% url 'class_list' %}">here</a> or see your paid courses <a href="{% url 'paid_classes' %}">here</a>.</p>
@@ -54,7 +103,7 @@
 <br><br>
 <p class="lead text-danger">The payment deadline for the following classes has passed. If you have any conerns, please contact us at contact@pulsaracademy.com.</p>
 
-<span style="float:right"><a href="{% url 'clear' %}" class="btn btn-outline-danger">Remove All {% icon 'x' class="text-danger" height="20" width="20" %} </a></span><br><br><br>
+<span style="float:right"><a href="{% url 'clear' %}" class="btn btn-outline-danger">Remove All {% icon 'x' height="20" width="20" %} </a></span><br><br><br>
 {% for class in request.user.classes_expired_registered_list %} 
 <div class="card">
     <div class="card-header">

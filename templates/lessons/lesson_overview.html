@@ -7,14 +7,15 @@
 {% block content %}
 
 <h1>{{ object.name }} <span class="icon"> <i class="devicon-{{ object.get_icon_string }}-plain"></i></span></h1>
-<p><a class="text-muted" href="{% url 'paid_classes' %}">{% icon 'arrow-left' height="18" width="18" %} Class List</a></p>
+<a class="text-muted" href="{% url 'registered_classes' %}">{% icon 'arrow-left' height="18" width="18" %} Class List</a>
+
+<!-- {% comment %}
 {% if request.user.is_staff %}
     <a href="{% url 'auto_populate' object.slug %}">Generate Lessons +</a>    
-    
-    
-{% endif %}
-<!-- <br> -->
-<a style="float:right" href="{% url 'forum_list' object.slug %}" class="btn btn-outline-secondary">Forum {% icon 'list' height="18" width="18" %}</a>
+       
+{% endif %}{% endcomment %} -->
+
+<a style="float:right" href="{% url 'forum_list' object.slug %}" class="btn btn-secondary">Forum {% icon 'list' height="18" width="18" %}</a>
 
 <br>
 <br>

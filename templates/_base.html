@@ -22,6 +22,7 @@
 </head>
 <body>
   <header>
+
     <!-- Fixed navbar -->
     {% url 'about' as about %}
     <nav{% if request.path == '/' or request.path ==  about or request.path == '/courses/' %} class="navbar navbar-expand-md navbar-dark bg-dark" {% else %} class="navbar navbar-expand-md navbar-dark bg-dark mb-4" {% endif %}>
@@ -41,16 +42,20 @@
           </a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="{% url 'class_list' %}">List</a>
-            <a class="dropdown-item" href="{% url 'schedule' %}">Schedule</a>
-            <a class="dropdown-item" href="{% url 'registered_classes' %}">Registered Courses</a>
-            <a class="dropdown-item" href="{% url 'paid_classes' %}">Paid Courses</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'registered_classes' %}">My Courses</a>
+            {% comment %}
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'paid_classes' %}">Paid Courses</a>{% endcomment %} 
             
             
           </div>
+          
+          
         </li>
 
         <li {% if request.path == about %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class = "nav-link" href="{% url 'about' %}">About</a></li>
-        <li {% if request.path == instructors %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class = "nav-link" href="{% url 'instructors' %}">Instructors</a></li>
+        {% comment %}<li {% if request.path == instructors %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class = "nav-link" href="{% url 'instructors' %}">Instructors</a></li>{% endcomment %}
         <li {% if request.path == contact %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class = "nav-link" href="{% url 'contact' %}">Support</a></li>
         {% if request.user.is_staff %}
         <li {% if request.path == staff_list %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class = "nav-link" href="{% url 'staff_list' %}">Staff</a></li>
@@ -66,28 +71,34 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 {% if user.is_authenticated %}
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a {% if request.path == checkout or request.path == summary %} class="nav-link active" {% else %} class="nav-link" {% endif %}
+                    {% comment %}  
+                      <li class="nav-item"><a {% if request.path == checkout or request.path == summary %} class="nav-link active" {% else %} class="nav-link" {% endif %}
                              href="{% url 'summary' %}">{% icon "shopping-cart" class="css-class" height="20" width="20" %} {{ request.user.num_payments_not_paid }}</a></li>
-                        <li class="nav-item">
+                    {% endcomment %}
+                        <li class="nav-item dropdown">
                             
                             <a class="nav-link dropdown-toggle" href="#" id="userMenu"
                                 data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
                                 {{ user.first_name }} {{ user.last_name }}
                             </a>
+                            
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
                                 <a class="dropdown-item" href="{% url 'account_change_password' %}">Change password</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                                <a class="dropdown-item" href="{% url 'profile' %}">{% icon 'user' class="navbar-icon" %} Profile</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'account_logout' %}">Log Out</a>
+                                <a class="dropdown-item" href="{% url 'account_logout' %}">{% icon 'log-out' class="navbar-icon" %} Log Out</a>
                             </div>
+
+                            
+                            
                         </li>
                     </ul>
                 {% else %}
                     <form class="form-inline ml-auto">
                         <a href="{% url 'account_login' %}" class="btn btn-outline-secondary">Log In</a>
-                        <a href="{% url 'account_signup' %}" class="btn btn-primary ml-2">Sign up</a>
+                        <a href="{% url 'account_signup' %}" class="btn btn-primary ml-2">Join</a>
                     </form>
                 {% endif %}
             </div>
@@ -106,7 +117,7 @@
     </div>
     <footer id="footer" class="py-1 bg-dark text-white-50">
       <div class="container text-center">
-        <small>&copy;2020 Pulsar Academy. All Rights Reserved.</small>
+        <small>&copy;2021 Pulsar Academy. All Rights Reserved.</small>
       </div>
     </footer>
   <!-- JavaScript -->

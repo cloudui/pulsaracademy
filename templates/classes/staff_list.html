@@ -13,41 +13,79 @@
 
 
 
-<h2><u>Staff Information</u></h2>
+<h1><b>Staff Info</b></h1>
+
+<!-- {% comment %}
+<span class="dots" style="float:right;">
+<a href="{% url 'student_list' %}"><span class="dot">{% icon 'user' style="padding-left:2px" %}</span></a>
+<a href="{% url 'student_list' %}"><span class="dot">{% icon 'archive' style="padding-left:4px; padding-top:2px" height="22" width="22" %}</span></a>
+
+
+</span>
 <br>
-<p>Go to <a href="{% url 'student_list' %}">user list</a>.</p>
 <br>
+{% endcomment %} -->
+
+
+<div class="btn-group" style="float:right;" role="group" aria-label="Basic example">
+  <a href="{% url 'student_list' %}" type="button" class="btn btn-info">{% icon 'user' %}</a>
+  <a href="{% url 'staff_archive' %}" type="button" class="btn btn-info">{% icon 'archive' %}</a>
+  
+</div>
+<br><br><br>
 {% for class in object_list %}
 
 
 <div class="card">
     <div class="card-header">
-        <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
-        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
-        <span style="float:right">Status: {% if class.confirmed %}
-          {% icon 'check-circle' style="color:green" height="15" width="15" %}
+        <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{% if request.user.full_name == class.instructor %}{% icon 'star' height="18" width="18" style="padding-bottom: 2px" %} {% endif %}{{ class.name }}</a></span> &middot;
+        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span> 
+        <span class="ml-2">
+        {% if class.confirmed %}
+          {% icon 'check' style="color:green; position: relative; bottom: 2px" height="15" width="15" %}
       {% else %}
-          {% icon 'x' style="color:red" height="15" width="15" %} 
+          {% icon 'x' style="color:red; position: relative; bottom: 2px" height="15" width="15" %} 
       {% endif %}
-      </span>
+        </span>
+        
+        <span class="status text-muted" style="float:right; ">
+          
+
+      <div class="dropdown">
+  <button class="menu text-muted" style="outline:none;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {% icon 'more_vertical' width="23" height="23" style="position: relative; right: 2px; bottom: 1px" %}
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item small" href="{% url 'class_update' class.slug %}" class="text-secondary">{% icon 'edit' class="menu-icon" %} Edit</a>
+    <a class="dropdown-item small" href="{% url 'archive_class' class.slug %}">{% icon 'archive' class="menu-icon" %} Archive</a>
+  </div>
+</div>
+
+
+      
+  </span>
     </div>
 
     <div class="card-body">
         <p><a href="{% url 'class_detail' class.slug %}">Details</a></p> 
         <p><a href="{% url 'forum_list' class.slug %}">Forum</a></p> 
         <p><a href="{% url 'lesson_list' class.slug %}">Lesson List</a></p>
-        <p><a href="{% url 'staff_class_user_detail' class.slug %}">Students (R: {{ class.registered_users_list.count }}, P: {{ class.paid_users_list.count }})</a></p>
+        <p><a href="{% url 'staff_class_user_detail' class.slug %}">{% icon 'user' height="22" width="22" %} (R: {{ class.registered_users_list.count }}, P: {{ class.paid_users_list.count }})</a></p>
         
          
              
     </div>
-    <div class="card-footer">
-      <span class="text-muted">Instructor: {{ class.instructor }}</span>
-
-    </div>
+    
     
 </div>
- <br />
+ <br>
+
+
  
  {% endfor %}
+
+
 {% endblock content %}
+
+
+    

@@ -1,34 +1,7 @@
 
 
 from django.urls import include, path
-from .views import (
-    ClassListView, 
-    ClassDetailView, 
-    ClassRegistrationView, 
-    ClassUnregisterView, 
-    CheckoutSummaryView, 
-    RegisteredClassesView, 
-    PaidClassesView,
-    StaffAutoPopulateField,
-    LessonListView,
-    LessonDetailView,
-    LessonUpdateView,
-    ForumListView,
-    ForumDetailView,
-    ForumUpdateView,
-    ForumCreateView,
-    StaffListView,
-    ClassStaffUsersDetailView,
-    ClearOldClassesView,
-    ClassUpdateView,
-    PaymentSuccessView,
-    ClassUnregisterCartView,
-    ForumDeleteView,
-    ClassIntroView,
-    ClassIntroUpdateView,
-    CommentCreateView,
-    ClassScheduleView,
-)
+from .views import *
 
 
 from .views import class_checkout_view, class_specific_checkout_view, create_comment
@@ -36,22 +9,24 @@ from .views import class_checkout_view, class_specific_checkout_view, create_com
 urlpatterns = [
     path('', ClassListView.as_view(), name='class_list'),
     path('staff/', StaffListView.as_view(), name='staff_list'),
-    path('pay/summary/', CheckoutSummaryView.as_view(), name='summary'), 
-    path('registered/', RegisteredClassesView.as_view(), name='registered_classes'),
-    path('paid/', PaidClassesView.as_view(), name='paid_classes'),
-    path('checkout/', class_checkout_view, name='checkout'),
+    path('staff/archive', StaffArchiveView.as_view(), name='staff_archive'),
+    # path('pay/summary/', CheckoutSummaryView.as_view(), name='summary'), 
+    path('enrolled/', RegisteredClassesView.as_view(), name='registered_classes'),
+    #path('paid/', PaidClassesView.as_view(), name='paid_classes'),
+    # path('checkout/', class_checkout_view, name='checkout'),
     path('clear/old-classes/', ClearOldClassesView.as_view(), name='clear'),
-    path('payment-success/', PaymentSuccessView.as_view(), name='payment_success'),
-    path('schedule/', ClassScheduleView.as_view(), name='schedule'),
+    # path('payment-success/', PaymentSuccessView.as_view(), name='payment_success'),
+    # path('schedule/', ClassScheduleView.as_view(), name='schedule'),
 
 
     path('<slug:slug>/', ClassDetailView.as_view(), name='class_detail'),
     path('<slug:slug>/staff/', ClassStaffUsersDetailView.as_view(), name='staff_class_user_detail'),
     path('<slug:slug>/register/', ClassRegistrationView.as_view(), name='register'),
     path('<slug:slug>/unregister/', ClassUnregisterView.as_view(), name='unregister'),
-    path('<slug:slug>/remove-from-cart', ClassUnregisterCartView.as_view(), name='cart_unregister'), 
-    path('<slug:slug>/update/', ClassUpdateView.as_view(), name='class_update'),
-    path('<slug:slug>/pay-now/', class_specific_checkout_view, name='class_pay'),
+    # path('<slug:slug>/remove-from-cart', ClassUnregisterCartView.as_view(), name='cart_unregister'), 
+    path('<slug:slug>/edit/', ClassUpdateView.as_view(), name='class_update'),
+    # path('<slug:slug>/pay-now/', class_specific_checkout_view, name='class_pay'),
+    path('<slug:slug>/archive/', ClassArchiveView.as_view(), name='archive_class'),
 
     path('<slug:slug>/forum/', ForumListView.as_view(), name='forum_list'),
     path('<slug:slug>/forum/posts/new/', ForumCreateView.as_view(), name='forum_new'),

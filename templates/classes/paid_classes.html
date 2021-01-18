@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h2><u>Paid Courses</u></h2>
+<h1><u>Paid Courses</u></h1>
 <!-- <br> -->
 {% if request.user.classes_paid_list %}
 
@@ -17,7 +17,7 @@
 <div class="card">
     <div class="card-header">
         <span class="font-weight-bold"><a class="text-dark" href="{% url 'lesson_list' class.slug %}">{{ class.name }}</a></span> &middot;
-        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.first_day }}, {{ class.second_day }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
+        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.first_day }}{% if class.second_day %}, {{ class.second_day }}{% endif %} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
         <span style="float:right" class="text-muted">
             {% if class.is_ongoing %}
                 (Ongoing)
@@ -43,6 +43,5 @@
 {% endfor %}
 {% else %}
 <p class="lead">Your paid classes will show up here.</p>
-<p>See your cart <a href="{% url 'summary' %}">here</a>.</p>
 {% endif %}
 {% endblock content %}

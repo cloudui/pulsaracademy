@@ -41,7 +41,12 @@ from posts.models import Post, Comment
 
 class ClassListView(ListView):
     template_name = 'classes/list.html'
-    model = Class
+    context_object_name = 'classes'
+
+    def get_queryset(self):
+        queryset = Class.objects.filter(archived=False)
+        
+        return queryset
     
 
 class ClassCreateView(CreateView):
@@ -87,6 +92,13 @@ class StaffListView(LoginRequiredMixin, ListView):
     model = Class
     login_url = 'account_login'
 
+    def get_queryset(self):
+        queryset = Class.objects.filter(archived=False)
+        
+        return queryset
+    
+    
+
     def dispatch(self, request, *args, **kwargs):
         
         if self.request.user.is_authenticated:
@@ -94,6 +106,28 @@ class StaffListView(LoginRequiredMixin, ListView):
                 raise PermissionDenied
         
         return super().dispatch(request, *args, **kwargs)
+
+class StaffArchiveView(LoginRequiredMixin, ListView):
+    template_name = 'classes/staff_archive.html'
+    model = Class
+    login_url = 'account_login'
+    context_object_name = 'archived_classes'
+
+    def get_queryset(self):
+        queryset = Class.objects.filter(archived=True)
+        
+        return queryset
+    
+    
+
+    def dispatch(self, request, *args, **kwargs):
+        
+        if self.request.user.is_authenticated:
+            if not self.request.user.is_staff:
+                raise PermissionDenied
+        
+        return super().dispatch(request, *args, **kwargs)
+
 
 class ClassRegistrationView(LoginRequiredMixin, DetailView, FormView):
     model = Class
@@ -623,6 +657,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         # form.instance.author = self.request.user
         return super().form_valid(form)
 
+# not in use I assume
 class OldCommentCreateView(LoginRequiredMixin, FormView):
 
     template_name = 'posts/comment_new.html'  
@@ -712,3 +747,60 @@ class ClassScheduleView(TemplateView):
     template_name = 'classes/schedule.html'
    
 
+class ClassArchiveView(LoginRequiredMixin, DetailView, FormView):
+    model = Class
+    form_class = ClassUnregisterForm
+    template_name = 'classes/archive_class.html'
+    login_url = 'account_login'
+
+    def get_success_url(self):
+        return reverse_lazy('staff_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        
+        if self.request.user.is_authenticated:
+            if not self.request.user.is_staff:
+                raise PermissionDenied
+
+        
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        class_slug = self.kwargs['slug']
+        course = Class.objects.get(slug=class_slug)
+        course.archived = True
+        course.save()
+
+        
+        return super(ClassArchiveView, self).form_valid(form)
+
+#TODO Implement URL and Template
+class ClassUnarchiveView(LoginRequiredMixin, DetailView, FormView):
+    model = Class
+    form_class = ClassUnregisterForm
+    template_name = 'classes/unarchive_class.html'
+    login_url = 'account_login'
+
+    def get_success_url(self):
+        return reverse_lazy('staff_archive')
+
+    def dispatch(self, request, *args, **kwargs):
+        
+        
+        if self.request.user.is_authenticated:
+            if not self.request.user.is_staff:
+                raise PermissionDenied
+
+        
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        class_slug = self.kwargs['slug']
+        course = Class.objects.get(slug=class_slug)
+        course.archived = False
+        course.save()
+
+        
+        return super(ClassUnarchiveView, self).form_valid(form)

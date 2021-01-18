@@ -33,17 +33,20 @@
 
 <!-- Classes not paid -->
 {% if request.user.classes_not_paid_list %}
-<p class="lead"><u>Registered Courses</u></p> 
+<h2><strong>Registered Courses</strong></h2> <br>
+{% comment %}
 <div style="float:right;">
     <a class= "btn btn-outline-primary btn-sm" href="{% url 'summary' %}">{% icon 'shopping-cart' height="16" width="16" %} Pay</a>
 
 </div>
-<br><br>
+{% endcomment %}
+
+
 {% for class in request.user.classes_not_paid_list %}
 <div class="card">
     <div class="card-header">
         <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{{ class.name }}</a></span> &middot;
-        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.first_day }}, {{ class.second_day }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
+        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.first_day }}{% if class.second_day %}, {{ class.second_day }}{% endif %} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
         <span style="float:right" class="text-muted">
             {% if class.confirmed and not class.past_registration_deadline %}
             (Confirmed)
@@ -67,8 +70,11 @@
 {% endfor %}
 {% endif %}
 
+
+<hr>
+<br>
 <!-- Classes that are paid -->
-<p class="lead"><u>Paid Course History</u></p>
+<h2><strong>Paid Course History</strong></h2><br>
 {% if request.user.classes_paid_list %}
 
 {% for class in request.user.classes_paid_list reversed %}
@@ -76,13 +82,10 @@
 <div class="card">
     <div class="card-header">
         <span class="font-weight-bold"><a class="text-dark" href="{% url 'lesson_list' class.slug %}">{{ class.name }}</a></span> &middot;
-        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.first_day }}, {{ class.second_day }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
+        <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.first_day }}{% if class.second_day %}, {{ class.second_day }}{% endif %} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span>
         <span style="float:right" class="text-muted">
-            {% if class.is_ongoing %}
-                (Ongoing)
-            {% elif class.past %}
-                (Completed)
-            {% endif %}
+            <a class="btn btn-info" style="padding-top: 2px; padding-bottom: 2px; padding-left: 3px; padding-right: 3px;" href="{% url 'lesson_list' class.slug %}">{% icon 'book_open' style="padding: -5px" %}</a>
+            
             
             
         </span>
@@ -94,7 +97,14 @@
     </div>
     <div class="card-footer">
         <span class="text-muted">Instructor: {{ class.instructor }}</span>
-  
+        
+        <span class="text-muted" style="float:right">
+            {% if class.archived %}
+            (Completed)
+        {% else %}
+            (Ongoing)
+        {% endif %}
+        </span>
       </div>
     
 </div>

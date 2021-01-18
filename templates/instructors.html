@@ -4,18 +4,18 @@
 {% block title%}Instructors{% endblock title %}
 
 {% block content %}
-
+{% comment %}
 <h1>Meet the Instructors</h1>
 <!-- <br> -->
 <p class="lead">Hi! We will be the instructors for the various courses that we offer. We are Montgomery Blair High School students, and we are very passionate about coding.
     Both of us will teach our own respective courses. Don't be scared! We'll get to know one another. If you want any additional credentials, feel free to message us.
 </p><br>
-<div class="card-deck" style="overflow-x: hidden;">
-    <div class="card" data-aos="fade-right">
+<div class="card-deck"  style="overflow-x: hidden;">
+    <div class="card" style="border: none;" data-aos="fade-right">
       <img class="card-img-top" src="{% static 'images/eric.jpg' %}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Eric Chen</h5>
-        <p class="card-text">Eric Chen is a rising senior at Montgomery Blair High School. He is an avid web developer and coder, having worked on 
+      <br>
+        <h4 class="card-title"><b>Eric Chen</b></h4>
+        <p class="card-text">Eric is a rising senior at Montgomery Blair High School. He is an avid web developer and coder, having worked on 
             his school's debate team site as well as <a href="{% url 'home' %}">this website</a>! His favorite languages are Python and Java, and 
             he is currently learning to be an Amazon Web Services Solutions Architect. He has tutored competitive math in the past and enjoys working with others. His hobbies include
             competitive debate, basketball, and listening to music. He will be studying machine learning at the University of Maryland this summer. 
@@ -23,18 +23,16 @@
         </p>
         
         
-      </div>
-      <div class="card-footer">
-        Email: <a href="mailto:eric@echen.io">eric@echen.io</a>
-    </div>
+      
+     
       
     </div>
 
-    <div class="card" data-aos="fade-left">
+    <div class="card" style="border: none;" data-aos="fade-left">
       <img class="card-img-top" src="{% static 'images/maxwell.png' %}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Maxwell Zhang</h5>
-        <p class="card-text">Maxwell Zhang is a rising senior at Montgomery Blair High School. He has experience teaching Python 
+      <br>
+      <h4 class="card-title"><b>Maxwell Zhang</b></h4>
+        <p class="card-text">Maxwell is a rising senior at Montgomery Blair High School. He has experience teaching Python 
           at Kids Connect in the past. In the professional scene, Maxwell is currently conducting an internship in machine learning 
           at the Mahmood Lab at Harvard Medical School. Maxwell is also an avid competitive programmer, as he is in the USA Computing 
           Olympiad Platinum Division and is a Division I participant on Codeforces. Aside from coding, Maxwell’s hobbies include playing
@@ -43,16 +41,15 @@
         </p>
         
         
-    </div>
-    <div class="card-footer">
-        Email: <a href="mailto:mzhangschool2@gmail.com">mzhangschool2@gmail.com</a>
-        
-    </div>
+   
+    
     
     
    
   </div>
 </div>
 <br>
-  
+{% endcomment %}
+
+
 {% endblock content %}
