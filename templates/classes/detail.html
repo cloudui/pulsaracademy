@@ -82,7 +82,7 @@
 
 
 
-<p class="text-muted">{{ object.start_date_string }} - {{ object.end_date_string }} &middot; {{ class.first_day }}, {{ class.second_day }}<br>
+<p class="text-muted">{{ object.start_date_string }} - {{ object.end_date_string }} &middot; {{ class.first_day }}{% if class.second_day %}, {{ class.second_day }}{% endif %}<br>
 {{ class.start_time_convert }} - {{ class.end_time_convert }}</p>
 <p>Instructor: <a href="{% url 'about' %}#instructors">{{ object.instructor }}</a></p>
 
