@@ -47,6 +47,8 @@ class Class(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
 
+    registration_deadline = models.DateTimeField(null=True, default=datetime.now)
+
     difficulty = models.CharField(max_length=40, choices=diff, default='Beginner') 
 
     cost = models.FloatField(null=True)
@@ -128,21 +130,20 @@ class Class(models.Model):
 
     def start_time_convert(self):
         return self.start_time.strftime("%-I:%M %p")
+
     def end_time_convert(self):
         return self.end_time.strftime("%-I:%M %p")
 
-    def registration_deadline(self):
-        two_days = timezone.timedelta(days=2, seconds=1)
-        deadline = timezone.localtime(self.date - two_days)
-
-        return deadline.strftime('%-m/%d/%Y at %-I:%M %p')
+    def registration_deadline_string(self):
+        return self.registration_deadline.strftime("%b %-d")
+    
     def past_registration_deadline(self):
-        two_days = timezone.timedelta(days=2)
-        deadline = self.date - two_days
-
-        if timezone.now() > deadline:
-            return True
-        return False
+        try: 
+            if timezone.now() > self.registration_deadline:
+                return True
+            return False
+        except:
+            return False
 
 
     

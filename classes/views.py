@@ -176,8 +176,8 @@ class ClassUnregisterView(LoginRequiredMixin, DetailView, FormView):
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
         
-        if obj.past_registration_deadline():
-            raise PermissionDenied
+        # if obj.past_registration_deadline():
+        #     raise PermissionDenied
         
         if self.request.user.is_authenticated:
             user_list = self.request.user.classes_paid_list()

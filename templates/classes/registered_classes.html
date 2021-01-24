@@ -95,7 +95,7 @@
 {% elif not request.user.classes_registered_list and not request.user.classes_paid_list %}
 <h2>You are not registered for any courses.</h2>
 <br>
-<p class="lead">You can register <a href="{% url 'class_list' %}">here</a> or see your paid courses <a href="{% url 'paid_classes' %}">here</a>.</p>
+<p class="lead">You can register <a href="{% url 'class_list' %}">here</a>.</p>
 
 {% endif %}
 
