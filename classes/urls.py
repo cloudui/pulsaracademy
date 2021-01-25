@@ -39,6 +39,7 @@ urlpatterns = [
     path('<slug:slug>/lessons/autopopulateform/', StaffAutoPopulateField.as_view(), name='auto_populate'),
     path('<slug:slug>/lessons/welcome/', ClassIntroView.as_view(), name='lesson_intro'),
     path('<slug:slug>/lessons/welcome/edit/', ClassIntroUpdateView.as_view(), name = 'intro_edit'),
+    path('<slug:slug>/lessons/create/', LessonCreateView.as_view(), name='lesson_create'),
     path('<slug:slug>/lessons/<int:pk>/', LessonDetailView.as_view(), name='lesson_detail'),
     path('<slug:slug>/lessons/<int:pk>/edit/', LessonUpdateView.as_view(), name='lesson_edit'),
     

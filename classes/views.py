@@ -14,6 +14,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy, reverse
 
+from django.contrib import messages
+
 from .forms import (
     ClassRegistrationForm, 
     ClassUnregisterForm, 
@@ -37,6 +39,9 @@ import pythoncamp_project
 
 from posts.models import Post, Comment
 
+from django.contrib.messages.views import SuccessMessageMixin
+
+
 
 
 class ClassListView(ListView):
@@ -58,11 +63,12 @@ class ClassDetailView(DetailView):
     template_name = 'classes/detail.html'
     model = Class
 
-class ClassUpdateView(LoginRequiredMixin, UpdateView):
+class ClassUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'classes/update.html'
     model = Class
     login_url = 'account_login'
     fields = ('__all__')
+    success_message = 'Course updated.'
 
     def dispatch(self, request, *args, **kwargs):
         
@@ -133,6 +139,7 @@ class ClassRegistrationView(LoginRequiredMixin, DetailView, FormView):
     model = Class
     form_class = ClassRegistrationForm
     template_name = 'classes/registration_detail.html'
+    
     # success_url = reverse_lazy('class_list')
 
     def get_success_url(self):
@@ -151,6 +158,8 @@ class ClassRegistrationView(LoginRequiredMixin, DetailView, FormView):
             payment = Payment(theclass=class_, user=self.request.user, cost=class_.cost)
 
             payment.save()
+
+        messages.success(self.request, f'You have successfully enrolled in <b>{class_.name}.</b>')
 
         # Class.register(self.request.user, class_)
         return super(ClassRegistrationView, self).form_valid(form)
@@ -194,15 +203,12 @@ class ClassUnregisterView(LoginRequiredMixin, DetailView, FormView):
         # delete the relationship
         try:
             m2 = Payment.objects.get(user=self.request.user, theclass=class_)
-            # print("BEEGLEBEEGLE")
-            # print(m2.id)
-            # print(type(m2.id))
-            # for payment in self.request.user.payment_set.all():
-            #     print(payment.id) 
             m2.delete()
         except:
             pass
         
+        messages.success(self.request, f'You have unenrolled from <b>{class_.name}</b>')
+
         return super(ClassUnregisterView, self).form_valid(form)
 
 class ClassUnregisterCartView(LoginRequiredMixin, DetailView, FormView):
@@ -263,6 +269,8 @@ class ClearOldClassesView(LoginRequiredMixin, FormView):
                 payment.delete()
         except:
             pass
+
+        messages.success(self.request, f'You have cleared your unpaid courses.')
 
         return super(ClearOldClassesView, self).form_valid(form)
 
@@ -424,7 +432,33 @@ class StaffAutoPopulateField(LoginRequiredMixin, DetailView, FormView):
         return super(StaffAutoPopulateField, self).form_valid(form)
 
 
-class LessonUpdateView(LoginRequiredMixin, UpdateView):
+class LessonCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Lesson
+    template_name = 'lessons/lesson_create.html'
+    login_url = 'account_login'
+    fields = ('name', 'number', 'date', 'active', 'summary', 'homework', 'embedded_url')
+
+    def form_valid(self, form):
+        
+        course = get_object_or_404(Class, slug=self.kwargs['slug'])
+
+        form.instance.course = course
+        messages.success(self.request, f'Lesson created!')
+
+        return super().form_valid(form)
+        
+    def get_success_url(self):
+        return reverse_lazy('lesson_detail', kwargs={'slug':self.kwargs['slug'], 'pk':self.object.id,})
+    
+    def dispatch(self, request, *args, **kwargs):
+        
+        if not self.request.user.is_staff:
+            raise PermissionDenied
+
+        return super().dispatch(request, *args, **kwargs)
+
+
+class LessonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     model = Lesson
     template_name = 'lessons/lesson_edit.html'
@@ -432,6 +466,7 @@ class LessonUpdateView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('lesson_detail', kwargs={'slug':self.kwargs['slug'], 'pk':self.kwargs['pk']})
     fields = ('name', 'number', 'date', 'active', 'summary', 'homework', 'embedded_url',)
     login_url = 'account_login'
+    success_message = 'Lesson updated.'
 
     def dispatch(self, request, *args, **kwargs):
         
@@ -484,10 +519,11 @@ class ForumDetailView(LoginRequiredMixin, DetailView):
     login_url = 'account_login'
 
 
-class ForumUpdateView(LoginRequiredMixin, UpdateView):
+class ForumUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     model = Post
     template_name = 'posts/post_edit.html'
+    success_message = "Your post has been edited."
 
     def get_success_url(self):
         return reverse_lazy('forum_detail', kwargs={'slug':self.kwargs['slug'], 'pk':self.kwargs['pk']})
@@ -525,6 +561,8 @@ class ForumCreateView(LoginRequiredMixin, FormView):
         form.instance.author = author
         form.instance.course = course
         self.object = form.save()
+
+        messages.success(self.request, f'Post created!')
         
 
         # form.instance.author = self.request.user
@@ -549,10 +587,15 @@ class ForumDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
 
     login_url = 'account_login'
+    
+
     def get_success_url(self):
         return reverse_lazy('forum_list', kwargs={'slug':self.kwargs['slug'],})
 
-    
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Your post has been deleted.")
+        return super(ForumDeleteView, self).delete(request, *args, **kwargs)
+
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
         
@@ -580,12 +623,13 @@ class ClassIntroView(LoginRequiredMixin, DetailView):
         
         return super().dispatch(request, *args, **kwargs)
     
-class ClassIntroUpdateView(LoginRequiredMixin, UpdateView):
+class ClassIntroUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     
     template_name = 'lessons/intro_edit.html'
     login_url = 'account_login'
     fields = ('title', 'body')
+    success_message = 'Welcome message updated.'
 
     def get_success_url(self):
         return reverse_lazy('lesson_intro', kwargs={'slug':self.kwargs['slug']})
@@ -653,7 +697,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         # form.instance.course = course
         self.object = form.save()
         
-
+        
         # form.instance.author = self.request.user
         return super().form_valid(form)
 
@@ -771,6 +815,7 @@ class ClassArchiveView(LoginRequiredMixin, DetailView, FormView):
         course = Class.objects.get(slug=class_slug)
         course.archived = True
         course.save()
+        messages.success(self.request, f'Archived <b><a href="/courses/{course.slug}/">{course.name}</a></b>.')
 
         
         return super(ClassArchiveView, self).form_valid(form)

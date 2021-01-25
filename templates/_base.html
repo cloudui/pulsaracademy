@@ -13,6 +13,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/toastr.css'%}">
   <!-- TEMPORARY SOLUTION -->
   <style>
     .dropdown:hover>.dropdown-menu {
@@ -176,7 +177,15 @@
     <div {% if request.path == home or request.path == about %}class="container mb-0" {% else %} class="container mb-4" {% endif %}>
         {% block content %}
         {% endblock content %}
+        
+       
+
     </div>
+    
+
+
+
+
     <div class="push"></div>
     </div>
     <footer id="footer" class="py-1 bg-dark text-white-50">
@@ -194,13 +203,25 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="{% static 'aos-master/dist/aos.js' %}"></script>
   <script src="{% static 'js/prism.js' %}"></script>
+  <script src="{% static 'js/toastr.js' %}"></script>
 
+  {% if messages %}
+        {% for message in messages %}
+            <script>
+              toastr.{{ message.tags }} ('{{ message|safe }}')
+            </script>
+          {% endfor %}
+  {% endif %}
+    
   {% block javascript %}
   {% endblock javascript %}
   <script>
     AOS.init({
       duration: 1200,
     });
+
+    
+    
 
   </script>
 

@@ -5,10 +5,10 @@
 
 {% block content %}
 
-<h2>Sign Up</h2>
+<h1><strong>Sign Up</strong></h1>
 <p style="font-size: 12px;">Already have an account?  <b><a href="{% url 'account_login' %}">Sign In</a></b></p>
 <br>
-<div class="row" style="overflow-x: hidden;">
+<div class="row" style="overflow-y: hidden; overflow-x: hidden;">
   <div class="col-md-6" data-aos="fade-up-right">
     <form method="post">
     {% csrf_token %}

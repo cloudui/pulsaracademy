@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+{% load icon %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}Create Lesson{% endblock title %}
+
+{% block others %}{{ form.media }}{% endblock others %}
+
+
+{% block content %}
+
+<h1><strong>Create Lesson</strong></h1>
+<form action="" method="post">{% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-success ml- " type="submit">Save</button>
+</form>
+{% endblock content %}

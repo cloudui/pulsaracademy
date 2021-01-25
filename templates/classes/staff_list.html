@@ -38,7 +38,7 @@
 
 <div class="card">
     <div class="card-header">
-        <span class="font-weight-bold"><a class="text-dark" href="{% url 'class_detail' class.slug %}">{% if request.user.full_name == class.instructor %}{% icon 'star' height="18" width="18" style="padding-bottom: 2px" %} {% endif %}{{ class.name }}</a></span> &middot;
+        <span class="font-weight-bold"><a class="text-dark" href="{% url 'lesson_list' class.slug %}">{% if request.user.full_name == class.instructor %}{% icon 'star' height="18" width="18" style="padding-bottom: 2px" %} {% endif %}{{ class.name }}</a></span> &middot;
         <span class="text-muted">{{ class.start_date_string }} - {{ class.end_date_string }} &middot; {{ class.start_time_convert }} - {{ class.end_time_convert }}</span> 
         <span class="ml-2">
         {% if class.confirmed %}

@@ -29,6 +29,7 @@ class PostCreateForm(ModelForm):
         model = Post
         fields = ('title', 'body',)
 
+
 class ClearOldClassesForm(forms.Form):
     pass
 

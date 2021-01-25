@@ -6,7 +6,8 @@
 
 {% block content %}
 
-<h1>{{ object.name }} <span class="icon"> <i class="devicon-{{ object.get_icon_string }}-plain"></i></span></h1>
+<h1>{{ object.name }} <span class="icon"> <i class="devicon-{{ object.get_icon_string }}-plain"></i></span>
+</h1>
 <a class="text-muted" href="{% url 'registered_classes' %}">{% icon 'arrow-left' height="18" width="18" %} Class List</a>
 
 <!-- {% comment %}
@@ -22,6 +23,10 @@
 <p class="lead">All the lessons we do will show up here! Click on the welcome link to get started. The lessons will be updated after we complete each one. 
     Feel free to ask any questions in the forum!</p>
 
+ {% if user.is_staff %}
+    <span style="float:right"><a class="text-secondary" href="{% url 'lesson_create' class.slug %}">{% icon 'file-plus' height="20" width="20" %}</a></span><br>
+{% endif %}
+   
 <p class="lead"><a href="{% url 'lesson_intro' object.slug %}">{{ object.introduction }}</a></p>
 
 {% if object.lesson_set.all %}
