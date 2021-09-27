@@ -19,7 +19,7 @@ class ClassAdmin(admin.ModelAdmin):
 
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ('user', 'theclass', 'id', 'paid',)
-
+    list_filter = ('theclass',)
 # class IntroductionAdmin(admin.ModelAdmin):
 
 #     list_display = (
