@@ -137,10 +137,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 {% if user.is_authenticated %}
                     <ul class="navbar-nav ml-auto">
-                    {% comment %}  
+                    
                       <li class="nav-item"><a {% if request.path == checkout or request.path == summary %} class="nav-link active" {% else %} class="nav-link" {% endif %}
                              href="{% url 'summary' %}">{% icon "shopping-cart" class="css-class" height="20" width="20" %} {{ request.user.num_payments_not_paid }}</a></li>
-                    {% endcomment %}
+                    
                         <li class="nav-item dropdown">
                             
                             <a class="nav-link dropdown-toggle" href="#" id="userMenu"
