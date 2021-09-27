@@ -14,7 +14,8 @@ class CustomUser(AbstractUser):
     school = models.CharField(max_length=200, null=True)
 
     grade = models.IntegerField(null=True)
-
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
     def payment_owed(self):
         payment = 0
         for course in self.classes_not_expired_registered_list():

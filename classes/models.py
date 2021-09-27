@@ -180,7 +180,7 @@ class Class(models.Model):
         ordering = ('name', )
     
     def __str__(self):
-        return self.name
+        return f'{self.name} {self.date.month}/{self.date.year}' 
 
     def get_absolute_url(self):
         return reverse_lazy('class_detail', kwargs={'slug': self.slug})
