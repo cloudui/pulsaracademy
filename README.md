@@ -4,7 +4,7 @@ Pulsar Academy was an online code-teaching company that operated from 2020-2021.
 
 This website was made to streamline our project, as it handled the registration and payment process, class notes, and lecture videos (lessons were taught over call). It was also a good way to help me learn web development, as I was getting more familiar with Django and HTML/CSS/JS.
 
-Now that I am in university, Pulsar Academy is no longer active, but this website remains a landmark to my progress with web development. I hope we were able to help find the joy in coding.
+Now that I am in university, Pulsar Academy is no longer active, but this website remains a landmark to my progress with web development. I hope we were able to help our students find the joy in coding.
 
 # Setup
 
