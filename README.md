@@ -1,4 +1,4 @@
-# Pulsar Academy
+# Pulsar Academy 🚀⭐
 
 Pulsar Academy was an online code-teaching company that operated from 2020-2021. My friend Maxwell Zhang and I founded it during the COVID-19 pandemic in order to help students learn the fundamentals of coding and competitive programming. 
 
@@ -6,7 +6,7 @@ This website was made to streamline our project, as it handled the registration 
 
 Now that I am in university, Pulsar Academy is no longer active, but this website remains a landmark to my progress with web development. I hope we were able to help our students find the joy in coding.
 
-# Features
+# Features 🛎😎
 - User Registration and Login 
 - Course registration, customizable profile, and password reset
     - Security via email confirmation via SendGrid SMTP Server
@@ -14,7 +14,7 @@ Now that I am in university, Pulsar Academy is no longer active, but this websit
 - Customizable class with course schedule, lesson content via Markdown, embedded video, homework + solutions
 - Rich course forum for students to communicate with one another
 
-# Setup
+# Setup 🧑‍🍳
 
 The whole project is containerized with Docker to streamline setup and execution.
 
@@ -22,7 +22,7 @@ The whole project is containerized with Docker to streamline setup and execution
 
 2. Next, you should clone the repo using `git clone https://belowocean@bitbucket.org/belowocean/pythoncamp.git`.
 
-## Local Deployment
+## Local Deployment 💻
 
 You can run the website locally using the `docker-compose.yml` file. The whole project will be set up after the images are downloaded and built.
 
