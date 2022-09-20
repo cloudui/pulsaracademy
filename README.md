@@ -6,6 +6,14 @@ This website was made to streamline our project, as it handled the registration 
 
 Now that I am in university, Pulsar Academy is no longer active, but this website remains a landmark to my progress with web development. I hope we were able to help our students find the joy in coding.
 
+# Features
+- User Registration and Login 
+- Course registration, customizable profile, and password reset
+    - Security via email confirmation via SendGrid SMTP Server
+- Course payment via Paypal integration
+- Customizable class with course schedule, lesson content via Markdown, embedded video, homework + solutions
+- Rich course forum for students to communicate with one another
+
 # Setup
 
 The whole project is containerized with Docker to streamline setup and execution.
