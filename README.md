@@ -129,6 +129,9 @@ Remember all the content on the website is technically copyrighted. This setup i
   - AJAX
 - Docker
   - docker-compose
+  - App containerization
+  - SSL certbot containerization
+  - Database containerzation
 - NGINX
 - PostgreSQL
 
