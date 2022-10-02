@@ -1,5 +1,7 @@
 # Pulsar Academy 🚀⭐
 
+![Pulsar Academy Thumbnail](pulsaracademy.png)
+
 Pulsar Academy was an online code-teaching company that operated from 2020-2021. My friend Maxwell Zhang and I founded it during the COVID-19 pandemic in order to help students learn the fundamentals of coding and competitive programming. 
 
 This website was made to streamline our project, as it handled the registration and payment process, class notes, and lecture videos (lessons were taught over call). It was also a good way to help me learn web development, as I was getting more familiar with Django and HTML/CSS/JS.
