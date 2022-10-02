@@ -123,8 +123,18 @@ Enjoy!
 
 Remember all the content on the website is technically copyrighted. This setup is just for you to see how it works or to help influence your own projects. Good luck!
 
-# Technologies Employed
+# Django Dependencies:
+- `allauth`: OAuth authentication + User management engine.
+- `crispy_forms`: Bootstrap CSS friendly form generation and templating.
+- `paypal.standard.ipn`: PayPal integration. Collects the return signal after successful payments. 
+- `django_feather`: Open source icon pack used throughout the website. [Website](https://feathericons.com/).
+- `django_crontab`: Module for running Python cronjobs.
+- `tinymce`: WYSIWYG editor for forums, class content, and general text editing. 
+- `psycopg2-binary`: PostgreSQL engine for Python projects.
+- `django-paypal`: PayPal form integration.
+- `gunicorn`: WSGI HTTP server for production.
 
+# Technologies Employed
 - Django
   - Python
   - HTML/CSS/JS
