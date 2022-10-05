@@ -15,6 +15,8 @@ Now that I am in university, Pulsar Academy is no longer active, but this websit
 - Course payment via Paypal integration
 - Customizable class with course schedule, lesson content via Markdown, embedded video, homework + solutions
 - Rich course forum for students to communicate with one another
+- Staff and Admin Panel directly on the website
+    - Permissions to add content, upload files, create courses, manage students, etc.
 
 # Setup 🧑‍🍳
 
