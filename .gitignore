@@ -3,3 +3,4 @@ db.sqlite3
 init-letsencrypt.sh
 docker-compose-prod.yml_BK20210124
 data/*
+.DS_Store
