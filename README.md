@@ -1,6 +1,6 @@
 # Pulsar Academy 🚀⭐
 
-![Pulsar Academy Thumbnail](pulsaracademy.png)
+![Pulsar Academy Thumbnail](/README_images/pulsaracademy.png)
 
 Pulsar Academy was an online code-teaching company that operated from 2020-2021. My friend Maxwell Zhang and I founded it during the COVID-19 pandemic in order to help students learn the fundamentals of coding and competitive programming. 
 
@@ -15,8 +15,29 @@ Now that I am in university, Pulsar Academy is no longer active, but this websit
 - Course payment via Paypal integration
 - Customizable class with course schedule, lesson content via Markdown and WYSIWYG editors, embedded video, homework + solutions
 - Rich course forum for students to communicate with one another
-- Staff and Admin Panel directly on the website
+- Rich Staff and Admin Panel directly on the website
     - Permissions to add content, upload files, create courses, manage students, etc.
+    - Edit all info with WYSIWYG editors. Easy to use, no coding needed
+    
+## Admin Page
+![Admin Page](/README_images/adminpage.png)
+*Admin page to control class content. Can only be seen by authenticated staff or administrators.*
+
+![Admin Course Logistics](/README_images/adminconsole.png)
+*Admin console for seeing course logistics, registrations, and emails for email lists.*
+
+## Course Pages
+![Course Lesson List Page](/README_images/lessonpage.png)
+*What students see for a class they have registered and paid for. They can easily see the lessons as well as lesson content and the recorded lectures.*
+
+![Course Lesson Page](/README_images/lesson.png)
+*What students see when clicking on a lesson. They can access lecture notes, homework details, and the course video, which was live but also recorded.*
+
+![Course Forum](/README_images/forum.png)
+*Students don't have to be afraid of asking for help. They can access a forum for each course to ask the instructors or other students questions about homework or class content.*
+
+![Course Forum Editing Page](/README_images/forumedit.png)
+*Example of the editor studenst see when editing their forum posts. The time is automatically updated when they save.*
 
 # Setup 🧑‍🍳
 
@@ -139,8 +160,6 @@ Remember all the content on the website is technically copyrighted. This setup i
 # Technologies Employed
 - Django
   - Python
-  - HTML/CSS/JS
-  - AJAX
 - Docker
   - docker-compose
   - App containerization
@@ -148,4 +167,10 @@ Remember all the content on the website is technically copyrighted. This setup i
   - Database containerzation
 - NGINX
 - PostgreSQL
-
+- HTML/CSS/JS
+  - PopperJS Positioning Library
+  - Bootstrap4 CSS + JS
+  - Animate on Scroll Library
+  - Toastr.js Notifications
+  - Prism.js Code Syntax Highlighting
+  - JQuery + AJAX
